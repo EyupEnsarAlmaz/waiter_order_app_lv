@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "936156779130",
+    "project_id": "waiterorderapp-2969d",
+    "storage_bucket": "waiterorderapp-2969d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936156779130:android:0f68d8591dc2f217ad21c3",
+        "android_client_info": {
+          "package_name": "com.example.waiter_order_app_lv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJOlCZvYKliQVCjBakC8gyo7MFySoUkKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
