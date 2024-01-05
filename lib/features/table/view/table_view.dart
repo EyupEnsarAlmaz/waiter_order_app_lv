@@ -41,7 +41,7 @@ class TableView extends StatelessWidget {
                       final tableList = state.tableList?[index];
                       return Center(
                         child: Card(
-                          color: Color(0xFF1A1B23),
+                          color: const Color(0xFF1A1B23),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
