@@ -27,7 +27,7 @@ class _OnboardViewState extends State<OnboardView> {
         if (state.status.isUser) {
           navigation.navigateTo(path: KRoute.LOGIN_PAGE);
         } else if (state.status.isSuccess) {
-          navigation.navigateTo(path: KRoute.FOOD_MENU);
+          navigation.navigateTo(path: KRoute.TABLE_PAGE);
         }
       },
       builder: (context, state) {

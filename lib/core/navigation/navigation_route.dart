@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
 import 'package:waiter_order_app_lv/features/auth/view/login/view/login_view.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/view/register_veiw.dart';
+import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/view/food_menu_view.dart';
 import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
-import 'package:waiter_order_app_lv/features/table/table_view.dart';
+import 'package:waiter_order_app_lv/features/table/view/table_view.dart';
 
 class NavigationRoute {
   static final NavigationRoute _shared = NavigationRoute._init();
@@ -26,6 +27,8 @@ class NavigationRoute {
         return _getRoute(TableView());
       case KRoute.FOOD_MENU:
         return _getRoute(FoodMenuView());
+      case KRoute.DETAIL_PAGE:
+        return _getRoute(DetailOrderView());
 
       default:
         return MaterialPageRoute(

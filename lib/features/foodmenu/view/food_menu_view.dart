@@ -6,11 +6,14 @@ import 'package:waiter_order_app_lv/core/constants/assets_constants.dart';
 import 'package:waiter_order_app_lv/core/custom/listtile/custom_Listtile.dart';
 import 'package:waiter_order_app_lv/core/custom/textfield/custom_textfield.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
+import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
 import 'package:waiter_order_app_lv/core/theme/color_constants.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
+import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 
 class FoodMenuView extends StatefulWidget {
   const FoodMenuView({super.key});
@@ -37,23 +40,54 @@ class _FoodMenuViewState extends State<FoodMenuView> {
   }
 
   int activePage = 1;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
           FoodMenuBloc()..add(FoodMenuBlocEvent.getDataFromFirebase()),
       child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.shopping_cart))
-            ],
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(40.0), // Yüksekliği burada ayarlayın
+            child: AppBar(
+              elevation: 0,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart),
+                  tooltip: 'Open shopping cart',
+                  onPressed: () {
+                    navigation.navigateTo(path: KRoute.DETAIL_PAGE);
+                  },
+                ),
+                BlocConsumer<FoodBasketBloc, FoodBasketState>(
+                  listener: (context, state) {
+                    if (state.status.isSuccess) {
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child:
+                              Text(state.basketItem?.length.toString() ?? ""),
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(state.basketItem?.length.toString() ?? ""),
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
           ),
           body: GestureDetector(
             onTap: () => context.hideKeyboard(),
             child: SingleChildScrollView(
               child: Column(children: [
-                context.sizedboxHeight(0.07),
+                context.sizedboxHeight(0.02),
                 Row(
                   children: [
                     context.sizedboxWidth(0.05),
@@ -160,7 +194,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
     return BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
       builder: (context, state) {
         if (state.status.isLoading) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state.status.isSuccess) {
@@ -182,13 +216,22 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       ),
                       child: Column(
                         children: <Widget>[
-                          CustomListTile(
-                            image: Image.network(
-                              food!.foodImage,
-                              fit: BoxFit.fill,
-                            ),
-                            foodName: food.foodName,
-                            price: "${food.price} €",
+                          BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                            builder: (context, basketstate) {
+                              return CustomListTile(
+                                onTap: () {
+                                  context
+                                      .read<FoodBasketBloc>()
+                                      .add(FoodBasketEvent.addBasketFood(food));
+                                },
+                                image: Image.network(
+                                  food!.foodImage,
+                                  fit: BoxFit.fill,
+                                ),
+                                foodName: food.foodName,
+                                price: "${food.price} €",
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -202,3 +245,37 @@ class _FoodMenuViewState extends State<FoodMenuView> {
     );
   }
 }
+
+/*  for (int i = 0; i < 10; i++) {
+
+  DropdownButton(
+                            value: selectedItemValue[index],
+                            items: _dropDownItem(),
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            hint: Text('0'),
+                          ),
+
+                    selectedItemValue.add(1);
+                  }
+ DropdownButton(
+                            value: selectedItemValue[index],
+                            items: _dropDownItem(),
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            hint: Text('0'),
+                          ),
+
+List<DropdownMenuItem<int>> _dropDownItem() {
+  List<int> itemValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  return itemValue
+      .map((value) => DropdownMenuItem(
+            value: value,
+            child: Text(value.toString()),
+          ))
+      .toList();
+}
+ */

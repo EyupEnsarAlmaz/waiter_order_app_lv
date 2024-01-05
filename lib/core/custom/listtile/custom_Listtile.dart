@@ -6,10 +6,12 @@ class CustomListTile extends StatelessWidget {
   final Widget image;
   final String foodName;
   final String price;
+  final Function()? onTap;
 
   CustomListTile({
     required this.foodName,
     required this.image,
+    required this.onTap,
     required this.price,
   });
 
@@ -47,7 +49,7 @@ class CustomListTile extends StatelessWidget {
                       child: Material(
                         color: Color(0xFF2F303F),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: onTap,
                           child: SizedBox(
                               width: context.width(0.09),
                               height: context.height(0.04),

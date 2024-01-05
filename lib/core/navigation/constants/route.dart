@@ -8,6 +8,7 @@ class KRoute {
   static const TABLE_PAGE = '/tablePage';
   static const ORDER_PAGE = '/orderPage';
   static const FOOD_MENU = '/foodMenu';
+  static const DETAIL_PAGE = '/detailPage';
   static const TABLE_INFO_WAITER_PAGE = '/tableInfoWaiterPage';
   static const TABLE_INFO_KITCHEN_PAGE = '/tableInfoKitchenPage';
 }

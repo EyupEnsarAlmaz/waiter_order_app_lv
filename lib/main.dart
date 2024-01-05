@@ -10,9 +10,11 @@ import 'package:waiter_order_app_lv/core/translations/locale_keys.g.dart';
 import 'package:waiter_order_app_lv/features/auth/view/login/bloc/login_bloc.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/bloc/register_bloc_bloc.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/components/radiolisttile/bloc/radio_list_tile_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
+import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +44,12 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => TabBarBloc(),
+      ),
+      BlocProvider(
+        create: (context) => FoodBasketBloc(),
+      ),
+      BlocProvider(
+        create: (context) => TableBloc(),
       ),
     ],
     child: LanguageHelper.setupLocales(const MyApp()),
