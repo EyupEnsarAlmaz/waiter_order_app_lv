@@ -17,5 +17,7 @@ class FoodBasketState with _$FoodBasketState {
   const factory FoodBasketState({
     @Default(FoodBasketStatus.initial) FoodBasketStatus status,
     List<FoodModel>? basketItem,
+    String? noteText,
+    int? tableNumber,
   }) = _FoodBasketState;
 }

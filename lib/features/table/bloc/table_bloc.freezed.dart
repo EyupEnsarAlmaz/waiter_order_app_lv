@@ -132,7 +132,7 @@ class _$OpenTableImpl implements _OpenTable {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OpenTableImpl &&
@@ -258,7 +258,7 @@ class _$GetTableImpl implements _GetTable {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$GetTableImpl);
   }
@@ -391,7 +391,7 @@ class _$CloseTableImpl implements _CloseTable {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CloseTableImpl &&
@@ -494,6 +494,7 @@ abstract class _CloseTable implements TableEvent {
 mixin _$TableState {
   TableStatus get status => throw _privateConstructorUsedError;
   List<TableModel>? get tableList => throw _privateConstructorUsedError;
+  int? get tableNumber => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TableStateCopyWith<TableState> get copyWith =>
@@ -506,7 +507,8 @@ abstract class $TableStateCopyWith<$Res> {
           TableState value, $Res Function(TableState) then) =
       _$TableStateCopyWithImpl<$Res, TableState>;
   @useResult
-  $Res call({TableStatus status, List<TableModel>? tableList});
+  $Res call(
+      {TableStatus status, List<TableModel>? tableList, int? tableNumber});
 }
 
 /// @nodoc
@@ -524,6 +526,7 @@ class _$TableStateCopyWithImpl<$Res, $Val extends TableState>
   $Res call({
     Object? status = null,
     Object? tableList = freezed,
+    Object? tableNumber = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -534,6 +537,10 @@ class _$TableStateCopyWithImpl<$Res, $Val extends TableState>
           ? _value.tableList
           : tableList // ignore: cast_nullable_to_non_nullable
               as List<TableModel>?,
+      tableNumber: freezed == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -546,7 +553,8 @@ abstract class _$$TableStateImplCopyWith<$Res>
       __$$TableStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TableStatus status, List<TableModel>? tableList});
+  $Res call(
+      {TableStatus status, List<TableModel>? tableList, int? tableNumber});
 }
 
 /// @nodoc
@@ -562,6 +570,7 @@ class __$$TableStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? tableList = freezed,
+    Object? tableNumber = freezed,
   }) {
     return _then(_$TableStateImpl(
       status: null == status
@@ -572,6 +581,10 @@ class __$$TableStateImplCopyWithImpl<$Res>
           ? _value._tableList
           : tableList // ignore: cast_nullable_to_non_nullable
               as List<TableModel>?,
+      tableNumber: freezed == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -580,7 +593,9 @@ class __$$TableStateImplCopyWithImpl<$Res>
 
 class _$TableStateImpl implements _TableState {
   const _$TableStateImpl(
-      {this.status = TableStatus.initial, final List<TableModel>? tableList})
+      {this.status = TableStatus.initial,
+      final List<TableModel>? tableList,
+      this.tableNumber})
       : _tableList = tableList;
 
   @override
@@ -597,23 +612,28 @@ class _$TableStateImpl implements _TableState {
   }
 
   @override
+  final int? tableNumber;
+
+  @override
   String toString() {
-    return 'TableState(status: $status, tableList: $tableList)';
+    return 'TableState(status: $status, tableList: $tableList, tableNumber: $tableNumber)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TableStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
-                .equals(other._tableList, _tableList));
+                .equals(other._tableList, _tableList) &&
+            (identical(other.tableNumber, tableNumber) ||
+                other.tableNumber == tableNumber));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_tableList));
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_tableList), tableNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -625,12 +645,15 @@ class _$TableStateImpl implements _TableState {
 abstract class _TableState implements TableState {
   const factory _TableState(
       {final TableStatus status,
-      final List<TableModel>? tableList}) = _$TableStateImpl;
+      final List<TableModel>? tableList,
+      final int? tableNumber}) = _$TableStateImpl;
 
   @override
   TableStatus get status;
   @override
   List<TableModel>? get tableList;
+  @override
+  int? get tableNumber;
   @override
   @JsonKey(ignore: true)
   _$$TableStateImplCopyWith<_$TableStateImpl> get copyWith =>

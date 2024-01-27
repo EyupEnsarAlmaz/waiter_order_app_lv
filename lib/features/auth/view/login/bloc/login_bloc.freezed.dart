@@ -132,7 +132,7 @@ class _$LoginSubmittedImpl implements _LoginSubmitted {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginSubmittedImpl &&
@@ -258,7 +258,7 @@ class _$AuthLoggedInImpl implements _AuthLoggedIn {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$AuthLoggedInImpl);
   }
@@ -366,7 +366,7 @@ class _$AuthLoggedOutImpl implements _AuthLoggedOut {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$AuthLoggedOutImpl);
   }
@@ -582,7 +582,7 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterBlocStateImpl &&

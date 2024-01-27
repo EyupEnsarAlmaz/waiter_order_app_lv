@@ -10,6 +10,7 @@ import 'package:waiter_order_app_lv/core/translations/locale_keys.g.dart';
 import 'package:waiter_order_app_lv/features/auth/view/login/bloc/login_bloc.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/bloc/register_bloc_bloc.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/components/radiolisttile/bloc/radio_list_tile_bloc.dart';
+import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';

@@ -5,6 +5,9 @@ import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
 import 'package:waiter_order_app_lv/core/navigation/navigation_service.dart';
 import 'package:waiter_order_app_lv/features/auth/view/login/bloc/login_bloc.dart';
+import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
@@ -15,8 +18,12 @@ class TableView extends StatelessWidget {
   final navigator = NavigationService.shared;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TableBloc()..add(const TableEvent.getTable()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TableBloc()..add(const TableEvent.getTable()),
+        ),
+      ],
       child: Scaffold(
           body: Center(
         child: Column(
@@ -50,19 +57,19 @@ class TableView extends StatelessWidget {
                               GestureDetector(
                                 onTap: () async {
                                   final response = await _showAlertDialog(
-                                      context, tableList?.tableNumber);
+                                      context, tableList!.tableNumber);
                                 },
                                 child: Container(
-                                  child: Center(
-                                    child: Text(
-                                        tableList?.tableNumber.toString() ??
-                                            ""),
-                                  ),
                                   color: state.tableList?[index].isOpen ?? false
                                       ? Colors.red
                                       : Colors.green,
                                   height: 200,
                                   width: 400,
+                                  child: Center(
+                                    child: Text(
+                                        tableList?.tableNumber.toString() ??
+                                            ""),
+                                  ),
                                 ),
                               )
                             ],
@@ -81,7 +88,7 @@ class TableView extends StatelessWidget {
   }
 }
 
-Future<void> _showAlertDialog(BuildContext context, int? index) async {
+Future<void> _showAlertDialog(BuildContext context, int index) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -98,7 +105,7 @@ Future<void> _showAlertDialog(BuildContext context, int? index) async {
           TextButton(
             child: const Text('Open Table'),
             onPressed: () {
-              context.read<TableBloc>().add(TableEvent.openTable(true, index!));
+              context.read<TableBloc>().add(TableEvent.openTable(true, index));
               navigation.pop();
               navigation.navigateTo(path: KRoute.FOOD_MENU);
             },
@@ -108,7 +115,7 @@ Future<void> _showAlertDialog(BuildContext context, int? index) async {
             onPressed: () {
               context
                   .read<TableBloc>()
-                  .add(TableEvent.closeTable(false, index!));
+                  .add(TableEvent.closeTable(false, index));
               navigation.pop();
             },
           ),

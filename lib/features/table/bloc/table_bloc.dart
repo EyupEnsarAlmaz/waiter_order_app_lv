@@ -31,7 +31,8 @@ class TableBloc extends Bloc<TableEvent, TableState> {
       emit(state.copyWith(status: TableStatus.loading));
       var response = _tableService.openTable(
           tableNumber: event.tableNumber, isOpen: event.isTableOpen);
-      emit(state.copyWith(status: TableStatus.success));
+      emit(state.copyWith(
+          status: TableStatus.success, tableNumber: event.tableNumber));
     } catch (e) {
       emit(state.copyWith(status: TableStatus.failure));
     }
@@ -42,7 +43,8 @@ class TableBloc extends Bloc<TableEvent, TableState> {
       emit(state.copyWith(status: TableStatus.loading));
       var response = _tableService.closeTable(
           tableNumber: event.tableNumber, isOpen: event.isTableOpen);
-      emit(state.copyWith(status: TableStatus.success));
+      emit(state.copyWith(
+          status: TableStatus.success, tableNumber: event.tableNumber));
     } catch (e) {
       emit(state.copyWith(status: TableStatus.failure));
     }

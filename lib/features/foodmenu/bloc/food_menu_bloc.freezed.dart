@@ -101,7 +101,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetDataFromFirebaseImpl);
@@ -222,7 +222,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetDataByCategoryImpl &&
@@ -425,7 +425,7 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterBlocStateImpl &&
