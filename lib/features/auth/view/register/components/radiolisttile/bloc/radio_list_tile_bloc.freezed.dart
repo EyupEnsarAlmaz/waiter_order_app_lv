@@ -137,7 +137,7 @@ class _$RadioListTileSelectedImpl implements _RadioListTileSelected {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RadioListTileSelectedImpl &&
@@ -314,7 +314,7 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterBlocStateImpl &&

@@ -5,13 +5,17 @@ import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 class CustomListTile extends StatelessWidget {
   final Widget image;
   final String foodName;
+  final int piece;
   final String price;
-  final Function()? onTap;
+  final Function()? onTapAdd;
+  final Function()? onTapRemove;
 
   CustomListTile({
     required this.foodName,
+    required this.piece,
     required this.image,
-    required this.onTap,
+    required this.onTapAdd,
+    required this.onTapRemove,
     required this.price,
   });
 
@@ -34,31 +38,45 @@ class CustomListTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                context.sizedboxHeight(0.03),
+                context.sizedboxHeight(0.01),
                 Text(foodName,
                     style: TextStyle(fontSize: context.titleLarge.fontSize)),
                 context.sizedboxHeight(0.01),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    context.sizedboxWidth(0.03),
+                    context.sizedboxWidth(0.01),
                     Text(price,
                         style:
                             TextStyle(fontSize: context.titleLarge.fontSize)),
                     ClipOval(
                       child: Material(
                         color: Color(0xFF2F303F),
-                        child: InkWell(
-                          onTap: onTap,
-                          child: SizedBox(
-                              width: context.width(0.09),
-                              height: context.height(0.04),
-                              child: const Icon(Icons.add)),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: onTapAdd,
+                              child: SizedBox(
+                                  width: context.width(0.09),
+                                  height: context.height(0.04),
+                                  child: const Icon(Icons.add)),
+                            ),
+                            InkWell(
+                              onTap: onTapRemove,
+                              child: SizedBox(
+                                  width: context.width(0.09),
+                                  height: context.height(0.04),
+                                  child: const Icon(Icons.remove)),
+                            ),
+                          ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
+                context.sizedboxHeight(0.01),
+                Text("$piece pieces",
+                    style: TextStyle(fontSize: context.titleLarge.fontSize)),
               ],
             ),
           ),

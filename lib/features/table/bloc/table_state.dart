@@ -17,5 +17,6 @@ class TableState with _$TableState {
   const factory TableState({
     @Default(TableStatus.initial) TableStatus status,
     List<TableModel>? tableList,
+    int? tableNumber,
   }) = _TableState;
 }

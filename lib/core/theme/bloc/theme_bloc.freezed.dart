@@ -127,7 +127,7 @@ class _$ThemeChangedImpl implements _ThemeChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ThemeChangedImpl &&
@@ -247,7 +247,7 @@ class _$InitialThemeImpl implements _InitialTheme {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InitialThemeImpl);
   }
@@ -440,7 +440,7 @@ class _$ThemeStateImpl implements _ThemeState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ThemeStateImpl &&

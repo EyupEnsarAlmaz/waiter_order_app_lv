@@ -135,7 +135,7 @@ class _$TabChangedImpl implements _TabChanged {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TabChangedImpl &&
@@ -324,7 +324,7 @@ class _$TabbarStateImpl implements _TabbarState {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TabbarStateImpl &&

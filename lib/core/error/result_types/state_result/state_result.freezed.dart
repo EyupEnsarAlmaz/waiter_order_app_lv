@@ -113,7 +113,7 @@ class _$InitialImpl<T> implements Initial<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$InitialImpl<T>);
   }
@@ -227,7 +227,7 @@ class _$LoadingImpl<T> implements Loading<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType && other is _$LoadingImpl<T>);
   }
@@ -359,7 +359,7 @@ class _$CompletedImpl<T> implements Completed<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CompletedImpl<T> &&
@@ -505,7 +505,7 @@ class _$FailedImpl<T> implements Failed<T> {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FailedImpl<T> &&
