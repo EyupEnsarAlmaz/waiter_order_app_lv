@@ -8,4 +8,7 @@ class FoodBasketEvent with _$FoodBasketEvent {
       _AddNotes;
   const factory FoodBasketEvent.removeBasketFood(
       FoodModel? food, int? tableNumber) = _RemoveBasketFood;
+  const factory FoodBasketEvent.removeAllFood(
+          Map<int, List<FoodModel>?>? basketMaps, int? tableNumber) =
+      _RemoveAllFood;
 }

@@ -41,41 +41,48 @@ class _FoodMenuViewState extends State<FoodMenuView> {
       ],
       child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(40.0), // Yüksekliği burada ayarlayın
-            child: AppBar(
-              elevation: 0,
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart),
-                  tooltip: 'Open shopping cart',
-                  onPressed: () {
-                    navigation.navigateTo(
-                      path: KRoute.DETAIL_PAGE,
-                    );
-                  },
-                ),
-                BlocConsumer<FoodBasketBloc, FoodBasketState>(
-                  listener: (context, state) {
-                    if (state.status.isSuccess) {
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child:
-                              Text(state.basketItem?.length.toString() ?? ""),
-                        ),
-                      );
-                    }
-                  },
-                  builder: (context, state) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(state.basketItem?.length.toString() ?? ""),
-                      ),
-                    );
-                  },
-                )
-              ],
+            preferredSize: Size.fromHeight(40.0),
+            child: BlocBuilder<FoodBasketBloc, FoodBasketState>(
+              builder: (context, state) {
+                return AppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      context.read<FoodBasketBloc>().add(
+                          FoodBasketEvent.removeAllFood(
+                              state.basketMap, state.tableNumber));
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  title: Text("Order Menu"),
+                  centerTitle: true,
+                  elevation: 0,
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_cart),
+                      tooltip: 'Open shopping cart',
+                      onPressed: () {
+                        navigation.navigateTo(
+                          path: KRoute.DETAIL_PAGE,
+                        );
+                      },
+                    ),
+                    BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(state
+                                    .basketMap?[state.tableNumber]?.length
+                                    .toString() ??
+                                ""),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           body: GestureDetector(
@@ -216,14 +223,14 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                         children: <Widget>[
                           BlocBuilder<FoodBasketBloc, FoodBasketState>(
                             builder: (context, basketstate) {
-                              int? itemCount = basketstate.basketItem
+                              int? itemCount = basketstate
+                                  .basketMap?[basketstate.tableNumber]
                                   ?.where((item) => item == food)
                                   .length;
                               return BlocBuilder<TableBloc, TableState>(
                                 builder: (context, tablestate) {
                                   return CustomListTile(
                                     onTapAdd: () {
-                                     
                                       context.read<FoodBasketBloc>().add(
                                           FoodBasketEvent.addBasketFood(
                                               food, tablestate.tableNumber));

@@ -34,12 +34,7 @@ class DetailOrderView extends StatelessWidget {
               return BlocBuilder<FoodBasketBloc, FoodBasketState>(
                 builder: (context, basketbloc) {
                   return ElevatedButton(
-                      onPressed: () {
-                        BasketService.shared.sendOrderToDatabase(
-                            tableNumber: state.tableNumber!,
-                            basketItem: basketbloc.basketItem!);
-                      },
-                      child: Text("Send Order"));
+                      onPressed: () {}, child: Text("Send Order"));
                 },
               );
             },
@@ -61,12 +56,19 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
         Map<String, List<FoodModel>> groupedItems = {};
         Set<String> uniqueFoodNames = Set();
 
-        for (var item in state.basketItem!) {
-          if (!uniqueFoodNames.contains(item.foodName)) {
-            uniqueFoodNames.add(item.foodName!);
-            groupedItems[item.foodName] = [item];
-          } else {
-            groupedItems[item.foodName]!.add(item);
+        for (var entry in state.basketMap!.entries) {
+          int tableNumber = entry.key;
+          List<FoodModel>? foodList = entry.value;
+
+          if (foodList != null) {
+            for (var item in foodList) {
+              if (!uniqueFoodNames.contains(item.foodName)) {
+                uniqueFoodNames.add(item.foodName!);
+                groupedItems[item.foodName] = [item];
+              } else {
+                groupedItems[item.foodName]!.add(item);
+              }
+            }
           }
         }
         return Container(

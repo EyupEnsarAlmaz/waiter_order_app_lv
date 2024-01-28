@@ -17,4 +17,6 @@ class FoodModel {
       category: map['category'] ?? '',
     );
   }
+
+  void clear() {}
 }
