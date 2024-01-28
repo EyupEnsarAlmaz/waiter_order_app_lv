@@ -31,56 +31,60 @@ class TableView extends StatelessWidget {
             SizedBox(height: 100),
             BlocConsumer<TableBloc, TableState>(
               listener: (context, state) {
-                if (state.status.isSuccess) {
-                  context.read<TableBloc>().add(TableEvent.getTable());
+                if (state.status.isLoading) {
+                  Center(child: CircularProgressIndicator());
                 }
               },
               builder: (context, state) {
-                return Container(
-                  width: context.width(0.98),
-                  height: context.height(0.80),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: state.tableList?.length,
-                    itemBuilder: (context, index) {
-                      final tableList = state.tableList?[index];
-                      return Center(
-                        child: Card(
-                          color: const Color(0xFF1A1B23),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () async {
-                                  final response = await _showAlertDialog(
-                                      context, tableList!.tableNumber);
-                                },
-                                child: Container(
-                                  color: state.tableList?[index].isOpen ?? false
-                                      ? Colors.red
-                                      : Colors.green,
-                                  height: 200,
-                                  width: 400,
-                                  child: Center(
-                                    child: Text(
-                                        tableList?.tableNumber.toString() ??
-                                            ""),
+                if (state.status.isSuccess) {
+                  return Container(
+                    width: context.width(0.98),
+                    height: context.height(0.80),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: state.tableList?.length,
+                      itemBuilder: (context, index) {
+                        final tableList = state.tableList?[index];
+                        return Center(
+                          child: Card(
+                            color: const Color(0xFF1A1B23),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () async {
+                                    final response = await _showAlertDialog(
+                                        context, tableList!.tableNumber);
+                                  },
+                                  child: Container(
+                                    color:
+                                        state.tableList?[index].isOpen ?? false
+                                            ? Colors.red
+                                            : Colors.green,
+                                    height: 200,
+                                    width: 400,
+                                    child: Center(
+                                      child: Text(
+                                          tableList?.tableNumber.toString() ??
+                                              ""),
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
+                        );
+                      },
+                    ),
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
               },
-            )
+            ),
           ],
         ),
       )),

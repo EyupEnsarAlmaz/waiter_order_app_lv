@@ -14,18 +14,20 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
   FoodBasketBloc() : super(const FoodBasketState()) {
     on<_AddBasketFood>(_addBasketFood);
     on<_RemoveBasketFood>(_removeBasketFood);
+    on<_RemoveAllFood>(_removeAllFood);
     on<_AddNotes>(_addNoteText);
   }
 
-  List<FoodModel>? basketItems = [];
+  Map<int, List<FoodModel>> basketMap = {};
 
   Future<void> _addBasketFood(_AddBasketFood event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
-      final _addItem = basketItems!.add(event.food as FoodModel);
+      basketMap.putIfAbsent(event.tableNumber!, () => []);
+      basketMap[event.tableNumber!]!.add(event.food!);
       emit(state.copyWith(
           status: FoodBasketStatus.success,
-          basketItem: basketItems,
+          basketMap: basketMap,
           tableNumber: event.tableNumber));
     } catch (error) {
       print('Error: $error');
@@ -35,10 +37,24 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
   Future<void> _removeBasketFood(_RemoveBasketFood event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
-      final _removeItem = basketItems!.remove(event.food as FoodModel);
+      basketMap.putIfAbsent(event.tableNumber!, () => []);
+      basketMap[event.tableNumber!]!.remove(event.food!);
       emit(state.copyWith(
           status: FoodBasketStatus.success,
-          basketItem: basketItems,
+          basketMap: basketMap,
+          tableNumber: event.tableNumber));
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  Future<void> _removeAllFood(_RemoveAllFood event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodBasketStatus.loading));
+      event.basketMaps?[event.tableNumber]?.clear();
+      emit(state.copyWith(
+          status: FoodBasketStatus.success,
+          basketMap: basketMap,
           tableNumber: event.tableNumber));
     } catch (error) {
       print('Error: $error');
