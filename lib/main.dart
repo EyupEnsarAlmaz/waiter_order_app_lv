@@ -13,6 +13,7 @@ import 'package:waiter_order_app_lv/features/auth/view/register/components/radio
 import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/search/bloc/search_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
@@ -51,6 +52,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => TableBloc(),
+      ),
+       BlocProvider(
+        create: (context) => SearchBloc(),
       ),
     ],
     child: LanguageHelper.setupLocales(const MyApp()),

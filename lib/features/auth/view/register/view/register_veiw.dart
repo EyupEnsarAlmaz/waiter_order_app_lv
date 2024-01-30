@@ -77,16 +77,19 @@ class _RegisterViewState extends State<RegisterView> {
                       style: TextStyle(fontSize: context.titleSmall.fontSize)),
                   context.sizedboxHeight(0.02),
                   CustomTextfield(
+                      onChanged: (s) {},
                       isObsecure: false,
                       textEditingController: _emailcontroller,
                       hintText: LocaleKeys.email.tr()),
                   context.sizedboxHeight(0.02),
                   CustomTextfield(
+                      onChanged: (s) {},
                       isObsecure: true,
                       textEditingController: _passwordcontroller,
                       hintText: LocaleKeys.password.tr()),
                   context.sizedboxHeight(0.02),
                   CustomTextfield(
+                      onChanged: (s) {},
                       isObsecure: false,
                       textEditingController: _nameController,
                       hintText: LocaleKeys.name.tr()),
