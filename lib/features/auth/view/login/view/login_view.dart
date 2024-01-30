@@ -64,11 +64,13 @@ class LoginView extends StatelessWidget {
                       style: TextStyle(fontSize: context.titleSmall.fontSize)),
                   context.sizedboxHeight(0.05),
                   CustomTextfield(
+                      onChanged: (s) {},
                       hintText: LocaleKeys.email.tr(),
                       textEditingController: _emailController,
                       isObsecure: false),
                   context.sizedboxHeight(0.02),
                   CustomTextfield(
+                    onChanged: (s) {},
                     hintText: LocaleKeys.password.tr(),
                     textEditingController: _passwordController,
                     isObsecure: true,

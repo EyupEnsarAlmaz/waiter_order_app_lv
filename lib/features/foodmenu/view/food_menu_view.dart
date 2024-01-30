@@ -13,6 +13,7 @@ import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart'
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/search/bloc/search_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
 import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
@@ -25,10 +26,11 @@ class FoodMenuView extends StatefulWidget {
 }
 
 class _FoodMenuViewState extends State<FoodMenuView> {
-  final _foodSearchcontroller = TextEditingController();
-  final _notesController = TextEditingController();
+  final TextEditingController _foodSearchcontroller = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
 
   final String dashLine = "assets/dashline.png";
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +95,49 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                 Row(
                   children: [
                     context.sizedboxWidth(0.05),
-                    _searchTextField(),
+                    Container(
+                      height: 100,
+                      width: 100,
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (value) async {
+                          context.read<SearchBloc>().add(
+                              SearchBlocStateEvent.searchFromFirestore(value));
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Search Food',
+                        ),
+                      ),
+                    ),
                   ],
+                ),
+                BlocBuilder<SearchBloc, SearchBlocState>(
+                  builder: (context, state) {
+                    if (state.status.isSuccess) {
+                      return Container(
+                        height: 100,
+                        width: 100,
+                        child: ListView.builder(
+                          itemCount: state.queryList?.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title:
+                                  Text(state.queryList?[index].foodName ?? ""),
+                              subtitle: Text(
+                                  'Price: ${state.queryList?[index].price.toString()}, Content: ${state.queryList?[index].price}'),
+                              onTap: () {
+                                // Burada seçilen öneriye tıklandığında yapılacak işlemleri ekleyebilirsiniz.
+                                // Örneğin, seçilen öğeyi Firestore'dan detayları alıp gösterebilirsiniz.
+                                print(
+                                    'Selected suggestion: ${state.queryList?[index].foodName}');
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return Text("nothing");
+                  },
                 ),
                 context.sizedboxHeight(0.02),
                 _tabbar(),
@@ -137,6 +180,11 @@ class _FoodMenuViewState extends State<FoodMenuView> {
 
   CustomTextfield _searchTextField() {
     return CustomTextfield(
+        onChanged: (value) {
+          context
+              .read<SearchBloc>()
+              .add(SearchBlocStateEvent.searchFromFirestore(value));
+        },
         textEditingController: _foodSearchcontroller,
         hintText: "Search",
         isObsecure: false);
@@ -308,7 +356,6 @@ Future<void> _showAlertDialog(
     },
   );
 }
-
 
 
 

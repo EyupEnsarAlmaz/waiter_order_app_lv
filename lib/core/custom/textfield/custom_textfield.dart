@@ -8,11 +8,13 @@ class CustomTextfield extends StatelessWidget {
     required this.textEditingController,
     required this.hintText,
     required this.isObsecure,
+    required this.onChanged,
   }) : super(key: key);
 
   final TextEditingController textEditingController;
   final String hintText;
   final bool isObsecure;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class CustomTextfield extends StatelessWidget {
       height: context.height(0.062),
       width: context.height(0.41),
       child: TextField(
+        onChanged: onChanged,
         obscureText: isObsecure,
         enableSuggestions: false,
         autocorrect: false,
