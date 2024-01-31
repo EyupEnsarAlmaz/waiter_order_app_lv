@@ -19,5 +19,6 @@ class FoodBasketState with _$FoodBasketState {
     Map<int, List<FoodModel>?>? basketMap,
     String? noteText,
     int? tableNumber,
+    Map<String, int>? itemCountMap,
   }) = _FoodBasketState;
 }

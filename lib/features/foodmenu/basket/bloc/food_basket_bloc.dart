@@ -19,16 +19,27 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
   }
 
   Map<int, List<FoodModel>> basketMap = {};
+  Map<String, int>? itemCountMap = {};
 
   Future<void> _addBasketFood(_AddBasketFood event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       basketMap.putIfAbsent(event.tableNumber!, () => []);
       basketMap[event.tableNumber!]!.add(event.food!);
-      emit(state.copyWith(
-          status: FoodBasketStatus.success,
-          basketMap: basketMap,
-          tableNumber: event.tableNumber));
+      if (event.food != null && event.food!.foodName != null) {
+        String foodName = event.food!.foodName;
+        int? itemCount = basketMap[event.tableNumber]
+            ?.where((item) => item.foodName == foodName)
+            .length;
+
+        itemCountMap![foodName] = itemCount!;
+
+        emit(state.copyWith(
+            itemCountMap: itemCountMap,
+            status: FoodBasketStatus.success,
+            basketMap: basketMap,
+            tableNumber: event.tableNumber));
+      }
     } catch (error) {
       print('Error: $error');
     }
@@ -39,10 +50,21 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       basketMap.putIfAbsent(event.tableNumber!, () => []);
       basketMap[event.tableNumber!]!.remove(event.food!);
-      emit(state.copyWith(
-          status: FoodBasketStatus.success,
-          basketMap: basketMap,
-          tableNumber: event.tableNumber));
+
+      if (event.food != null && event.food!.foodName != null) {
+        String foodName = event.food!.foodName;
+        int? itemCount = basketMap[event.tableNumber]
+            ?.where((item) => item.foodName == foodName)
+            .length;
+
+        itemCountMap![foodName] = itemCount!;
+
+        emit(state.copyWith(
+            status: FoodBasketStatus.success,
+            itemCountMap: itemCountMap,
+            basketMap: basketMap,
+            tableNumber: event.tableNumber));
+      }
     } catch (error) {
       print('Error: $error');
     }
@@ -52,8 +74,10 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       event.basketMaps?[event.tableNumber]?.clear();
+      itemCountMap?.clear();
       emit(state.copyWith(
           status: FoodBasketStatus.success,
+          itemCountMap: itemCountMap,
           basketMap: basketMap,
           tableNumber: event.tableNumber));
     } catch (error) {
