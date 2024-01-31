@@ -19,7 +19,7 @@ class TableBloc extends Bloc<TableEvent, TableState> {
   Future<void> _getTable(_GetTable event, Emitter emit) async {
     try {
       emit(state.copyWith(status: TableStatus.loading));
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(milliseconds: 500));
       var tableList = await _tableService.getTableFromFirestore();
       emit(state.copyWith(status: TableStatus.success, tableList: tableList));
     } catch (e) {

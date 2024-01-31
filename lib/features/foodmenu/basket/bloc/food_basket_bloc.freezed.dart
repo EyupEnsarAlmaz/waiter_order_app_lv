@@ -792,6 +792,7 @@ mixin _$FoodBasketState {
       throw _privateConstructorUsedError;
   String? get noteText => throw _privateConstructorUsedError;
   int? get tableNumber => throw _privateConstructorUsedError;
+  Map<String, int>? get itemCountMap => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodBasketStateCopyWith<FoodBasketState> get copyWith =>
@@ -808,7 +809,8 @@ abstract class $FoodBasketStateCopyWith<$Res> {
       {FoodBasketStatus status,
       Map<int, List<FoodModel>?>? basketMap,
       String? noteText,
-      int? tableNumber});
+      int? tableNumber,
+      Map<String, int>? itemCountMap});
 }
 
 /// @nodoc
@@ -828,6 +830,7 @@ class _$FoodBasketStateCopyWithImpl<$Res, $Val extends FoodBasketState>
     Object? basketMap = freezed,
     Object? noteText = freezed,
     Object? tableNumber = freezed,
+    Object? itemCountMap = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -846,6 +849,10 @@ class _$FoodBasketStateCopyWithImpl<$Res, $Val extends FoodBasketState>
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      itemCountMap: freezed == itemCountMap
+          ? _value.itemCountMap
+          : itemCountMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
     ) as $Val);
   }
 }
@@ -862,7 +869,8 @@ abstract class _$$FoodBasketStateImplCopyWith<$Res>
       {FoodBasketStatus status,
       Map<int, List<FoodModel>?>? basketMap,
       String? noteText,
-      int? tableNumber});
+      int? tableNumber,
+      Map<String, int>? itemCountMap});
 }
 
 /// @nodoc
@@ -880,6 +888,7 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
     Object? basketMap = freezed,
     Object? noteText = freezed,
     Object? tableNumber = freezed,
+    Object? itemCountMap = freezed,
   }) {
     return _then(_$FoodBasketStateImpl(
       status: null == status
@@ -898,6 +907,10 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      itemCountMap: freezed == itemCountMap
+          ? _value._itemCountMap
+          : itemCountMap // ignore: cast_nullable_to_non_nullable
+              as Map<String, int>?,
     ));
   }
 }
@@ -909,8 +922,10 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
       {this.status = FoodBasketStatus.initial,
       final Map<int, List<FoodModel>?>? basketMap,
       this.noteText,
-      this.tableNumber})
-      : _basketMap = basketMap;
+      this.tableNumber,
+      final Map<String, int>? itemCountMap})
+      : _basketMap = basketMap,
+        _itemCountMap = itemCountMap;
 
   @override
   @JsonKey()
@@ -929,10 +944,19 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
   final String? noteText;
   @override
   final int? tableNumber;
+  final Map<String, int>? _itemCountMap;
+  @override
+  Map<String, int>? get itemCountMap {
+    final value = _itemCountMap;
+    if (value == null) return null;
+    if (_itemCountMap is EqualUnmodifiableMapView) return _itemCountMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'FoodBasketState(status: $status, basketMap: $basketMap, noteText: $noteText, tableNumber: $tableNumber)';
+    return 'FoodBasketState(status: $status, basketMap: $basketMap, noteText: $noteText, tableNumber: $tableNumber, itemCountMap: $itemCountMap)';
   }
 
   @override
@@ -946,12 +970,19 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
             (identical(other.noteText, noteText) ||
                 other.noteText == noteText) &&
             (identical(other.tableNumber, tableNumber) ||
-                other.tableNumber == tableNumber));
+                other.tableNumber == tableNumber) &&
+            const DeepCollectionEquality()
+                .equals(other._itemCountMap, _itemCountMap));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status,
-      const DeepCollectionEquality().hash(_basketMap), noteText, tableNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      const DeepCollectionEquality().hash(_basketMap),
+      noteText,
+      tableNumber,
+      const DeepCollectionEquality().hash(_itemCountMap));
 
   @JsonKey(ignore: true)
   @override
@@ -966,7 +997,8 @@ abstract class _FoodBasketState implements FoodBasketState {
       {final FoodBasketStatus status,
       final Map<int, List<FoodModel>?>? basketMap,
       final String? noteText,
-      final int? tableNumber}) = _$FoodBasketStateImpl;
+      final int? tableNumber,
+      final Map<String, int>? itemCountMap}) = _$FoodBasketStateImpl;
 
   @override
   FoodBasketStatus get status;
@@ -976,6 +1008,8 @@ abstract class _FoodBasketState implements FoodBasketState {
   String? get noteText;
   @override
   int? get tableNumber;
+  @override
+  Map<String, int>? get itemCountMap;
   @override
   @JsonKey(ignore: true)
   _$$FoodBasketStateImplCopyWith<_$FoodBasketStateImpl> get copyWith =>

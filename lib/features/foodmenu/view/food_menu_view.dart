@@ -53,6 +53,8 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       context.read<FoodBasketBloc>().add(
                           FoodBasketEvent.removeAllFood(
                               state.basketMap, state.tableNumber));
+                      context.read<SearchBloc>().add(
+                          SearchBlocStateEvent.searchFromFirestore("qwyzcwsz"));
                       Navigator.of(context).pop();
                     },
                   ),
@@ -97,46 +99,77 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                     context.sizedboxWidth(0.05),
                     Container(
                       height: 100,
-                      width: 100,
-                      child: TextField(
-                        controller: _searchController,
-                        onChanged: (value) async {
-                          context.read<SearchBloc>().add(
-                              SearchBlocStateEvent.searchFromFirestore(value));
+                      width: 350,
+                      child: BlocBuilder<SearchBloc, SearchBlocState>(
+                        builder: (context, state) {
+                          return TextField(
+                            controller: _searchController,
+                            onChanged: (value) async {
+                              if (value.isEmpty) {
+                                context.read<SearchBloc>().add(
+                                    SearchBlocStateEvent.searchFromFirestore(
+                                        "qwyzcwsz"));
+                              }
+                              if (value.isNotEmpty) {
+                                context.read<SearchBloc>().add(
+                                    SearchBlocStateEvent.searchFromFirestore(
+                                        value));
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Search Food',
+                            ),
+                          );
                         },
-                        decoration: InputDecoration(
-                          labelText: 'Search Food',
-                        ),
                       ),
                     ),
                   ],
                 ),
                 BlocBuilder<SearchBloc, SearchBlocState>(
-                  builder: (context, state) {
-                    if (state.status.isSuccess) {
-                      return Container(
-                        height: 100,
-                        width: 100,
-                        child: ListView.builder(
-                          itemCount: state.queryList?.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title:
-                                  Text(state.queryList?[index].foodName ?? ""),
-                              subtitle: Text(
-                                  'Price: ${state.queryList?[index].price.toString()}, Content: ${state.queryList?[index].price}'),
-                              onTap: () {
-                                // Burada seçilen öneriye tıklandığında yapılacak işlemleri ekleyebilirsiniz.
-                                // Örneğin, seçilen öğeyi Firestore'dan detayları alıp gösterebilirsiniz.
-                                print(
-                                    'Selected suggestion: ${state.queryList?[index].foodName}');
+                  builder: (context, searchstate) {
+                    if (searchstate.status.isSuccess) {
+                      return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                        builder: (context, basketstate) {
+                          return Container(
+                            width: context.width(0.88),
+                            height: context.height(0.16),
+                            child: ListView.builder(
+                              itemCount: searchstate.queryList?.length,
+                              itemBuilder: (context, index) {
+                                final food = searchstate.queryList?[index];
+                                return BlocBuilder<TableBloc, TableState>(
+                                  builder: (context, tablestate) {
+                                    return CustomListTile(
+                                      onTapAdd: () {
+                                        context.read<FoodBasketBloc>().add(
+                                            FoodBasketEvent.addBasketFood(
+                                                food, tablestate.tableNumber));
+                                      },
+                                      image: Image.network(
+                                        food!.foodImage,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      foodName: food.foodName,
+                                      price: "${food.price} €",
+                                      onTapRemove: () {
+                                        context.read<FoodBasketBloc>().add(
+                                            FoodBasketEvent.removeBasketFood(
+                                                food, tablestate.tableNumber));
+                                      },
+                                      piece: basketstate
+                                              .itemCountMap?[food.foodName] ??
+                                          0,
+                                    );
+                                  },
+                                );
                               },
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       );
                     }
-                    return Text("nothing");
+
+                    return SizedBox();
                   },
                 ),
                 context.sizedboxHeight(0.02),
@@ -294,7 +327,9 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                           FoodBasketEvent.removeBasketFood(
                                               food, tablestate.tableNumber));
                                     },
-                                    piece: itemCount ?? 0,
+                                    piece: basketstate
+                                            .itemCountMap?[food.foodName] ??
+                                        0,
                                   );
                                 },
                               );
