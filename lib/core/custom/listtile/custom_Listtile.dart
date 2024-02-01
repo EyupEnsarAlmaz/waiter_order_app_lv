@@ -8,6 +8,7 @@ class CustomListTile extends StatelessWidget {
   final int piece;
   final String price;
   final Function()? onTapAdd;
+  final Function()? foodContent;
   final Function()? onTapRemove;
 
   CustomListTile({
@@ -15,6 +16,7 @@ class CustomListTile extends StatelessWidget {
     required this.piece,
     required this.image,
     required this.onTapAdd,
+    required this.foodContent,
     required this.onTapRemove,
     required this.price,
   });
@@ -74,9 +76,15 @@ class CustomListTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                context.sizedboxHeight(0.01),
-                Text("$piece pieces",
-                    style: TextStyle(fontSize: context.titleLarge.fontSize)),
+                Row(
+                  children: [
+                    context.sizedboxWidth(0.12),
+                    Text("$piece pieces",
+                        style:
+                            TextStyle(fontSize: context.titleLarge.fontSize)),
+                    IconButton(onPressed: foodContent, icon: Icon(Icons.info))
+                  ],
+                ),
               ],
             ),
           ),

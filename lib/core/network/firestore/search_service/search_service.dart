@@ -19,6 +19,7 @@ class SearchService {
               price: doc['price'].toInt() as int,
               foodImage: doc['foodimage'] as String,
               category: doc['category'] as String,
+              content: doc['content'] as String,
             ))
         .toList();
 

@@ -3,6 +3,8 @@ import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
 import 'package:waiter_order_app_lv/features/auth/view/login/view/login_view.dart';
 import 'package:waiter_order_app_lv/features/auth/view/register/view/register_veiw.dart';
 import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
+import 'package:waiter_order_app_lv/features/foodcontent/view/food_content_view.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/view/food_menu_view.dart';
 import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
@@ -29,6 +31,9 @@ class NavigationRoute {
         return _getRoute(FoodMenuView());
       case KRoute.DETAIL_PAGE:
         return _getRoute(DetailOrderView());
+      case KRoute.FOOD_CONTENT:
+        return _getRoute(
+            FoodContentView(foodModel: args.arguments as FoodModel));
 
       default:
         return MaterialPageRoute(
