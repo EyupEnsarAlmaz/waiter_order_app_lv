@@ -10,6 +10,7 @@ import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
 import 'package:waiter_order_app_lv/core/theme/color_constants.dart';
 import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
+import 'package:waiter_order_app_lv/features/foodcontent/view/food_content_view.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
@@ -43,7 +44,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
       ],
       child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(40.0),
+            preferredSize: Size.fromHeight(32.0),
             child: BlocBuilder<FoodBasketBloc, FoodBasketState>(
               builder: (context, state) {
                 return AppBar(
@@ -93,16 +94,24 @@ class _FoodMenuViewState extends State<FoodMenuView> {
             onTap: () => context.hideKeyboard(),
             child: SingleChildScrollView(
               child: Column(children: [
-                context.sizedboxHeight(0.02),
+                context.sizedboxHeight(0.015),
                 Row(
                   children: [
                     context.sizedboxWidth(0.05),
                     Container(
-                      height: 100,
-                      width: 350,
+                      height: context.height(0.085),
+                      width: context.width(0.90),
                       child: BlocBuilder<SearchBloc, SearchBlocState>(
                         builder: (context, state) {
                           return TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              filled: true,
+                              hintStyle: TextStyle(color: Colors.white),
+                              hintText: "Search food",
+                            ),
                             controller: _searchController,
                             onChanged: (value) async {
                               if (value.isEmpty) {
@@ -116,9 +125,6 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                         value));
                               }
                             },
-                            decoration: InputDecoration(
-                              labelText: 'Search Food',
-                            ),
                           );
                         },
                       ),
@@ -159,6 +165,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                       piece: basketstate
                                               .itemCountMap?[food.foodName] ??
                                           0,
+                                      foodContent: () {},
                                     );
                                   },
                                 );
@@ -169,7 +176,10 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       );
                     }
 
-                    return SizedBox();
+                    return Visibility(
+                      visible: false,
+                      child: Container(),
+                    );
                   },
                 ),
                 context.sizedboxHeight(0.02),
@@ -195,6 +205,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                       foodImage: dashLine,
                                       foodName: 'dashline',
                                       price: 0,
+                                      content: '',
                                     ),
                                     context
                                         .read<TableBloc>()
@@ -330,6 +341,12 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                     piece: basketstate
                                             .itemCountMap?[food.foodName] ??
                                         0,
+                                    foodContent: () {
+                                      navigation.navigateTo(
+                                        path: KRoute.FOOD_CONTENT,
+                                        data: food,
+                                      );
+                                    },
                                   );
                                 },
                               );

@@ -134,7 +134,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                                                             tablestate
                                                                 .tableNumber));
                                               },
-                                              piece: itemCount.length,
+                                              piece: itemCount.length, foodContent: () {  },
                                             );
                                           },
                                         ),

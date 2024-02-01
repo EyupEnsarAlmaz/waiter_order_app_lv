@@ -11,4 +11,5 @@ class KRoute {
   static const DETAIL_PAGE = '/detailPage';
   static const TABLE_INFO_WAITER_PAGE = '/tableInfoWaiterPage';
   static const TABLE_INFO_KITCHEN_PAGE = '/tableInfoKitchenPage';
+  static const FOOD_CONTENT = '/foodContent';
 }

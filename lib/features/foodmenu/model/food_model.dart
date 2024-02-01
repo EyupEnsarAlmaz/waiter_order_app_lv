@@ -1,11 +1,14 @@
 class FoodModel {
   String foodImage;
   String foodName;
+  String content;
+
   int price;
   String category;
   FoodModel({
     required this.foodImage,
     required this.foodName,
+    required this.content,
     required this.price,
     required this.category,
   });
@@ -15,6 +18,7 @@ class FoodModel {
       foodName: map['foodName'] ?? '',
       price: map['price']?.toInt() ?? 0,
       category: map['category'] ?? '',
+      content: map['content'] ?? '',
     );
   }
 }

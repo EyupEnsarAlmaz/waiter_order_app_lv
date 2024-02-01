@@ -11,6 +11,7 @@ import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
 import 'package:waiter_order_app_lv/features/splash/view/splash_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
+import 'package:waiter_order_app_lv/features/table/model/table_model.dart';
 
 class TableView extends StatelessWidget {
   TableView({super.key});
@@ -18,119 +19,164 @@ class TableView extends StatelessWidget {
   final navigator = NavigationService.shared;
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => TableBloc()..add(const TableEvent.getTable()),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => TableBloc()..add(TableEvent.getTable()),
       child: Scaffold(
+          appBar: AppBar(
+            title: Text("Table List", style: TextStyle(fontSize: 20)),
+            centerTitle: true,
+          ),
           body: Center(
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-            BlocConsumer<TableBloc, TableState>(
-              listener: (context, state) {
-                if (state.status.isLoading) {
-                  Center(child: CircularProgressIndicator());
-                }
-              },
-              builder: (context, state) {
-                if (state.status.isSuccess) {
-                  return Container(
-                    width: context.width(0.98),
-                    height: context.height(0.80),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: state.tableList?.length,
-                      itemBuilder: (context, index) {
-                        final tableList = state.tableList?[index];
-                        return Center(
-                          child: Card(
-                            color: const Color(0xFF1A1B23),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: () async {
-                                    final response = await _showAlertDialog(
-                                        context, tableList!.tableNumber);
-                                  },
-                                  child: Container(
-                                    color:
-                                        state.tableList?[index].isOpen ?? false
-                                            ? Colors.red
-                                            : Colors.green,
-                                    height: 200,
-                                    width: 400,
-                                    child: Center(
-                                      child: Text(
-                                          tableList?.tableNumber.toString() ??
-                                              ""),
+            child: Column(
+              children: [
+                BlocConsumer<TableBloc, TableState>(
+                  listener: (context, state) {
+                    if (state.status.isSuccess) {
+                      context.read<TableBloc>().add(TableEvent.getTable());
+                    }
+                  },
+                  builder: (context, state) {
+                    return Container(
+                      width: context.width(0.98),
+                      height: context.height(0.80),
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: state.tableList?.length,
+                        itemBuilder: (context, index) {
+                          final tableList = state.tableList?[index];
+                          return Center(
+                            child: Card(
+                              color: const Color(0xFF1A1B23),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final response = await _showAlertDialog(
+                                          context,
+                                          tableList!.tableNumber,
+                                          tableList);
+                                    },
+                                    child: Container(
+                                      color: state.tableList?[index].isOpen ??
+                                              false
+                                          ? Colors.red
+                                          : Colors.green,
+                                      height: 200,
+                                      width: 400,
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(tableList?.tableNumber
+                                                    .toString() ??
+                                                ""),
+                                            SizedBox(height: 5),
+                                            state.tableList?[index].isAway ??
+                                                    true
+                                                ? Text("Status: Table is Away")
+                                                : Text(
+                                                    "Status: Table is not away")
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-                return Center(child: CircularProgressIndicator());
-              },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
 
-Future<void> _showAlertDialog(BuildContext context, int index) async {
+Future<void> _showAlertDialog(
+    BuildContext context, int index, TableModel? tableList) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        // <-- SEE HERE
-        title: Text('Table ${index}'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: const <Widget>[],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Open Table'),
-            onPressed: () {
-              context.read<TableBloc>().add(TableEvent.openTable(true, index));
-              navigation.pop();
-              navigation.navigateTo(path: KRoute.FOOD_MENU);
-            },
-          ),
-          TextButton(
-            child: const Text('Close Table'),
-            onPressed: () {
-              context
-                  .read<TableBloc>()
-                  .add(TableEvent.closeTable(false, index));
-              navigation.pop();
-            },
-          ),
-          TextButton(
-            child: const Text('Exit'),
-            onPressed: () {
-              navigation.pop();
-            },
-          ),
-        ],
-      );
+          // <-- SEE HERE
+          title: Text('Table ${index}'),
+          content: SingleChildScrollView(
+              child: Row(
+            children: [
+              Container(
+                height: context.height(0.1),
+                width: context.width(0.15),
+                child: TextButton(
+                  child: const Text('Open Table'),
+                  onPressed: () {
+                    context
+                        .read<TableBloc>()
+                        .add(TableEvent.openTable(true, index));
+                    navigation.pop();
+                    navigation.navigateTo(path: KRoute.FOOD_MENU);
+                  },
+                ),
+              ),
+              Container(
+                height: context.height(0.1),
+                width: context.width(0.15),
+                child: TextButton(
+                  child: const Text('Close Table'),
+                  onPressed: () {
+                    context
+                        .read<TableBloc>()
+                        .add(TableEvent.closeTable(false, index, false));
+                    navigation.pop();
+                  },
+                ),
+              ),
+              BlocBuilder<TableBloc, TableState>(
+                builder: (context, state) {
+                  return Container(
+                    height: context.height(0.1),
+                    width: context.width(0.15),
+                    child: TextButton(
+                      child: const Text('Table Away'),
+                      onPressed: () {
+                        if (tableList?.isOpen == true &&
+                            tableList?.isAway == false) {
+                          context
+                              .read<TableBloc>()
+                              .add(TableEvent.isAway(index, true));
+                        }
+
+                        navigation.pop();
+                      },
+                    ),
+                  );
+                },
+              ),
+              Container(
+                height: context.height(0.1),
+                width: context.width(0.15),
+                child: TextButton(
+                  child: const Text('Exit'),
+                  onPressed: () {
+                    navigation.pop();
+                  },
+                ),
+              ),
+            ],
+          )));
     },
   );
 }

@@ -12,6 +12,7 @@ class TableBloc extends Bloc<TableEvent, TableState> {
     on<_OpenTable>(_openTable);
     on<_CloseTable>(_closeTable);
     on<_GetTable>(_getTable);
+    on<_IsAway>(_isAway);
   }
 
   final _tableService = TableService.shared;
@@ -19,7 +20,6 @@ class TableBloc extends Bloc<TableEvent, TableState> {
   Future<void> _getTable(_GetTable event, Emitter emit) async {
     try {
       emit(state.copyWith(status: TableStatus.loading));
-      await Future.delayed(Duration(milliseconds: 500));
       var tableList = await _tableService.getTableFromFirestore();
       emit(state.copyWith(status: TableStatus.success, tableList: tableList));
     } catch (e) {
@@ -34,6 +34,7 @@ class TableBloc extends Bloc<TableEvent, TableState> {
           tableNumber: event.tableNumber, isOpen: event.isTableOpen);
       emit(state.copyWith(
           status: TableStatus.success, tableNumber: event.tableNumber));
+      emit(state.copyWith(status: TableStatus.loading));
     } catch (e) {
       emit(state.copyWith(status: TableStatus.failure));
     }
@@ -43,7 +44,21 @@ class TableBloc extends Bloc<TableEvent, TableState> {
     try {
       emit(state.copyWith(status: TableStatus.loading));
       var response = _tableService.closeTable(
-          tableNumber: event.tableNumber, isOpen: event.isTableOpen);
+          isAway: event.isAwway,
+          tableNumber: event.tableNumber,
+          isOpen: event.isTableOpen);
+      emit(state.copyWith(
+          status: TableStatus.success, tableNumber: event.tableNumber));
+    } catch (e) {
+      emit(state.copyWith(status: TableStatus.failure));
+    }
+  }
+
+  Future<void> _isAway(_IsAway event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: TableStatus.loading));
+      var response = _tableService.doAway(
+          isAway: event.isAway, tableNumber: event.tableNumber);
       emit(state.copyWith(
           status: TableStatus.success, tableNumber: event.tableNumber));
     } catch (e) {

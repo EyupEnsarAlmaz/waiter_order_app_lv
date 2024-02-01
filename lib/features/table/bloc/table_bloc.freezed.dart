@@ -20,21 +20,27 @@ mixin _$TableEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isTableOpen, int tableNumber) openTable,
     required TResult Function() getTable,
-    required TResult Function(bool isTableOpen, int tableNumber) closeTable,
+    required TResult Function(int tableNumber, bool isAway) isAway,
+    required TResult Function(bool isTableOpen, int tableNumber, bool isAwway)
+        closeTable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isTableOpen, int tableNumber)? openTable,
     TResult? Function()? getTable,
-    TResult? Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult? Function(int tableNumber, bool isAway)? isAway,
+    TResult? Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isTableOpen, int tableNumber)? openTable,
     TResult Function()? getTable,
-    TResult Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult Function(int tableNumber, bool isAway)? isAway,
+    TResult Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,6 +48,7 @@ mixin _$TableEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenTable value) openTable,
     required TResult Function(_GetTable value) getTable,
+    required TResult Function(_IsAway value) isAway,
     required TResult Function(_CloseTable value) closeTable,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +56,7 @@ mixin _$TableEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenTable value)? openTable,
     TResult? Function(_GetTable value)? getTable,
+    TResult? Function(_IsAway value)? isAway,
     TResult? Function(_CloseTable value)? closeTable,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +64,7 @@ mixin _$TableEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenTable value)? openTable,
     TResult Function(_GetTable value)? getTable,
+    TResult Function(_IsAway value)? isAway,
     TResult Function(_CloseTable value)? closeTable,
     required TResult orElse(),
   }) =>
@@ -156,7 +165,9 @@ class _$OpenTableImpl implements _OpenTable {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isTableOpen, int tableNumber) openTable,
     required TResult Function() getTable,
-    required TResult Function(bool isTableOpen, int tableNumber) closeTable,
+    required TResult Function(int tableNumber, bool isAway) isAway,
+    required TResult Function(bool isTableOpen, int tableNumber, bool isAwway)
+        closeTable,
   }) {
     return openTable(isTableOpen, tableNumber);
   }
@@ -166,7 +177,9 @@ class _$OpenTableImpl implements _OpenTable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isTableOpen, int tableNumber)? openTable,
     TResult? Function()? getTable,
-    TResult? Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult? Function(int tableNumber, bool isAway)? isAway,
+    TResult? Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
   }) {
     return openTable?.call(isTableOpen, tableNumber);
   }
@@ -176,7 +189,9 @@ class _$OpenTableImpl implements _OpenTable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isTableOpen, int tableNumber)? openTable,
     TResult Function()? getTable,
-    TResult Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult Function(int tableNumber, bool isAway)? isAway,
+    TResult Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
     required TResult orElse(),
   }) {
     if (openTable != null) {
@@ -190,6 +205,7 @@ class _$OpenTableImpl implements _OpenTable {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenTable value) openTable,
     required TResult Function(_GetTable value) getTable,
+    required TResult Function(_IsAway value) isAway,
     required TResult Function(_CloseTable value) closeTable,
   }) {
     return openTable(this);
@@ -200,6 +216,7 @@ class _$OpenTableImpl implements _OpenTable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenTable value)? openTable,
     TResult? Function(_GetTable value)? getTable,
+    TResult? Function(_IsAway value)? isAway,
     TResult? Function(_CloseTable value)? closeTable,
   }) {
     return openTable?.call(this);
@@ -210,6 +227,7 @@ class _$OpenTableImpl implements _OpenTable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenTable value)? openTable,
     TResult Function(_GetTable value)? getTable,
+    TResult Function(_IsAway value)? isAway,
     TResult Function(_CloseTable value)? closeTable,
     required TResult orElse(),
   }) {
@@ -271,7 +289,9 @@ class _$GetTableImpl implements _GetTable {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isTableOpen, int tableNumber) openTable,
     required TResult Function() getTable,
-    required TResult Function(bool isTableOpen, int tableNumber) closeTable,
+    required TResult Function(int tableNumber, bool isAway) isAway,
+    required TResult Function(bool isTableOpen, int tableNumber, bool isAwway)
+        closeTable,
   }) {
     return getTable();
   }
@@ -281,7 +301,9 @@ class _$GetTableImpl implements _GetTable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isTableOpen, int tableNumber)? openTable,
     TResult? Function()? getTable,
-    TResult? Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult? Function(int tableNumber, bool isAway)? isAway,
+    TResult? Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
   }) {
     return getTable?.call();
   }
@@ -291,7 +313,9 @@ class _$GetTableImpl implements _GetTable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isTableOpen, int tableNumber)? openTable,
     TResult Function()? getTable,
-    TResult Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult Function(int tableNumber, bool isAway)? isAway,
+    TResult Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
     required TResult orElse(),
   }) {
     if (getTable != null) {
@@ -305,6 +329,7 @@ class _$GetTableImpl implements _GetTable {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenTable value) openTable,
     required TResult Function(_GetTable value) getTable,
+    required TResult Function(_IsAway value) isAway,
     required TResult Function(_CloseTable value) closeTable,
   }) {
     return getTable(this);
@@ -315,6 +340,7 @@ class _$GetTableImpl implements _GetTable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenTable value)? openTable,
     TResult? Function(_GetTable value)? getTable,
+    TResult? Function(_IsAway value)? isAway,
     TResult? Function(_CloseTable value)? closeTable,
   }) {
     return getTable?.call(this);
@@ -325,6 +351,7 @@ class _$GetTableImpl implements _GetTable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenTable value)? openTable,
     TResult Function(_GetTable value)? getTable,
+    TResult Function(_IsAway value)? isAway,
     TResult Function(_CloseTable value)? closeTable,
     required TResult orElse(),
   }) {
@@ -340,12 +367,171 @@ abstract class _GetTable implements TableEvent {
 }
 
 /// @nodoc
+abstract class _$$IsAwayImplCopyWith<$Res> {
+  factory _$$IsAwayImplCopyWith(
+          _$IsAwayImpl value, $Res Function(_$IsAwayImpl) then) =
+      __$$IsAwayImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int tableNumber, bool isAway});
+}
+
+/// @nodoc
+class __$$IsAwayImplCopyWithImpl<$Res>
+    extends _$TableEventCopyWithImpl<$Res, _$IsAwayImpl>
+    implements _$$IsAwayImplCopyWith<$Res> {
+  __$$IsAwayImplCopyWithImpl(
+      _$IsAwayImpl _value, $Res Function(_$IsAwayImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tableNumber = null,
+    Object? isAway = null,
+  }) {
+    return _then(_$IsAwayImpl(
+      null == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == isAway
+          ? _value.isAway
+          : isAway // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsAwayImpl implements _IsAway {
+  const _$IsAwayImpl(this.tableNumber, this.isAway);
+
+  @override
+  final int tableNumber;
+  @override
+  final bool isAway;
+
+  @override
+  String toString() {
+    return 'TableEvent.isAway(tableNumber: $tableNumber, isAway: $isAway)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IsAwayImpl &&
+            (identical(other.tableNumber, tableNumber) ||
+                other.tableNumber == tableNumber) &&
+            (identical(other.isAway, isAway) || other.isAway == isAway));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, tableNumber, isAway);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IsAwayImplCopyWith<_$IsAwayImpl> get copyWith =>
+      __$$IsAwayImplCopyWithImpl<_$IsAwayImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isTableOpen, int tableNumber) openTable,
+    required TResult Function() getTable,
+    required TResult Function(int tableNumber, bool isAway) isAway,
+    required TResult Function(bool isTableOpen, int tableNumber, bool isAwway)
+        closeTable,
+  }) {
+    return isAway(tableNumber, this.isAway);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(bool isTableOpen, int tableNumber)? openTable,
+    TResult? Function()? getTable,
+    TResult? Function(int tableNumber, bool isAway)? isAway,
+    TResult? Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
+  }) {
+    return isAway?.call(tableNumber, this.isAway);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isTableOpen, int tableNumber)? openTable,
+    TResult Function()? getTable,
+    TResult Function(int tableNumber, bool isAway)? isAway,
+    TResult Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
+    required TResult orElse(),
+  }) {
+    if (isAway != null) {
+      return isAway(tableNumber, this.isAway);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenTable value) openTable,
+    required TResult Function(_GetTable value) getTable,
+    required TResult Function(_IsAway value) isAway,
+    required TResult Function(_CloseTable value) closeTable,
+  }) {
+    return isAway(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenTable value)? openTable,
+    TResult? Function(_GetTable value)? getTable,
+    TResult? Function(_IsAway value)? isAway,
+    TResult? Function(_CloseTable value)? closeTable,
+  }) {
+    return isAway?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenTable value)? openTable,
+    TResult Function(_GetTable value)? getTable,
+    TResult Function(_IsAway value)? isAway,
+    TResult Function(_CloseTable value)? closeTable,
+    required TResult orElse(),
+  }) {
+    if (isAway != null) {
+      return isAway(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _IsAway implements TableEvent {
+  const factory _IsAway(final int tableNumber, final bool isAway) =
+      _$IsAwayImpl;
+
+  int get tableNumber;
+  bool get isAway;
+  @JsonKey(ignore: true)
+  _$$IsAwayImplCopyWith<_$IsAwayImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$CloseTableImplCopyWith<$Res> {
   factory _$$CloseTableImplCopyWith(
           _$CloseTableImpl value, $Res Function(_$CloseTableImpl) then) =
       __$$CloseTableImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isTableOpen, int tableNumber});
+  $Res call({bool isTableOpen, int tableNumber, bool isAwway});
 }
 
 /// @nodoc
@@ -361,6 +547,7 @@ class __$$CloseTableImplCopyWithImpl<$Res>
   $Res call({
     Object? isTableOpen = null,
     Object? tableNumber = null,
+    Object? isAwway = null,
   }) {
     return _then(_$CloseTableImpl(
       null == isTableOpen
@@ -371,6 +558,10 @@ class __$$CloseTableImplCopyWithImpl<$Res>
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
               as int,
+      null == isAwway
+          ? _value.isAwway
+          : isAwway // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -378,16 +569,18 @@ class __$$CloseTableImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CloseTableImpl implements _CloseTable {
-  const _$CloseTableImpl(this.isTableOpen, this.tableNumber);
+  const _$CloseTableImpl(this.isTableOpen, this.tableNumber, this.isAwway);
 
   @override
   final bool isTableOpen;
   @override
   final int tableNumber;
+  @override
+  final bool isAwway;
 
   @override
   String toString() {
-    return 'TableEvent.closeTable(isTableOpen: $isTableOpen, tableNumber: $tableNumber)';
+    return 'TableEvent.closeTable(isTableOpen: $isTableOpen, tableNumber: $tableNumber, isAwway: $isAwway)';
   }
 
   @override
@@ -398,11 +591,13 @@ class _$CloseTableImpl implements _CloseTable {
             (identical(other.isTableOpen, isTableOpen) ||
                 other.isTableOpen == isTableOpen) &&
             (identical(other.tableNumber, tableNumber) ||
-                other.tableNumber == tableNumber));
+                other.tableNumber == tableNumber) &&
+            (identical(other.isAwway, isAwway) || other.isAwway == isAwway));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isTableOpen, tableNumber);
+  int get hashCode =>
+      Object.hash(runtimeType, isTableOpen, tableNumber, isAwway);
 
   @JsonKey(ignore: true)
   @override
@@ -415,9 +610,11 @@ class _$CloseTableImpl implements _CloseTable {
   TResult when<TResult extends Object?>({
     required TResult Function(bool isTableOpen, int tableNumber) openTable,
     required TResult Function() getTable,
-    required TResult Function(bool isTableOpen, int tableNumber) closeTable,
+    required TResult Function(int tableNumber, bool isAway) isAway,
+    required TResult Function(bool isTableOpen, int tableNumber, bool isAwway)
+        closeTable,
   }) {
-    return closeTable(isTableOpen, tableNumber);
+    return closeTable(isTableOpen, tableNumber, isAwway);
   }
 
   @override
@@ -425,9 +622,11 @@ class _$CloseTableImpl implements _CloseTable {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(bool isTableOpen, int tableNumber)? openTable,
     TResult? Function()? getTable,
-    TResult? Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult? Function(int tableNumber, bool isAway)? isAway,
+    TResult? Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
   }) {
-    return closeTable?.call(isTableOpen, tableNumber);
+    return closeTable?.call(isTableOpen, tableNumber, isAwway);
   }
 
   @override
@@ -435,11 +634,13 @@ class _$CloseTableImpl implements _CloseTable {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool isTableOpen, int tableNumber)? openTable,
     TResult Function()? getTable,
-    TResult Function(bool isTableOpen, int tableNumber)? closeTable,
+    TResult Function(int tableNumber, bool isAway)? isAway,
+    TResult Function(bool isTableOpen, int tableNumber, bool isAwway)?
+        closeTable,
     required TResult orElse(),
   }) {
     if (closeTable != null) {
-      return closeTable(isTableOpen, tableNumber);
+      return closeTable(isTableOpen, tableNumber, isAwway);
     }
     return orElse();
   }
@@ -449,6 +650,7 @@ class _$CloseTableImpl implements _CloseTable {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenTable value) openTable,
     required TResult Function(_GetTable value) getTable,
+    required TResult Function(_IsAway value) isAway,
     required TResult Function(_CloseTable value) closeTable,
   }) {
     return closeTable(this);
@@ -459,6 +661,7 @@ class _$CloseTableImpl implements _CloseTable {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenTable value)? openTable,
     TResult? Function(_GetTable value)? getTable,
+    TResult? Function(_IsAway value)? isAway,
     TResult? Function(_CloseTable value)? closeTable,
   }) {
     return closeTable?.call(this);
@@ -469,6 +672,7 @@ class _$CloseTableImpl implements _CloseTable {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenTable value)? openTable,
     TResult Function(_GetTable value)? getTable,
+    TResult Function(_IsAway value)? isAway,
     TResult Function(_CloseTable value)? closeTable,
     required TResult orElse(),
   }) {
@@ -480,11 +684,13 @@ class _$CloseTableImpl implements _CloseTable {
 }
 
 abstract class _CloseTable implements TableEvent {
-  const factory _CloseTable(final bool isTableOpen, final int tableNumber) =
+  const factory _CloseTable(
+          final bool isTableOpen, final int tableNumber, final bool isAwway) =
       _$CloseTableImpl;
 
   bool get isTableOpen;
   int get tableNumber;
+  bool get isAwway;
   @JsonKey(ignore: true)
   _$$CloseTableImplCopyWith<_$CloseTableImpl> get copyWith =>
       throw _privateConstructorUsedError;

@@ -33,13 +33,29 @@ class TableService {
   }
 
   Future<List<TableModel>?>? closeTable(
-      {required int tableNumber, required bool isOpen}) async {
+      {required int tableNumber,
+      required bool isOpen,
+      required bool isAway}) async {
     try {
       DocumentReference documentReference =
           FirebaseFirestore.instance.collection('table').doc('$tableNumber');
 
       await documentReference.update({
         'isOpen': isOpen,
+        'isAway': isAway,
+      });
+    } catch (e) {
+      print('Error updating boolean field: $e');
+    }
+  }
+
+  Future<List<TableModel>?>? doAway(
+      {required int tableNumber, required bool isAway}) async {
+    try {
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection('table').doc('$tableNumber');
+      await documentReference.update({
+        'isAway': isAway,
       });
     } catch (e) {
       print('Error updating boolean field: $e');
