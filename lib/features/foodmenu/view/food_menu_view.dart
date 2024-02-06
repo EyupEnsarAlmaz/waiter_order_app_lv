@@ -152,10 +152,10 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                                 food, tablestate.tableNumber));
                                       },
                                       image: Image.network(
-                                        food!.foodImage,
+                                        food!.foodImage!,
                                         fit: BoxFit.fill,
                                       ),
-                                      foodName: food.foodName,
+                                      foodName: food.foodName!,
                                       price: "${food.price} €",
                                       onTapRemove: () {
                                         context.read<FoodBasketBloc>().add(
@@ -206,6 +206,8 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                       foodName: 'dashline',
                                       price: 0,
                                       content: '',
+                                      sides: false,
+                                      choosenSide: '',
                                     ),
                                     context
                                         .read<TableBloc>()
@@ -328,10 +330,10 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                               food, tablestate.tableNumber));
                                     },
                                     image: Image.network(
-                                      food!.foodImage,
+                                      food!.foodImage!,
                                       fit: BoxFit.fill,
                                     ),
-                                    foodName: food.foodName,
+                                    foodName: food.foodName!,
                                     price: "${food.price} €",
                                     onTapRemove: () {
                                       context.read<FoodBasketBloc>().add(

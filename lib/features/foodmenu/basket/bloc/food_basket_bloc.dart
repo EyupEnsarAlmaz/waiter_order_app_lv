@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -26,8 +24,8 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       basketMap.putIfAbsent(event.tableNumber!, () => []);
       basketMap[event.tableNumber!]!.add(event.food!);
-      if (event.food != null && event.food!.foodName != null) {
-        String foodName = event.food!.foodName;
+      if (event.food != null && event.food?.foodName != null) {
+        String foodName = event.food!.foodName!;
         int? itemCount = basketMap[event.tableNumber]
             ?.where((item) => item.foodName == foodName)
             .length;
@@ -52,7 +50,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       basketMap[event.tableNumber!]!.remove(event.food!);
 
       if (event.food != null && event.food!.foodName != null) {
-        String foodName = event.food!.foodName;
+        String foodName = event.food!.foodName!;
         int? itemCount = basketMap[event.tableNumber]
             ?.where((item) => item.foodName == foodName)
             .length;

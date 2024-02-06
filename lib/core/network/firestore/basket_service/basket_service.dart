@@ -14,7 +14,7 @@ class BasketService {
       if (groupedItems.containsKey(item.foodName)) {
         groupedItems[item.foodName]!.add(item);
       } else {
-        groupedItems[item.foodName] = [item];
+        groupedItems[item.foodName!] = [item];
       }
     }
 

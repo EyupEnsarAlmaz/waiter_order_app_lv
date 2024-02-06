@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/navigation/navigation_service.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 
 class FoodContentView extends StatelessWidget {
@@ -11,6 +14,7 @@ class FoodContentView extends StatelessWidget {
 
   final navigation = NavigationService.shared;
   final FoodModel foodModel;
+  String? choosenside;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class FoodContentView extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xff7c94b6),
                 image: DecorationImage(
-                  image: NetworkImage(foodModel.foodImage),
+                  image: NetworkImage(foodModel.foodImage!),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(100.0)),
@@ -45,10 +49,12 @@ class FoodContentView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        context.read<FoodBasketBloc>().add(
-                            FoodBasketEvent.addBasketFood(
-                                foodModel, state.tableNumber));
+                      onPressed: () async {
+                        if (foodModel.sides == true) {
+                          context.read<FoodMenuBloc>().add(
+                              FoodMenuBlocEvent.getDataByCategory("sides"));
+                          await _showAlertDialog(context, foodModel);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
@@ -61,12 +67,10 @@ class FoodContentView extends StatelessWidget {
                     ),
                     BlocBuilder<FoodBasketBloc, FoodBasketState>(
                       builder: (context, basketstate) {
-                        int? itemCount = basketstate
-                            .basketMap?[basketstate.tableNumber]
-                            ?.where((item) => item == foodModel)
-                            .length;
                         return Text(
-                          itemCount?.toString() ?? "0",
+                          basketstate.itemCountMap?[foodModel.foodName]
+                                  .toString() ??
+                              "0",
                           style: TextStyle(fontSize: 23),
                         );
                       },
@@ -97,17 +101,17 @@ class FoodContentView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      foodModel.category,
+                      foodModel.category!,
                       style: TextStyle(fontSize: 20),
                     ),
                     SizedBox(height: 10),
-                    Text(foodModel.foodName, style: TextStyle(fontSize: 25)),
+                    Text(foodModel.foodName!, style: TextStyle(fontSize: 25)),
                     SizedBox(height: 10),
                     Text("${foodModel.price} €",
                         style: TextStyle(fontSize: 25)),
                     SizedBox(height: 10),
                     SizedBox(height: 10),
-                    Text(foodModel.content, style: TextStyle(fontSize: 20)),
+                    Text(foodModel.content!, style: TextStyle(fontSize: 20)),
                   ],
                 ),
               ),
@@ -115,6 +119,57 @@ class FoodContentView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showAlertDialog(
+      BuildContext context, FoodModel foodModel) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
+          builder: (context, state) {
+            return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                title: Text('Choose Side Order'),
+                content: Container(
+                  height: 300,
+                  width: 300,
+                  child: ListView.builder(
+                      itemCount: state.foodList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: context.height(0.1),
+                          width: context.width(0.15),
+                          child: TextButton(
+                            child: Text(
+                              state.foodList?[index].foodName ?? "",
+                              style: TextStyle(fontSize: 25),
+                            ),
+                            onPressed: () {
+                              choosenside = state.foodList?[index].foodName;
+                              context.read<FoodBasketBloc>().add(
+                                  FoodBasketEvent.addBasketFood(
+                                      FoodModel(
+                                          foodImage: foodModel.foodImage,
+                                          choosenSide: choosenside,
+                                          sides: foodModel.sides,
+                                          foodName: foodModel.foodName,
+                                          content: foodModel.content,
+                                          price: foodModel.price,
+                                          category: foodModel.category),
+                                      1));
+                              navigation.pop();
+                            },
+                          ),
+                        );
+                      }),
+                ));
+          },
+        );
+      },
     );
   }
 }
