@@ -1,16 +1,19 @@
 class FoodModel {
-  String foodImage;
-  String foodName;
-  String content;
-
-  int price;
-  String category;
+  String? foodImage;
+  String? foodName;
+  String? content;
+  String? choosenSide;
+  bool? sides;
+  int? price;
+  String? category;
   FoodModel({
-    required this.foodImage,
-    required this.foodName,
-    required this.content,
-    required this.price,
-    required this.category,
+    this.foodImage,
+    this.choosenSide,
+    this.sides,
+    this.foodName,
+    this.content,
+    this.price,
+    this.category,
   });
   factory FoodModel.fromMap(Map<String, dynamic> map) {
     return FoodModel(
@@ -19,6 +22,8 @@ class FoodModel {
       price: map['price']?.toInt() ?? 0,
       category: map['category'] ?? '',
       content: map['content'] ?? '',
+      sides: map['sides'] ?? false,
+      choosenSide: map['choosenSide'] ?? '',
     );
   }
 }
