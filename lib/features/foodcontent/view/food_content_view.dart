@@ -62,7 +62,6 @@ class FoodContentView extends StatelessWidget {
                                 context: context,
                                 titleText: 'Choose Sides',
                                 onPressed: () {
-                                  print(CustomDialog.shared.choosenValue);
                                   context.read<FoodBasketBloc>().add(
                                       FoodBasketEvent.addBasketFood(
                                           FoodModel(
