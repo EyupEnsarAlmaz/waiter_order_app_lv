@@ -6,10 +6,11 @@ class FoodService {
   static final shared = FoodService._();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<List<FoodModel>?>? getFoodFromFirestore() async {
+  Future<List<FoodModel>?>? getFoodFromFirestore(
+      {required String colletionName}) async {
     final List<FoodModel> foodList = [];
 
-    var querySnapshot = await _firestore.collection('Food').get();
+    var querySnapshot = await _firestore.collection(colletionName).get();
 
     for (var document in querySnapshot.docs) {
       var food = FoodModel.fromMap(document.data());
@@ -19,11 +20,11 @@ class FoodService {
   }
 
   Future<List<FoodModel>?>? getFoodByCategory(
-      {required String category}) async {
+      {required String colletionName, required String category}) async {
     final List<FoodModel> foodList = [];
 
     var querySnapshot = await _firestore
-        .collection('Food')
+        .collection(colletionName)
         .where('category', isEqualTo: category)
         .get();
 

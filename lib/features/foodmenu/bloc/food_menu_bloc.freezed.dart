@@ -16,22 +16,26 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FoodMenuBlocEvent {
+  String? get collectionName => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getDataFromFirebase,
-    required TResult Function(String? category) getDataByCategory,
+    required TResult Function(String? collectionName) getDataFromFirebase,
+    required TResult Function(String? category, String? collectionName)
+        getDataByCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getDataFromFirebase,
-    TResult? Function(String? category)? getDataByCategory,
+    TResult? Function(String? collectionName)? getDataFromFirebase,
+    TResult? Function(String? category, String? collectionName)?
+        getDataByCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getDataFromFirebase,
-    TResult Function(String? category)? getDataByCategory,
+    TResult Function(String? collectionName)? getDataFromFirebase,
+    TResult Function(String? category, String? collectionName)?
+        getDataByCategory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,10 @@ mixin _$FoodMenuBlocEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $FoodMenuBlocEventCopyWith<FoodMenuBlocEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -61,6 +69,8 @@ abstract class $FoodMenuBlocEventCopyWith<$Res> {
   factory $FoodMenuBlocEventCopyWith(
           FoodMenuBlocEvent value, $Res Function(FoodMenuBlocEvent) then) =
       _$FoodMenuBlocEventCopyWithImpl<$Res, FoodMenuBlocEvent>;
+  @useResult
+  $Res call({String? collectionName});
 }
 
 /// @nodoc
@@ -72,13 +82,30 @@ class _$FoodMenuBlocEventCopyWithImpl<$Res, $Val extends FoodMenuBlocEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectionName = freezed,
+  }) {
+    return _then(_value.copyWith(
+      collectionName: freezed == collectionName
+          ? _value.collectionName
+          : collectionName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetDataFromFirebaseImplCopyWith<$Res> {
+abstract class _$$GetDataFromFirebaseImplCopyWith<$Res>
+    implements $FoodMenuBlocEventCopyWith<$Res> {
   factory _$$GetDataFromFirebaseImplCopyWith(_$GetDataFromFirebaseImpl value,
           $Res Function(_$GetDataFromFirebaseImpl) then) =
       __$$GetDataFromFirebaseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? collectionName});
 }
 
 /// @nodoc
@@ -88,55 +115,83 @@ class __$$GetDataFromFirebaseImplCopyWithImpl<$Res>
   __$$GetDataFromFirebaseImplCopyWithImpl(_$GetDataFromFirebaseImpl _value,
       $Res Function(_$GetDataFromFirebaseImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectionName = freezed,
+  }) {
+    return _then(_$GetDataFromFirebaseImpl(
+      freezed == collectionName
+          ? _value.collectionName
+          : collectionName // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
-  const _$GetDataFromFirebaseImpl();
+  const _$GetDataFromFirebaseImpl(this.collectionName);
+
+  @override
+  final String? collectionName;
 
   @override
   String toString() {
-    return 'FoodMenuBlocEvent.getDataFromFirebase()';
+    return 'FoodMenuBlocEvent.getDataFromFirebase(collectionName: $collectionName)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetDataFromFirebaseImpl);
+            other is _$GetDataFromFirebaseImpl &&
+            (identical(other.collectionName, collectionName) ||
+                other.collectionName == collectionName));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, collectionName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetDataFromFirebaseImplCopyWith<_$GetDataFromFirebaseImpl> get copyWith =>
+      __$$GetDataFromFirebaseImplCopyWithImpl<_$GetDataFromFirebaseImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getDataFromFirebase,
-    required TResult Function(String? category) getDataByCategory,
+    required TResult Function(String? collectionName) getDataFromFirebase,
+    required TResult Function(String? category, String? collectionName)
+        getDataByCategory,
   }) {
-    return getDataFromFirebase();
+    return getDataFromFirebase(collectionName);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getDataFromFirebase,
-    TResult? Function(String? category)? getDataByCategory,
+    TResult? Function(String? collectionName)? getDataFromFirebase,
+    TResult? Function(String? category, String? collectionName)?
+        getDataByCategory,
   }) {
-    return getDataFromFirebase?.call();
+    return getDataFromFirebase?.call(collectionName);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getDataFromFirebase,
-    TResult Function(String? category)? getDataByCategory,
+    TResult Function(String? collectionName)? getDataFromFirebase,
+    TResult Function(String? category, String? collectionName)?
+        getDataByCategory,
     required TResult orElse(),
   }) {
     if (getDataFromFirebase != null) {
-      return getDataFromFirebase();
+      return getDataFromFirebase(collectionName);
     }
     return orElse();
   }
@@ -174,16 +229,26 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
 }
 
 abstract class _GetDataFromFirebase implements FoodMenuBlocEvent {
-  const factory _GetDataFromFirebase() = _$GetDataFromFirebaseImpl;
+  const factory _GetDataFromFirebase(final String? collectionName) =
+      _$GetDataFromFirebaseImpl;
+
+  @override
+  String? get collectionName;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetDataFromFirebaseImplCopyWith<_$GetDataFromFirebaseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$GetDataByCategoryImplCopyWith<$Res> {
+abstract class _$$GetDataByCategoryImplCopyWith<$Res>
+    implements $FoodMenuBlocEventCopyWith<$Res> {
   factory _$$GetDataByCategoryImplCopyWith(_$GetDataByCategoryImpl value,
           $Res Function(_$GetDataByCategoryImpl) then) =
       __$$GetDataByCategoryImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({String? category});
+  $Res call({String? category, String? collectionName});
 }
 
 /// @nodoc
@@ -198,11 +263,16 @@ class __$$GetDataByCategoryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? category = freezed,
+    Object? collectionName = freezed,
   }) {
     return _then(_$GetDataByCategoryImpl(
       freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
+              as String?,
+      freezed == collectionName
+          ? _value.collectionName
+          : collectionName // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -211,14 +281,16 @@ class __$$GetDataByCategoryImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetDataByCategoryImpl implements _GetDataByCategory {
-  const _$GetDataByCategoryImpl(this.category);
+  const _$GetDataByCategoryImpl(this.category, this.collectionName);
 
   @override
   final String? category;
+  @override
+  final String? collectionName;
 
   @override
   String toString() {
-    return 'FoodMenuBlocEvent.getDataByCategory(category: $category)';
+    return 'FoodMenuBlocEvent.getDataByCategory(category: $category, collectionName: $collectionName)';
   }
 
   @override
@@ -227,11 +299,13 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
         (other.runtimeType == runtimeType &&
             other is _$GetDataByCategoryImpl &&
             (identical(other.category, category) ||
-                other.category == category));
+                other.category == category) &&
+            (identical(other.collectionName, collectionName) ||
+                other.collectionName == collectionName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, category);
+  int get hashCode => Object.hash(runtimeType, category, collectionName);
 
   @JsonKey(ignore: true)
   @override
@@ -243,30 +317,33 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getDataFromFirebase,
-    required TResult Function(String? category) getDataByCategory,
+    required TResult Function(String? collectionName) getDataFromFirebase,
+    required TResult Function(String? category, String? collectionName)
+        getDataByCategory,
   }) {
-    return getDataByCategory(category);
+    return getDataByCategory(category, collectionName);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getDataFromFirebase,
-    TResult? Function(String? category)? getDataByCategory,
+    TResult? Function(String? collectionName)? getDataFromFirebase,
+    TResult? Function(String? category, String? collectionName)?
+        getDataByCategory,
   }) {
-    return getDataByCategory?.call(category);
+    return getDataByCategory?.call(category, collectionName);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getDataFromFirebase,
-    TResult Function(String? category)? getDataByCategory,
+    TResult Function(String? collectionName)? getDataFromFirebase,
+    TResult Function(String? category, String? collectionName)?
+        getDataByCategory,
     required TResult orElse(),
   }) {
     if (getDataByCategory != null) {
-      return getDataByCategory(category);
+      return getDataByCategory(category, collectionName);
     }
     return orElse();
   }
@@ -304,10 +381,14 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
 }
 
 abstract class _GetDataByCategory implements FoodMenuBlocEvent {
-  const factory _GetDataByCategory(final String? category) =
+  const factory _GetDataByCategory(
+          final String? category, final String? collectionName) =
       _$GetDataByCategoryImpl;
 
   String? get category;
+  @override
+  String? get collectionName;
+  @override
   @JsonKey(ignore: true)
   _$$GetDataByCategoryImplCopyWith<_$GetDataByCategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
