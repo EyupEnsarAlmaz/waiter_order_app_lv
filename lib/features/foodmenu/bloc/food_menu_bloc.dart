@@ -19,8 +19,9 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       _GetDataFromFirebase event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodMenuStatus.loading));
-      var foodlist = await _foodservice.getFoodFromFirestore();
-      await Future.delayed(Duration(seconds: 1));
+      var foodlist = await _foodservice.getFoodFromFirestore(
+          colletionName: event.collectionName!);
+      await Future.delayed(Duration(milliseconds: 500));
       emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
@@ -31,8 +32,8 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       _GetDataByCategory event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodMenuStatus.loading));
-      var foodlist =
-          await _foodservice.getFoodByCategory(category: event.category!);
+      var foodlist = await _foodservice.getFoodByCategory(
+          category: event.category!, colletionName: event.collectionName!);
       await Future.delayed(Duration(seconds: 1));
       emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
     } catch (e) {

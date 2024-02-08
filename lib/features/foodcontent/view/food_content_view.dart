@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waiter_order_app_lv/core/custom/dialog/custom_dialog.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/navigation/navigation_service.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 
@@ -14,7 +16,6 @@ class FoodContentView extends StatelessWidget {
 
   final navigation = NavigationService.shared;
   final FoodModel foodModel;
-  String? choosenside;
 
   @override
   Widget build(BuildContext context) {
@@ -43,27 +44,54 @@ class FoodContentView extends StatelessWidget {
               ),
             ),
             BlocBuilder<TableBloc, TableState>(
-              builder: (context, state) {
+              builder: (context, tablestate) {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (foodModel.sides == true) {
-                          context.read<FoodMenuBloc>().add(
-                              FoodMenuBlocEvent.getDataByCategory("sides"));
-                          await _showAlertDialog(context, foodModel);
-                        }
+                    BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
+                      builder: (context, foodstate) {
+                        return ElevatedButton(
+                          onPressed: () async {
+                            if (foodModel.sides == true) {
+                              context.read<FoodMenuBloc>().add(
+                                  const FoodMenuBlocEvent.getDataFromFirebase(
+                                      "Side"));
+                              await CustomDialog.shared
+                                  .showAlertDialog<FoodModel?>(
+                                context: context,
+                                titleText: 'Choose Sides',
+                                onPressed: () {
+                                  print(CustomDialog.shared.choosenValue);
+                                  context.read<FoodBasketBloc>().add(
+                                      FoodBasketEvent.addBasketFood(
+                                          FoodModel(
+                                              foodImage: foodModel.foodImage,
+                                              choosenSide: CustomDialog
+                                                  .shared.choosenValue,
+                                              sides: foodModel.sides,
+                                              foodName: foodModel.foodName,
+                                              content: foodModel.content,
+                                              price: foodModel.price,
+                                              category: foodModel.category),
+                                          tablestate.tableNumber));
+                                },
+                                items: foodstate.foodList,
+                                getName: (FoodModel? foodModel) =>
+                                    foodModel?.sideModel?.sideName ?? "",
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(16.0),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 15.0,
+                          ),
+                        );
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(16.0),
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        size: 15.0,
-                      ),
                     ),
                     BlocBuilder<FoodBasketBloc, FoodBasketState>(
                       builder: (context, basketstate) {
@@ -79,7 +107,7 @@ class FoodContentView extends StatelessWidget {
                       onPressed: () {
                         context.read<FoodBasketBloc>().add(
                             FoodBasketEvent.removeBasketFood(
-                                foodModel, state.tableNumber));
+                                foodModel, tablestate.tableNumber));
                       },
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
@@ -145,11 +173,12 @@ class FoodContentView extends StatelessWidget {
                           width: context.width(0.15),
                           child: TextButton(
                             child: Text(
-                              state.foodList?[index].foodName ?? "",
+                              state.foodList?[index].sideModel?.sideName ?? "",
                               style: TextStyle(fontSize: 25),
                             ),
                             onPressed: () {
-                              choosenside = state.foodList?[index].foodName;
+                              /*  choosenside =
+                                  state.foodList?[index].sideModel?.sideName;
                               context.read<FoodBasketBloc>().add(
                                   FoodBasketEvent.addBasketFood(
                                       FoodModel(
@@ -160,7 +189,7 @@ class FoodContentView extends StatelessWidget {
                                           content: foodModel.content,
                                           price: foodModel.price,
                                           category: foodModel.category),
-                                      1));
+                                      1)); */
                               navigation.pop();
                             },
                           ),

@@ -38,8 +38,8 @@ class _FoodMenuViewState extends State<FoodMenuView> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              FoodMenuBloc()..add(FoodMenuBlocEvent.getDataFromFirebase()),
+          create: (context) => FoodMenuBloc()
+            ..add(FoodMenuBlocEvent.getDataFromFirebase("Food")),
         ),
       ],
       child: Scaffold(
@@ -249,27 +249,26 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                     case 0:
                       context
                           .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataFromFirebase());
+                          .add(FoodMenuBlocEvent.getDataFromFirebase("Food"));
                       break;
                     case 1:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataByCategory("Starter"));
+                      context.read<FoodMenuBloc>().add(
+                          FoodMenuBlocEvent.getDataByCategory(
+                              "Starter", "Food"));
                       break;
                     case 2:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataByCategory("Drinks"));
+                      context.read<FoodMenuBloc>().add(
+                          FoodMenuBlocEvent.getDataByCategory(
+                              "Drinks", "Food"));
                       break;
                     case 3:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataByCategory("Main"));
+                      context.read<FoodMenuBloc>().add(
+                          FoodMenuBlocEvent.getDataByCategory("Main", "Food"));
                       break;
                     case 4:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataByCategory("Dessert"));
+                      context.read<FoodMenuBloc>().add(
+                          FoodMenuBlocEvent.getDataByCategory(
+                              "Dessert", "Food"));
                       break;
                   }
 
