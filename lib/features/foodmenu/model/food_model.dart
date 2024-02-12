@@ -1,22 +1,25 @@
+import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 
- class FoodModel {
+class FoodModel {
   String? foodImage;
   String? foodName;
   String? content;
   String? choosenSide;
+  String? choosenSauce;
+  String? choosenCookStyle;
   bool? sides;
   bool? sauce;
   bool? howCook;
   int? price;
   String? category;
-  SideModel? sideModel;
   FoodModel({
     this.foodImage,
     this.sauce,
     this.howCook,
-    this.sideModel,
     this.choosenSide,
+    this.choosenSauce,
+    this.choosenCookStyle,
     this.sides,
     this.foodName,
     this.content,
@@ -34,7 +37,8 @@ import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
       sauce: map['sauce'] ?? false,
       howCook: map['howCook'] ?? false,
       choosenSide: map['choosenSide'] ?? '',
-      sideModel: SideModel.fromMap(map),
+      choosenCookStyle: map['choosenCookStyle'] ?? '',
+      choosenSauce: map['choosenSauce'] ?? '',
     );
   }
 }

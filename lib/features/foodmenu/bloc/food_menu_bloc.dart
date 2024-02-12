@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 
 part 'food_menu_event.dart';
 part 'food_menu_state.dart';
@@ -11,6 +13,8 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
   FoodMenuBloc() : super(const FoodMenuBlocState()) {
     on<_GetDataFromFirebase>(_getDataFromFirestore);
     on<_GetDataByCategory>(_getDataByCategory);
+    on<_GetSauceFromFirebase>(_getSauceFromFirebase);
+    on<_GetSideFromFirebase>(_getSideFromFirebase);
   }
 
   final _foodservice = FoodService.shared;
@@ -21,8 +25,33 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       emit(state.copyWith(status: FoodMenuStatus.loading));
       var foodlist = await _foodservice.getFoodFromFirestore(
           colletionName: event.collectionName!);
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(Duration(milliseconds: 200));
       emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+    } catch (e) {
+      emit(state.copyWith(status: FoodMenuStatus.failure));
+    }
+  }
+
+  Future<void> _getSauceFromFirebase(
+      _GetSauceFromFirebase event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodMenuStatus.loading));
+      var sauceList = await _foodservice.getSauceFromFirestore();
+      await Future.delayed(Duration(milliseconds: 200));
+      emit(
+          state.copyWith(status: FoodMenuStatus.success, sauceList: sauceList));
+    } catch (e) {
+      emit(state.copyWith(status: FoodMenuStatus.failure));
+    }
+  }
+
+  Future<void> _getSideFromFirebase(
+      _GetSideFromFirebase event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodMenuStatus.loading));
+      var sideList = await _foodservice.getSideFromFirestore();
+      await Future.delayed(Duration(milliseconds: 200));
+      emit(state.copyWith(status: FoodMenuStatus.success, sideList: sideList));
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
     }

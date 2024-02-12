@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 
 class FoodService {
   FoodService._();
@@ -17,6 +19,30 @@ class FoodService {
       foodList.add(food);
     }
     return foodList;
+  }
+
+  Future<List<SauceModel>?>? getSauceFromFirestore() async {
+    final List<SauceModel> sauceList = [];
+
+    var querySnapshot = await _firestore.collection("Sauce").get();
+
+    for (var document in querySnapshot.docs) {
+      var sauce = SauceModel.fromMap(document.data());
+      sauceList.add(sauce);
+    }
+    return sauceList;
+  }
+
+  Future<List<SideModel>?>? getSideFromFirestore() async {
+    final List<SideModel> sideList = [];
+
+    var querySnapshot = await _firestore.collection("Side").get();
+
+    for (var document in querySnapshot.docs) {
+      var sauce = SideModel.fromMap(document.data());
+      sideList.add(sauce);
+    }
+    return sideList;
   }
 
   Future<List<FoodModel>?>? getFoodByCategory(

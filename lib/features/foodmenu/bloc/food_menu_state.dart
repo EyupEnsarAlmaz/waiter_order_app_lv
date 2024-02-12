@@ -17,5 +17,7 @@ class FoodMenuBlocState with _$FoodMenuBlocState {
   const factory FoodMenuBlocState({
     @Default(FoodMenuStatus.initial) FoodMenuStatus status,
     List<FoodModel>? foodList,
+    List<SauceModel>? sauceList,
+    List<SideModel>? sideList,
   }) = _RegisterBlocState;
 }
