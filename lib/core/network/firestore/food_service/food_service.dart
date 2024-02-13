@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 
@@ -31,6 +32,44 @@ class FoodService {
       sauceList.add(sauce);
     }
     return sauceList;
+  }
+
+  Future<List?>? getSidesFromFirestore() async {
+    final List<SauceModel> sauceList = [];
+    final List<SideModel> sideList = [];
+    final List<HowCookModel> howCookList = [];
+
+    List<QuerySnapshot> results = await Future.wait([
+      FirebaseFirestore.instance.collection('Sauce').get(),
+      FirebaseFirestore.instance.collection('Side').get(),
+      FirebaseFirestore.instance.collection('CookStyle').get(),
+    ]);
+
+    try {
+      if (results.isNotEmpty) {
+        for (QuerySnapshot result in results) {
+          if (result.docs.isNotEmpty) {
+            for (QueryDocumentSnapshot doc in result.docs) {
+              if (doc.exists) {
+                final Map<String, dynamic> data =
+                    doc.data() as Map<String, dynamic>;
+                if (result == results[0]) {
+                  sauceList.add(SauceModel.fromMap(data));
+                } else if (result == results[1]) {
+                  sideList.add(SideModel.fromMap(data));
+                } else if (result == results[2]) {
+                  howCookList.add(HowCookModel.fromMap(data));
+                }
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      print("Hata oluştu: $e");
+      return null;
+    }
+    return [sauceList, sideList, howCookList];
   }
 
   Future<List<SideModel>?>? getSideFromFirestore() async {

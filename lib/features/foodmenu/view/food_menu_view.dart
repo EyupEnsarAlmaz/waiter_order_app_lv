@@ -206,7 +206,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                       foodName: 'dashline',
                                       price: 0,
                                       content: '',
-                                      sides: false,
+                                      side: false,
                                       choosenSide: '',
                                     ),
                                     context

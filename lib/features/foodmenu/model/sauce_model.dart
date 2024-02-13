@@ -1,4 +1,6 @@
-class SauceModel {
+import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+
+class SauceModel extends FoodModel{
   int? saucePrice;
   String? sauceName;
   SauceModel({

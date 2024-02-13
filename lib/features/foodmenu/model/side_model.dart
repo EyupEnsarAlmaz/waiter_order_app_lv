@@ -1,4 +1,6 @@
-class SideModel {
+import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+
+class SideModel extends FoodModel {
   int? sidePrice;
   String? sideName;
   SideModel({
@@ -8,7 +10,7 @@ class SideModel {
   factory SideModel.fromMap(Map<String, dynamic> map) {
     return SideModel(
       sideName: map['sideName'] ?? '',
-      sidePrice: map['price']?.toInt() ?? 0,
+      sidePrice: map['sidePrice']?.toInt() ?? 0,
     );
   }
 }
