@@ -13,7 +13,7 @@ class CustomDialog {
   final navigation = NavigationService.shared;
   Future<void> showAlertDialog<T>(
       {required BuildContext context,
-      required List<T>? items,
+      required List<dynamic>? items,
       required String? Function(T?) getName,
       required String titleText,
       required void Function()? onPressed}) async {

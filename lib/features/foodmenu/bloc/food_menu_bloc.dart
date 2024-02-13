@@ -13,7 +13,6 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
   FoodMenuBloc() : super(const FoodMenuBlocState()) {
     on<_GetDataFromFirebase>(_getDataFromFirestore);
     on<_GetDataByCategory>(_getDataByCategory);
-    on<_GetSauceFromFirebase>(_getSauceFromFirebase);
     on<_GetSideFromFirebase>(_getSideFromFirebase);
   }
 
@@ -32,26 +31,19 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
     }
   }
 
-  Future<void> _getSauceFromFirebase(
-      _GetSauceFromFirebase event, Emitter emit) async {
-    try {
-      emit(state.copyWith(status: FoodMenuStatus.loading));
-      var sauceList = await _foodservice.getSauceFromFirestore();
-      await Future.delayed(Duration(milliseconds: 200));
-      emit(
-          state.copyWith(status: FoodMenuStatus.success, sauceList: sauceList));
-    } catch (e) {
-      emit(state.copyWith(status: FoodMenuStatus.failure));
-    }
-  }
-
   Future<void> _getSideFromFirebase(
       _GetSideFromFirebase event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodMenuStatus.loading));
-      var sideList = await _foodservice.getSideFromFirestore();
-      await Future.delayed(Duration(milliseconds: 200));
-      emit(state.copyWith(status: FoodMenuStatus.success, sideList: sideList));
+      var list = await _foodservice.getSidesFromFirestore();
+      var sauceList = list?[0];
+      var sideList = list?[1];
+      var howcookList = list?[2];
+      emit(state.copyWith(
+          status: FoodMenuStatus.success,
+          sauceList: sauceList,
+          howcookList: howcookList,
+          sideList: sideList));
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
     }

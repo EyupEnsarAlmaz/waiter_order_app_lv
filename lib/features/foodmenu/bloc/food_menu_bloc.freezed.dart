@@ -19,7 +19,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? collectionName) getDataFromFirebase,
-    required TResult Function() getSauceFromFirebase,
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
@@ -28,7 +27,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? collectionName)? getDataFromFirebase,
-    TResult? Function()? getSauceFromFirebase,
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -37,7 +35,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? collectionName)? getDataFromFirebase,
-    TResult Function()? getSauceFromFirebase,
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -47,7 +44,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
-    required TResult Function(_GetSauceFromFirebase value) getSauceFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
   }) =>
@@ -55,7 +51,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult? Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
   }) =>
@@ -63,7 +58,6 @@ mixin _$FoodMenuBlocEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
     required TResult orElse(),
@@ -156,7 +150,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? collectionName) getDataFromFirebase,
-    required TResult Function() getSauceFromFirebase,
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
@@ -168,7 +161,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? collectionName)? getDataFromFirebase,
-    TResult? Function()? getSauceFromFirebase,
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -180,7 +172,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? collectionName)? getDataFromFirebase,
-    TResult Function()? getSauceFromFirebase,
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -196,7 +187,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
-    required TResult Function(_GetSauceFromFirebase value) getSauceFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
   }) {
@@ -207,7 +197,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult? Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
   }) {
@@ -218,7 +207,6 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
     required TResult orElse(),
@@ -238,124 +226,6 @@ abstract class _GetDataFromFirebase implements FoodMenuBlocEvent {
   @JsonKey(ignore: true)
   _$$GetDataFromFirebaseImplCopyWith<_$GetDataFromFirebaseImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$GetSauceFromFirebaseImplCopyWith<$Res> {
-  factory _$$GetSauceFromFirebaseImplCopyWith(_$GetSauceFromFirebaseImpl value,
-          $Res Function(_$GetSauceFromFirebaseImpl) then) =
-      __$$GetSauceFromFirebaseImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetSauceFromFirebaseImplCopyWithImpl<$Res>
-    extends _$FoodMenuBlocEventCopyWithImpl<$Res, _$GetSauceFromFirebaseImpl>
-    implements _$$GetSauceFromFirebaseImplCopyWith<$Res> {
-  __$$GetSauceFromFirebaseImplCopyWithImpl(_$GetSauceFromFirebaseImpl _value,
-      $Res Function(_$GetSauceFromFirebaseImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$GetSauceFromFirebaseImpl implements _GetSauceFromFirebase {
-  const _$GetSauceFromFirebaseImpl();
-
-  @override
-  String toString() {
-    return 'FoodMenuBlocEvent.getSauceFromFirebase()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetSauceFromFirebaseImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String? collectionName) getDataFromFirebase,
-    required TResult Function() getSauceFromFirebase,
-    required TResult Function() getSideFromFirebase,
-    required TResult Function(String? category, String? collectionName)
-        getDataByCategory,
-  }) {
-    return getSauceFromFirebase();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? collectionName)? getDataFromFirebase,
-    TResult? Function()? getSauceFromFirebase,
-    TResult? Function()? getSideFromFirebase,
-    TResult? Function(String? category, String? collectionName)?
-        getDataByCategory,
-  }) {
-    return getSauceFromFirebase?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? collectionName)? getDataFromFirebase,
-    TResult Function()? getSauceFromFirebase,
-    TResult Function()? getSideFromFirebase,
-    TResult Function(String? category, String? collectionName)?
-        getDataByCategory,
-    required TResult orElse(),
-  }) {
-    if (getSauceFromFirebase != null) {
-      return getSauceFromFirebase();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
-    required TResult Function(_GetSauceFromFirebase value) getSauceFromFirebase,
-    required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
-    required TResult Function(_GetDataByCategory value) getDataByCategory,
-  }) {
-    return getSauceFromFirebase(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult? Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
-    TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
-    TResult? Function(_GetDataByCategory value)? getDataByCategory,
-  }) {
-    return getSauceFromFirebase?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
-    TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
-    TResult Function(_GetDataByCategory value)? getDataByCategory,
-    required TResult orElse(),
-  }) {
-    if (getSauceFromFirebase != null) {
-      return getSauceFromFirebase(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _GetSauceFromFirebase implements FoodMenuBlocEvent {
-  const factory _GetSauceFromFirebase() = _$GetSauceFromFirebaseImpl;
 }
 
 /// @nodoc
@@ -398,7 +268,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? collectionName) getDataFromFirebase,
-    required TResult Function() getSauceFromFirebase,
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
@@ -410,7 +279,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? collectionName)? getDataFromFirebase,
-    TResult? Function()? getSauceFromFirebase,
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -422,7 +290,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? collectionName)? getDataFromFirebase,
-    TResult Function()? getSauceFromFirebase,
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -438,7 +305,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
-    required TResult Function(_GetSauceFromFirebase value) getSauceFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
   }) {
@@ -449,7 +315,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult? Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
   }) {
@@ -460,7 +325,6 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
     required TResult orElse(),
@@ -552,7 +416,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? collectionName) getDataFromFirebase,
-    required TResult Function() getSauceFromFirebase,
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
@@ -564,7 +427,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? collectionName)? getDataFromFirebase,
-    TResult? Function()? getSauceFromFirebase,
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -576,7 +438,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? collectionName)? getDataFromFirebase,
-    TResult Function()? getSauceFromFirebase,
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
@@ -592,7 +453,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
-    required TResult Function(_GetSauceFromFirebase value) getSauceFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
   }) {
@@ -603,7 +463,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult? Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
   }) {
@@ -614,7 +473,6 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
-    TResult Function(_GetSauceFromFirebase value)? getSauceFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
     required TResult orElse(),
@@ -642,8 +500,9 @@ abstract class _GetDataByCategory implements FoodMenuBlocEvent {
 mixin _$FoodMenuBlocState {
   FoodMenuStatus get status => throw _privateConstructorUsedError;
   List<FoodModel>? get foodList => throw _privateConstructorUsedError;
-  List<SauceModel>? get sauceList => throw _privateConstructorUsedError;
-  List<SideModel>? get sideList => throw _privateConstructorUsedError;
+  List<dynamic>? get sauceList => throw _privateConstructorUsedError;
+  List<dynamic>? get sideList => throw _privateConstructorUsedError;
+  List<dynamic>? get howcookList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodMenuBlocStateCopyWith<FoodMenuBlocState> get copyWith =>
@@ -659,8 +518,9 @@ abstract class $FoodMenuBlocStateCopyWith<$Res> {
   $Res call(
       {FoodMenuStatus status,
       List<FoodModel>? foodList,
-      List<SauceModel>? sauceList,
-      List<SideModel>? sideList});
+      List<dynamic>? sauceList,
+      List<dynamic>? sideList,
+      List<dynamic>? howcookList});
 }
 
 /// @nodoc
@@ -680,6 +540,7 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
     Object? foodList = freezed,
     Object? sauceList = freezed,
     Object? sideList = freezed,
+    Object? howcookList = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -693,11 +554,15 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
       sauceList: freezed == sauceList
           ? _value.sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
-              as List<SauceModel>?,
+              as List<dynamic>?,
       sideList: freezed == sideList
           ? _value.sideList
           : sideList // ignore: cast_nullable_to_non_nullable
-              as List<SideModel>?,
+              as List<dynamic>?,
+      howcookList: freezed == howcookList
+          ? _value.howcookList
+          : howcookList // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
     ) as $Val);
   }
 }
@@ -713,8 +578,9 @@ abstract class _$$RegisterBlocStateImplCopyWith<$Res>
   $Res call(
       {FoodMenuStatus status,
       List<FoodModel>? foodList,
-      List<SauceModel>? sauceList,
-      List<SideModel>? sideList});
+      List<dynamic>? sauceList,
+      List<dynamic>? sideList,
+      List<dynamic>? howcookList});
 }
 
 /// @nodoc
@@ -732,6 +598,7 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
     Object? foodList = freezed,
     Object? sauceList = freezed,
     Object? sideList = freezed,
+    Object? howcookList = freezed,
   }) {
     return _then(_$RegisterBlocStateImpl(
       status: null == status
@@ -745,11 +612,15 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
       sauceList: freezed == sauceList
           ? _value._sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
-              as List<SauceModel>?,
+              as List<dynamic>?,
       sideList: freezed == sideList
           ? _value._sideList
           : sideList // ignore: cast_nullable_to_non_nullable
-              as List<SideModel>?,
+              as List<dynamic>?,
+      howcookList: freezed == howcookList
+          ? _value._howcookList
+          : howcookList // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
     ));
   }
 }
@@ -760,11 +631,13 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
   const _$RegisterBlocStateImpl(
       {this.status = FoodMenuStatus.initial,
       final List<FoodModel>? foodList,
-      final List<SauceModel>? sauceList,
-      final List<SideModel>? sideList})
+      final List<dynamic>? sauceList,
+      final List<dynamic>? sideList,
+      final List<dynamic>? howcookList})
       : _foodList = foodList,
         _sauceList = sauceList,
-        _sideList = sideList;
+        _sideList = sideList,
+        _howcookList = howcookList;
 
   @override
   @JsonKey()
@@ -779,9 +652,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<SauceModel>? _sauceList;
+  final List<dynamic>? _sauceList;
   @override
-  List<SauceModel>? get sauceList {
+  List<dynamic>? get sauceList {
     final value = _sauceList;
     if (value == null) return null;
     if (_sauceList is EqualUnmodifiableListView) return _sauceList;
@@ -789,9 +662,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<SideModel>? _sideList;
+  final List<dynamic>? _sideList;
   @override
-  List<SideModel>? get sideList {
+  List<dynamic>? get sideList {
     final value = _sideList;
     if (value == null) return null;
     if (_sideList is EqualUnmodifiableListView) return _sideList;
@@ -799,9 +672,19 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<dynamic>? _howcookList;
+  @override
+  List<dynamic>? get howcookList {
+    final value = _howcookList;
+    if (value == null) return null;
+    if (_howcookList is EqualUnmodifiableListView) return _howcookList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'FoodMenuBlocState(status: $status, foodList: $foodList, sauceList: $sauceList, sideList: $sideList)';
+    return 'FoodMenuBlocState(status: $status, foodList: $foodList, sauceList: $sauceList, sideList: $sideList, howcookList: $howcookList)';
   }
 
   @override
@@ -813,7 +696,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
             const DeepCollectionEquality().equals(other._foodList, _foodList) &&
             const DeepCollectionEquality()
                 .equals(other._sauceList, _sauceList) &&
-            const DeepCollectionEquality().equals(other._sideList, _sideList));
+            const DeepCollectionEquality().equals(other._sideList, _sideList) &&
+            const DeepCollectionEquality()
+                .equals(other._howcookList, _howcookList));
   }
 
   @override
@@ -822,7 +707,8 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
       status,
       const DeepCollectionEquality().hash(_foodList),
       const DeepCollectionEquality().hash(_sauceList),
-      const DeepCollectionEquality().hash(_sideList));
+      const DeepCollectionEquality().hash(_sideList),
+      const DeepCollectionEquality().hash(_howcookList));
 
   @JsonKey(ignore: true)
   @override
@@ -836,17 +722,20 @@ abstract class _RegisterBlocState implements FoodMenuBlocState {
   const factory _RegisterBlocState(
       {final FoodMenuStatus status,
       final List<FoodModel>? foodList,
-      final List<SauceModel>? sauceList,
-      final List<SideModel>? sideList}) = _$RegisterBlocStateImpl;
+      final List<dynamic>? sauceList,
+      final List<dynamic>? sideList,
+      final List<dynamic>? howcookList}) = _$RegisterBlocStateImpl;
 
   @override
   FoodMenuStatus get status;
   @override
   List<FoodModel>? get foodList;
   @override
-  List<SauceModel>? get sauceList;
+  List<dynamic>? get sauceList;
   @override
-  List<SideModel>? get sideList;
+  List<dynamic>? get sideList;
+  @override
+  List<dynamic>? get howcookList;
   @override
   @JsonKey(ignore: true)
   _$$RegisterBlocStateImplCopyWith<_$RegisterBlocStateImpl> get copyWith =>
