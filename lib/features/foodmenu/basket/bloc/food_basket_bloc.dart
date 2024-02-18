@@ -14,6 +14,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     on<_RemoveBasketFood>(_removeBasketFood);
     on<_RemoveAllFood>(_removeAllFood);
     on<_AddNotes>(_addNoteText);
+    on<_UpdateBasketFood>(_updateBasketFood);
   }
 
   Map<int, List<FoodModel>> basketMap = {};
@@ -38,6 +39,42 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
             basketMap: basketMap,
             tableNumber: event.tableNumber));
       }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  Future<void> _updateBasketFood(_UpdateBasketFood event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodBasketStatus.loading));
+      FoodModel updatedFood = event.food!;
+      String foodName = updatedFood.foodName!;
+
+      for (var foodItem in basketMap[event.tableNumber!]!) {
+        if (foodItem.foodName == foodName) {
+          if (updatedFood.choosenCookStyle != null) {
+            foodItem.choosenCookStyle = updatedFood.choosenCookStyle;
+          }
+          if (updatedFood.choosenSide != null) {
+            foodItem.choosenSide = updatedFood.choosenSide;
+          }
+          if (updatedFood.choosenSauce != null) {
+            foodItem.choosenSauce = updatedFood.choosenSauce;
+          }
+        }
+      }
+
+      int? itemCount = basketMap[event.tableNumber]
+          ?.where((item) => item.foodName == foodName)
+          .length;
+
+      itemCountMap![foodName] = itemCount!;
+
+      emit(state.copyWith(
+          itemCountMap: itemCountMap,
+          status: FoodBasketStatus.success,
+          basketMap: basketMap,
+          tableNumber: event.tableNumber));
     } catch (error) {
       print('Error: $error');
     }

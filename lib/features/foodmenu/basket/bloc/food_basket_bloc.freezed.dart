@@ -20,6 +20,8 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
     required TResult Function(FoodModel? food, int? tableNumber)
         removeBasketFood,
@@ -31,6 +33,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -40,6 +43,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -50,6 +54,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_RemoveBasketFood value) removeBasketFood,
     required TResult Function(_RemoveAllFood value) removeAllFood,
@@ -58,6 +63,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_RemoveBasketFood value)? removeBasketFood,
     TResult? Function(_RemoveAllFood value)? removeAllFood,
@@ -66,6 +72,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_RemoveBasketFood value)? removeBasketFood,
     TResult Function(_RemoveAllFood value)? removeAllFood,
@@ -187,6 +194,8 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
     required TResult Function(FoodModel? food, int? tableNumber)
         removeBasketFood,
@@ -201,6 +210,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -213,6 +223,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -229,6 +240,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_RemoveBasketFood value) removeBasketFood,
     required TResult Function(_RemoveAllFood value) removeAllFood,
@@ -240,6 +252,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_RemoveBasketFood value)? removeBasketFood,
     TResult? Function(_RemoveAllFood value)? removeAllFood,
@@ -251,6 +264,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_RemoveBasketFood value)? removeBasketFood,
     TResult Function(_RemoveAllFood value)? removeAllFood,
@@ -273,6 +287,179 @@ abstract class _AddBasketFood implements FoodBasketEvent {
   @override
   @JsonKey(ignore: true)
   _$$AddBasketFoodImplCopyWith<_$AddBasketFoodImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateBasketFoodImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
+  factory _$$UpdateBasketFoodImplCopyWith(_$UpdateBasketFoodImpl value,
+          $Res Function(_$UpdateBasketFoodImpl) then) =
+      __$$UpdateBasketFoodImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({FoodModel? food, int? tableNumber});
+}
+
+/// @nodoc
+class __$$UpdateBasketFoodImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$UpdateBasketFoodImpl>
+    implements _$$UpdateBasketFoodImplCopyWith<$Res> {
+  __$$UpdateBasketFoodImplCopyWithImpl(_$UpdateBasketFoodImpl _value,
+      $Res Function(_$UpdateBasketFoodImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? food = freezed,
+    Object? tableNumber = freezed,
+  }) {
+    return _then(_$UpdateBasketFoodImpl(
+      freezed == food
+          ? _value.food
+          : food // ignore: cast_nullable_to_non_nullable
+              as FoodModel?,
+      freezed == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
+  const _$UpdateBasketFoodImpl(this.food, this.tableNumber);
+
+  @override
+  final FoodModel? food;
+  @override
+  final int? tableNumber;
+
+  @override
+  String toString() {
+    return 'FoodBasketEvent.updateBasketFood(food: $food, tableNumber: $tableNumber)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateBasketFoodImpl &&
+            (identical(other.food, food) || other.food == food) &&
+            (identical(other.tableNumber, tableNumber) ||
+                other.tableNumber == tableNumber));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, food, tableNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateBasketFoodImplCopyWith<_$UpdateBasketFoodImpl> get copyWith =>
+      __$$UpdateBasketFoodImplCopyWithImpl<_$UpdateBasketFoodImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
+    required TResult Function(String? noteText, int? tableNumber) addNotes,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        removeBasketFood,
+    required TResult Function(
+            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
+        removeAllFood,
+  }) {
+    return updateBasketFood(food, tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(String? noteText, int? tableNumber)? addNotes,
+    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
+    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
+        removeAllFood,
+  }) {
+    return updateBasketFood?.call(food, tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(String? noteText, int? tableNumber)? addNotes,
+    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
+    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
+        removeAllFood,
+    required TResult orElse(),
+  }) {
+    if (updateBasketFood != null) {
+      return updateBasketFood(food, tableNumber);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddNotes value) addNotes,
+    required TResult Function(_RemoveBasketFood value) removeBasketFood,
+    required TResult Function(_RemoveAllFood value) removeAllFood,
+  }) {
+    return updateBasketFood(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddNotes value)? addNotes,
+    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
+    TResult? Function(_RemoveAllFood value)? removeAllFood,
+  }) {
+    return updateBasketFood?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddNotes value)? addNotes,
+    TResult Function(_RemoveBasketFood value)? removeBasketFood,
+    TResult Function(_RemoveAllFood value)? removeAllFood,
+    required TResult orElse(),
+  }) {
+    if (updateBasketFood != null) {
+      return updateBasketFood(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateBasketFood implements FoodBasketEvent {
+  const factory _UpdateBasketFood(
+      final FoodModel? food, final int? tableNumber) = _$UpdateBasketFoodImpl;
+
+  FoodModel? get food;
+  @override
+  int? get tableNumber;
+  @override
+  @JsonKey(ignore: true)
+  _$$UpdateBasketFoodImplCopyWith<_$UpdateBasketFoodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -353,6 +540,8 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
     required TResult Function(FoodModel? food, int? tableNumber)
         removeBasketFood,
@@ -367,6 +556,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -379,6 +569,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -395,6 +586,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_RemoveBasketFood value) removeBasketFood,
     required TResult Function(_RemoveAllFood value) removeAllFood,
@@ -406,6 +598,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_RemoveBasketFood value)? removeBasketFood,
     TResult? Function(_RemoveAllFood value)? removeAllFood,
@@ -417,6 +610,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_RemoveBasketFood value)? removeBasketFood,
     TResult Function(_RemoveAllFood value)? removeAllFood,
@@ -519,6 +713,8 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
     required TResult Function(FoodModel? food, int? tableNumber)
         removeBasketFood,
@@ -533,6 +729,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -545,6 +742,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -561,6 +759,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_RemoveBasketFood value) removeBasketFood,
     required TResult Function(_RemoveAllFood value) removeAllFood,
@@ -572,6 +771,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_RemoveBasketFood value)? removeBasketFood,
     TResult? Function(_RemoveAllFood value)? removeAllFood,
@@ -583,6 +783,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_RemoveBasketFood value)? removeBasketFood,
     TResult Function(_RemoveAllFood value)? removeAllFood,
@@ -696,6 +897,8 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
     required TResult Function(FoodModel? food, int? tableNumber)
         removeBasketFood,
@@ -710,6 +913,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -722,6 +926,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
     TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
@@ -738,6 +943,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_RemoveBasketFood value) removeBasketFood,
     required TResult Function(_RemoveAllFood value) removeAllFood,
@@ -749,6 +955,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_RemoveBasketFood value)? removeBasketFood,
     TResult? Function(_RemoveAllFood value)? removeAllFood,
@@ -760,6 +967,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_RemoveBasketFood value)? removeBasketFood,
     TResult Function(_RemoveAllFood value)? removeAllFood,
