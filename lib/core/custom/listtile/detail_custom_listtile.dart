@@ -6,14 +6,24 @@ class CustomDetailListtile extends StatelessWidget {
   final Widget image;
   final String foodName;
   final String price;
-  final Widget? choosenSide;
+  final String? choosenSide;
+  final String? choosenSauce;
+  final String? choosenHowCook;
   final Function()? onTapAdd;
+  final Function()? onChangeSide;
+  final Function()? onchangeSauce;
+  final Function()? onChangeCookStyle;
   final Function()? foodContent;
   final Function()? onTapRemove;
 
   CustomDetailListtile({
     required this.foodName,
     required this.choosenSide,
+    required this.choosenSauce,
+    required this.onChangeSide,
+    required this.onchangeSauce,
+    required this.onChangeCookStyle,
+    required this.choosenHowCook,
     required this.image,
     required this.onTapAdd,
     required this.foodContent,
@@ -23,16 +33,28 @@ class CustomDetailListtile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool hasCookStyle = choosenHowCook != null;
+    bool hasSauce = choosenSauce != null;
+    bool hasSide = choosenSide != null;
+    double containerHeight = context.height(0.15);
+    if (hasCookStyle && hasSauce && hasSide) {
+      containerHeight = context.height(0.20);
+    } else if (hasSauce && hasSide) {
+      containerHeight = context.height(0.16);
+    } else if (hasSide) {
+      containerHeight = context.height(0.15);
+    }
+
     return Container(
-      width: context.width(0.88),
-      height: context.height(0.15),
+      width: context.width(0.95),
+      height: containerHeight,
       child: Row(
         children: <Widget>[
           ClipRRect(
             borderRadius:
                 BorderRadius.circular(context.height(0.02)), // Image border
             child: SizedBox.fromSize(
-              size: Size(context.width(0.35), context.height(0.2)),
+              size: Size(context.width(0.35), context.height(0.20)),
               child: image,
             ),
           ),
@@ -76,10 +98,62 @@ class CustomDetailListtile extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
+                Column(
                   children: [
-                    context.sizedboxWidth(0.12),
-                    choosenSide!,
+                    Container(
+                      height: hasSide ? 30 : 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            choosenSide ?? "",
+                            style: TextStyle(fontSize: hasSide ? 20 : 0),
+                          ),
+                          hasSide
+                              ? IconButton(
+                                  onPressed: onChangeSide,
+                                  icon: Icon(Icons.change_circle))
+                              : SizedBox(),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: hasSauce ? 30 : 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            choosenSauce ?? "",
+                            style: TextStyle(fontSize: hasSauce ? 20 : 0),
+                          ),
+                          hasSauce
+                              ? IconButton(
+                                  onPressed: onchangeSauce,
+                                  icon: Icon(Icons.change_circle))
+                              : SizedBox(),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: hasCookStyle ? 30 : 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            choosenHowCook ?? "",
+                            style: TextStyle(fontSize: hasCookStyle ? 20 : 0),
+                          ),
+                          hasCookStyle
+                              ? IconButton(
+                                  onPressed: onChangeCookStyle,
+                                  icon: Icon(Icons.change_circle))
+                              : SizedBox(),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ],

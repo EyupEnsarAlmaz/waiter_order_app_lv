@@ -16,7 +16,7 @@ import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 class FoodContentView extends StatefulWidget {
   FoodContentView({super.key, required this.foodModel});
 
-  final FoodModel foodModel;
+  FoodModel foodModel;
 
   @override
   State<FoodContentView> createState() => _FoodContentViewState();
@@ -72,94 +72,11 @@ class _FoodContentViewState extends State<FoodContentView> {
                       builder: (context, foodstate) {
                         return ElevatedButton(
                           onPressed: () async {
-                            if (widget.foodModel.side == true) {
-                              await CustomDialog.shared
-                                  .showAlertDialog<SideModel?>(
+                            showDialogs(
                                 context: context,
-                                titleText: 'Choose Sides',
-                                onPressed: () {
-                                  choosenSide =
-                                      CustomDialog.shared.choosenValue;
-                                  print(choosenSide);
-                                  context.read<FoodBasketBloc>().add(
-                                      FoodBasketEvent.addBasketFood(
-                                          FoodModel(
-                                              foodImage:
-                                                  widget.foodModel.foodImage,
-                                              choosenSide: choosenSide,
-                                              side: widget.foodModel.side,
-                                              foodName:
-                                                  widget.foodModel.foodName,
-                                              content: widget.foodModel.content,
-                                              price: widget.foodModel.price,
-                                              category:
-                                                  widget.foodModel.category),
-                                          tablestate.tableNumber));
-                                },
-                                items: foodstate.sideList,
-                                getName: (SideModel? sideModel) =>
-                                    sideModel?.sideName ?? "",
-                              );
-                            }
-                            if (widget.foodModel.side == true &&
-                                widget.foodModel.sauce == true &&
-                                widget.foodModel.howCook == true) {
-                              await CustomDialog.shared
-                                  .showAlertDialog<HowCookModel?>(
-                                context: context,
-                                titleText: 'Choose HowCook',
-                                onPressed: () {
-                                  choosenHowCook =
-                                      CustomDialog.shared.choosenValue;
-                                  print(choosenHowCook);
-                                },
-                                items: foodstate.howcookList,
-                                getName: (HowCookModel? howCookModel) =>
-                                    howCookModel?.cookStyle ?? "",
-                              );
-                              await CustomDialog.shared
-                                  .showAlertDialog<SauceModel?>(
-                                context: context,
-                                titleText: 'Choose sauce',
-                                onPressed: () {
-                                  choosenSauce =
-                                      CustomDialog.shared.choosenValue;
-                                  print(choosenSauce);
-                                },
-                                items: foodstate.sauceList,
-                                getName: (SauceModel? sauceModel) =>
-                                    sauceModel?.sauceName ?? "",
-                              );
-                              await CustomDialog.shared
-                                  .showAlertDialog<SideModel?>(
-                                context: context,
-                                titleText: 'Choose Sides',
-                                onPressed: () {
-                                  choosenSide =
-                                      CustomDialog.shared.choosenValue;
-                                  print(choosenSide);
-                                  context.read<FoodBasketBloc>().add(
-                                      FoodBasketEvent.addBasketFood(
-                                          FoodModel(
-                                              choosenCookStyle: choosenHowCook,
-                                              choosenSauce: choosenSauce,
-                                              foodImage:
-                                                  widget.foodModel.foodImage,
-                                              choosenSide: choosenSide,
-                                              side: widget.foodModel.side,
-                                              foodName:
-                                                  widget.foodModel.foodName,
-                                              content: widget.foodModel.content,
-                                              price: widget.foodModel.price,
-                                              category:
-                                                  widget.foodModel.category),
-                                          tablestate.tableNumber));
-                                },
-                                items: foodstate.sideList,
-                                getName: (SideModel? sideModel) =>
-                                    sideModel?.sideName ?? "",
-                              );
-                            }
+                                foodModel: widget.foodModel,
+                                foodstate: foodstate,
+                                tableState: tablestate);
                           },
                           style: ElevatedButton.styleFrom(
                             shape: CircleBorder(),
@@ -182,20 +99,24 @@ class _FoodContentViewState extends State<FoodContentView> {
                         );
                       },
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<FoodBasketBloc>().add(
-                            FoodBasketEvent.removeBasketFood(
-                                widget.foodModel, tablestate.tableNumber));
+                    BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                      builder: (context, foodbasket) {
+                        return ElevatedButton(
+                          onPressed: () {
+                            context.read<FoodBasketBloc>().add(
+                                FoodBasketEvent.removeBasketFood(
+                                    widget.foodModel, tablestate.tableNumber));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(16.0),
+                          ),
+                          child: Icon(
+                            Icons.remove,
+                            size: 15.0,
+                          ),
+                        );
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(16.0),
-                      ),
-                      child: Icon(
-                        Icons.remove,
-                        size: 15.0,
-                      ),
                     ),
                   ],
                 );
@@ -232,47 +153,90 @@ class _FoodContentViewState extends State<FoodContentView> {
   }
 }
 
-Future<void> showDialogs(
-  BuildContext context,
-  FoodModel foodModel,
-  FoodMenuBlocState foodstate,
-) async {
-  SauceModel? choosenSauce;
-  SideModel? choosenSide;
-  HowCookModel? choosenHowCook;
+Future<void> showDialogs({
+  required BuildContext context,
+  required FoodModel foodModel,
+  required FoodMenuBlocState foodstate,
+  required TableState tableState,
+}) async {
+  String? choosenSauce;
+  String? choosenSide;
+  String? choosenHowCook;
 
-  // Sauce seçeneği varsa
-  if (foodModel.sauce == true) {
+  if (foodModel.sauce == true &&
+      foodModel.side == true &&
+      foodModel.howCook == true) {
     await CustomDialog.shared.showAlertDialog<SauceModel?>(
       context: context,
       titleText: 'Choose Sauce Please',
       items: foodstate.sauceList,
       getName: (SauceModel? sauceModel) => sauceModel?.sauceName ?? "",
-      onPressed: () {},
+      onPressed: () {
+        choosenSauce = CustomDialog.shared.choosenValue;
+      },
     );
-  }
-
-  // Side seçeneği varsa
-  if (foodModel.side == true) {
     await CustomDialog.shared.showAlertDialog<SideModel?>(
       context: context,
-      titleText: 'Choose Side',
+      titleText: 'Choose Side Please',
       items: foodstate.sideList,
       getName: (SideModel? sideModel) => sideModel?.sideName ?? "",
-      onPressed: () {},
+      onPressed: () {
+        choosenSide = CustomDialog.shared.choosenValue;
+      },
     );
-  }
-
-  // HowCook seçeneği varsa
-  if (foodModel.howCook == true) {
     await CustomDialog.shared.showAlertDialog<HowCookModel?>(
       context: context,
-      titleText: 'Choose HowCook',
+      titleText: 'Choose HowCook Please',
       items: foodstate.howcookList,
       getName: (HowCookModel? howCookModel) => howCookModel?.cookStyle ?? "",
-      onPressed: () {},
+      onPressed: () {
+        choosenHowCook = CustomDialog.shared.choosenValue;
+        context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+            FoodModel(
+                choosenCookStyle: choosenHowCook,
+                choosenSauce: choosenSauce,
+                choosenSide: choosenSide,
+                foodImage: foodModel.foodImage,
+                side: foodModel.side,
+                foodName: foodModel.foodName,
+                content: foodModel.content,
+                price: foodModel.price,
+                category: foodModel.category),
+            tableState.tableNumber));
+      },
     );
+  } else if (foodModel.side == true) {
+    await CustomDialog.shared.showAlertDialog<SideModel?>(
+      context: context,
+      titleText: 'Choose Side Pleases',
+      items: foodstate.sideList,
+      getName: (SideModel? sideModel) => sideModel?.sideName ?? "",
+      onPressed: () {
+        choosenSide = CustomDialog.shared.choosenValue;
+        print(choosenSide);
+        print(choosenHowCook);
+        print(choosenSauce);
+        context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+            FoodModel(
+                choosenSide: choosenSide,
+                foodImage: foodModel.foodImage,
+                side: foodModel.side,
+                foodName: foodModel.foodName,
+                content: foodModel.content,
+                price: foodModel.price,
+                category: foodModel.category),
+            tableState.tableNumber));
+      },
+    );
+  } else {
+    context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+        FoodModel(
+            foodImage: foodModel.foodImage,
+            side: foodModel.side,
+            foodName: foodModel.foodName,
+            content: foodModel.content,
+            price: foodModel.price,
+            category: foodModel.category),
+        tableState.tableNumber));
   }
-
-  // Seçimlerle ilgili işlemleri burada yapabilirsiniz
 }

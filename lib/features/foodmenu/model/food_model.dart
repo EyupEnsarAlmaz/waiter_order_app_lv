@@ -2,7 +2,7 @@ import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 
- class FoodModel {
+class FoodModel {
   String? foodImage;
   String? foodName;
   String? content;
