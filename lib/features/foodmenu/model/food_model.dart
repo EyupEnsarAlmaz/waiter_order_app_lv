@@ -1,3 +1,4 @@
+import 'package:uuid/uuid.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
@@ -5,6 +6,7 @@ import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 class FoodModel {
   String? foodImage;
   String? foodName;
+  String? id;
   String? content;
   String? choosenSide;
   String? choosenSauce;
@@ -25,6 +27,7 @@ class FoodModel {
     this.sauceModel,
     this.sideModel,
     this.choosenSide,
+    this.id,
     this.choosenSauce,
     this.choosenCookStyle,
     this.side,

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/v4.dart';
 import 'package:waiter_order_app_lv/core/error/result_types/result/result.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 
@@ -19,6 +21,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
 
   Map<int, List<FoodModel>> basketMap = {};
   Map<String, int>? itemCountMap = {};
+  final _uuid = Uuid();
 
   Future<void> _addBasketFood(_AddBasketFood event, Emitter emit) async {
     try {
@@ -27,6 +30,9 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       basketMap[event.tableNumber!]!.add(event.food!);
       if (event.food != null && event.food?.foodName != null) {
         String foodName = event.food!.foodName!;
+        String id = _uuid.v4();
+        event.food!.id = id;
+        print(id);
         int? itemCount = basketMap[event.tableNumber]
             ?.where((item) => item.foodName == foodName)
             .length;
@@ -47,25 +53,23 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
   Future<void> _updateBasketFood(_UpdateBasketFood event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
-      FoodModel updatedFood = event.food!;
-      String foodName = updatedFood.foodName!;
 
-      for (var foodItem in basketMap[event.tableNumber!]!) {
-        if (foodItem.foodName == foodName) {
-          if (updatedFood.choosenCookStyle != null) {
-            foodItem.choosenCookStyle = updatedFood.choosenCookStyle;
-          }
-          if (updatedFood.choosenSide != null) {
-            foodItem.choosenSide = updatedFood.choosenSide;
-          }
-          if (updatedFood.choosenSauce != null) {
-            foodItem.choosenSauce = updatedFood.choosenSauce;
-          }
-        }
+      if (event.food == null || event.food!.id == null) {
+        throw Exception('Food missing required "id" property');
       }
 
-      int? itemCount = basketMap[event.tableNumber]
-          ?.where((item) => item.foodName == foodName)
+      final updatedBasket = basketMap[event.tableNumber] ?? [];
+      final foodIndex =
+          updatedBasket.indexWhere((item) => item.id == event.food!.id);
+
+      if (foodIndex != -1) {
+        updatedBasket[foodIndex] = event.food!;
+      }
+      basketMap[event.tableNumber!] = updatedBasket;
+
+      String foodName = event.food!.foodName!;
+      int? itemCount = basketMap[event.tableNumber]!
+          .where((item) => item.id == event.food!.id)
           .length;
 
       itemCountMap![foodName] = itemCount!;
@@ -77,6 +81,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
           tableNumber: event.tableNumber));
     } catch (error) {
       print('Error: $error');
+      emit(state.copyWith(status: FoodBasketStatus.failure));
     }
   }
 

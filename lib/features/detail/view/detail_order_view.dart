@@ -95,9 +95,25 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                                   else
                                     CustomDetailListtile(
                                       onTapAdd: () {
-                                        context.read<FoodBasketBloc>().add(
-                                            FoodBasketEvent.addBasketFood(
-                                                foodItem, tableNumber));
+                                        print("object");
+                                        context
+                                            .read<FoodBasketBloc>()
+                                            .add(FoodBasketEvent.addBasketFood(
+                                              FoodModel(
+                                                  choosenCookStyle:
+                                                      foodItem.choosenCookStyle,
+                                                  choosenSauce:
+                                                      foodItem.choosenSauce,
+                                                  choosenSide:
+                                                      foodItem.choosenSide,
+                                                  foodImage: foodItem.foodImage,
+                                                  side: foodItem.side,
+                                                  foodName: foodItem.foodName,
+                                                  content: foodItem.content,
+                                                  price: foodItem.price,
+                                                  category: foodItem.category),
+                                              tableNumber,
+                                            ));
                                       },
                                       image: Image.network(
                                         foodItem.foodImage!,
@@ -132,6 +148,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                                                     FoodBasketEvent
                                                         .updateBasketFood(
                                                   FoodModel(
+                                                      id: foodItem.id,
                                                       choosenSauce:
                                                           choosenSauce,
                                                       choosenSide:
@@ -170,6 +187,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                                                     FoodBasketEvent
                                                         .updateBasketFood(
                                                   FoodModel(
+                                                      id: foodItem.id,
                                                       choosenCookStyle: foodItem
                                                           .choosenCookStyle,
                                                       choosenSauce:
@@ -208,6 +226,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                                                     FoodBasketEvent
                                                         .updateBasketFood(
                                                   FoodModel(
+                                                      id: foodItem.id,
                                                       choosenSide:
                                                           foodItem.choosenSide,
                                                       choosenSauce:
