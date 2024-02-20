@@ -4,11 +4,13 @@ enum FoodMenuStatus {
   initial,
   loading,
   success,
+  sidesuccess,
   failure;
 
   bool get isInitial => this == FoodMenuStatus.initial;
   bool get isLoading => this == FoodMenuStatus.loading;
   bool get isSuccess => this == FoodMenuStatus.success;
+  bool get isSideSuccess => this == FoodMenuStatus.sidesuccess;
   bool get isFailure => this == FoodMenuStatus.failure;
 }
 

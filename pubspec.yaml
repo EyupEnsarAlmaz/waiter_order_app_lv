@@ -58,6 +58,7 @@ dependencies:
   #Animation
   lottie: ^2.6.0
   animated_text_kit: ^4.2.2
+  uuid: ^4.2.2
   
   
   

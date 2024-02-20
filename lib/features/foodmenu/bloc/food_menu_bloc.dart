@@ -24,8 +24,11 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       emit(state.copyWith(status: FoodMenuStatus.loading));
       var foodlist = await _foodservice.getFoodFromFirestore(
           colletionName: event.collectionName!);
-      await Future.delayed(Duration(milliseconds: 200));
-      emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+      await Future.delayed(Duration(milliseconds: 100));
+      if (foodlist != null) {
+        emit(
+            state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+      }
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
     }
@@ -39,6 +42,7 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       var sauceList = list?[0];
       var sideList = list?[1];
       var howcookList = list?[2];
+
       emit(state.copyWith(
           status: FoodMenuStatus.success,
           sauceList: sauceList,
