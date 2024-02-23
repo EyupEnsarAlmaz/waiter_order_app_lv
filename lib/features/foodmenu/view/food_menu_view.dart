@@ -315,71 +315,73 @@ class _FoodMenuViewState extends State<FoodMenuView> {
             child: CircularProgressIndicator(),
           );
         } else if (foodmenu.status.isSuccess) {
-          return Container(
-            width: context.width(0.88),
-            height: context.height(0.50),
-            child: ListView.builder(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: foodmenu.foodList!.length,
-                itemBuilder: (context, index) {
-                  final food = foodmenu.foodList?[index];
-                  return Center(
-                    child: Card(
-                      color: Color(0xFF1A1B23),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+          if (foodmenu.foodList != null) {
+            return Container(
+              width: context.width(0.88),
+              height: context.height(0.50),
+              child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: foodmenu.foodList!.length,
+                  itemBuilder: (context, index) {
+                    final food = foodmenu.foodList?[index];
+                    return Center(
+                      child: Card(
+                        color: Color(0xFF1A1B23),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                              builder: (context, basketstate) {
+                                int? itemCount = basketstate
+                                    .basketMap?[basketstate.tableNumber]
+                                    ?.where((item) => item == food)
+                                    .length;
+                                return BlocBuilder<TableBloc, TableState>(
+                                  builder: (context, tablestate) {
+                                    return CustomListTile(
+                                      onTapAdd: () async {
+                                        DialogContet().showDialogs(
+                                            context: context,
+                                            foodModel: food,
+                                            foodstate: foodmenu,
+                                            tableState: tablestate);
+                                      },
+                                      image: Image.network(
+                                        food!.foodImage!,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      foodName: food.foodName!,
+                                      price: "${food.price} €",
+                                      onTapRemove: () {
+                                        context.read<FoodBasketBloc>().add(
+                                            FoodBasketEvent.removeBasketFood(
+                                                food, tablestate.tableNumber));
+                                      },
+                                      piece: basketstate
+                                              .itemCountMap?[food.foodName] ??
+                                          0,
+                                      foodContent: () {
+                                        navigation.navigateTo(
+                                          path: KRoute.FOOD_CONTENT,
+                                          data: food,
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        children: <Widget>[
-                          BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                            builder: (context, basketstate) {
-                              int? itemCount = basketstate
-                                  .basketMap?[basketstate.tableNumber]
-                                  ?.where((item) => item == food)
-                                  .length;
-                              return BlocBuilder<TableBloc, TableState>(
-                                builder: (context, tablestate) {
-                                  return CustomListTile(
-                                    onTapAdd: () async {
-                                      DialogContet().showDialogs(
-                                          context: context,
-                                          foodModel: food,
-                                          foodstate: foodmenu,
-                                          tableState: tablestate);
-                                    },
-                                    image: Image.network(
-                                      food!.foodImage!,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    foodName: food.foodName!,
-                                    price: "${food.price} €",
-                                    onTapRemove: () {
-                                      context.read<FoodBasketBloc>().add(
-                                          FoodBasketEvent.removeBasketFood(
-                                              food, tablestate.tableNumber));
-                                    },
-                                    piece: basketstate
-                                            .itemCountMap?[food.foodName] ??
-                                        0,
-                                    foodContent: () {
-                                      navigation.navigateTo(
-                                        path: KRoute.FOOD_CONTENT,
-                                        data: food,
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-          );
+                    );
+                  }),
+            );
+          }
         }
         return Text("");
       },

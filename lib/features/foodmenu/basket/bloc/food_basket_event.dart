@@ -8,6 +8,8 @@ class FoodBasketEvent with _$FoodBasketEvent {
       FoodModel? food, int? tableNumber) = _UpdateBasketFood;
   const factory FoodBasketEvent.addNotes(String? noteText, int? tableNumber) =
       _AddNotes;
+  const factory FoodBasketEvent.makeGroupedItems() =
+      _MakeGroupedItems;
   const factory FoodBasketEvent.removeBasketFood(
       FoodModel? food, int? tableNumber) = _RemoveBasketFood;
   const factory FoodBasketEvent.removeAllFood(

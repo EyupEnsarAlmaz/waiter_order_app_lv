@@ -32,7 +32,8 @@ class DetailOrderView extends StatelessWidget {
               );
             },
           )),
-          _listItem(),
+          _listItem2(),
+          /* _listItem(), */
           SizedBox(height: context.height(0.02)),
           BlocBuilder<TableBloc, TableState>(
             builder: (context, state) {
@@ -50,6 +51,126 @@ class DetailOrderView extends StatelessWidget {
   }
 }
 
+BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
+  return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+      builder: (context, state) {
+    if (state.status.isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (state.status.isSuccess) {
+      Map<String, List<FoodModel>> groupedItems = {};
+      Map<String, int> itemCounts = {};
+      int dashlineIndex = -1;
+      List<FoodModel> allItems = [];
+
+      for (var entry in state.basketMap!.entries) {
+        List<FoodModel>? foodList = entry.value;
+        if (foodList != null) {
+          for (var item in foodList) {
+            if (item.foodName == "dashline") {
+              dashlineIndex =
+                  allItems.length; // dashline yemeğinin indeksini kaydet
+            }
+            allItems.add(item);
+          }
+        }
+      }
+
+      for (int i = 0; i < allItems.length; i++) {
+        var item = allItems[i];
+        String foodHash =
+            '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
+
+        if (i > dashlineIndex && dashlineIndex != -1) {
+          foodHash =
+              '${item.foodName}-afterdashline-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
+        }
+
+        if (!groupedItems.containsKey(foodHash)) {
+          groupedItems[foodHash] = [item];
+          itemCounts[foodHash] = 1;
+        } else {
+          groupedItems[foodHash]!.add(item);
+          itemCounts[foodHash] = (itemCounts[foodHash] ?? 0) + 1;
+        }
+      }
+
+      return Container(
+          width: context.width(0.99),
+          height: context.height(0.60),
+          child: Column(children: [
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: groupedItems.length,
+                itemBuilder: (context, index) {
+                  String foodHash = groupedItems.keys.toList()[index];
+                  List<FoodModel> items = groupedItems[foodHash]!;
+                  int itemCount = itemCounts[foodHash] ?? 0;
+
+                  return Center(
+                    child: Card(
+                      color: Color(0xFF1A1B23),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                              builder: (context, tablestate) {
+                            for (var itemDetails in items) {
+                              if (itemDetails.foodName == "dashline") {
+                                return Text(
+                                  "-----------------------",
+                                  style: TextStyle(fontSize: 30),
+                                );
+                              }
+                            }
+                            for (var item in items)
+                              return CustomDetailListtile(
+                                onTapAdd: () {
+                                  context.read<FoodBasketBloc>().add(
+                                      FoodBasketEvent.addBasketFood(
+                                          item, tablestate.tableNumber));
+                                },
+                                image: Image.network(
+                                  item.foodImage!,
+                                  fit: BoxFit.fill,
+                                ),
+                                foodName: item.foodName!,
+                                price: "${item.price} €",
+                                onTapRemove: () {
+                                  context.read<FoodBasketBloc>().add(
+                                      FoodBasketEvent.removeBasketFood(
+                                          item, tablestate.tableNumber));
+                                },
+                                piece: itemCount,
+                                foodContent: () {},
+                                choosenSide: item.choosenSide,
+                                choosenSauce: item.choosenSauce,
+                                onChangeSide: () {},
+                                onchangeSauce: () {},
+                                onChangeCookStyle: () {},
+                                choosenHowCook: item.choosenCookStyle,
+                              );
+                            return Text("");
+                          }),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ]));
+    }
+    return Text("");
+  });
+}
+
 BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
   String? choosenSide;
   String? choosenCookStyle;
@@ -61,6 +182,25 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
           child: CircularProgressIndicator(),
         );
       } else if (state.status.isSuccess) {
+        Map<String, List<FoodModel>> groupedItems = {};
+        Set<String> uniqueFoodNames = Set();
+
+        for (var entry in state.basketMap!.entries) {
+          List<FoodModel>? foodList = entry.value;
+
+          if (foodList != null) {
+            for (var item in foodList) {
+              String foodKey =
+                  '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}'; // unique key for each item including side and sauce
+              if (!uniqueFoodNames.contains(foodKey)) {
+                uniqueFoodNames.add(foodKey);
+                groupedItems[foodKey] = [item];
+              } else {
+                groupedItems[foodKey]!.add(item);
+              }
+            }
+          }
+        }
         return Container(
           width: context.width(0.99),
           height: context.height(0.60),
@@ -73,6 +213,10 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
                   shrinkWrap: true,
                   itemCount: state.basketMap!.length,
                   itemBuilder: (context, index) {
+                    String itemName = groupedItems.keys.elementAt(index);
+                    List<FoodModel> itemCount =
+                        groupedItems.values.elementAt(index);
+                    List<FoodModel> itemDetailsList = groupedItems[itemName]!;
                     int tableNumber = state.basketMap!.keys.elementAt(index);
                     List<FoodModel>? foodList = state.basketMap![tableNumber];
                     if (foodList != null && foodList.isNotEmpty) {

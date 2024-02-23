@@ -6,6 +6,7 @@ class CustomDetailListtile extends StatelessWidget {
   final Widget image;
   final String foodName;
   final String price;
+  final int? piece;
   final String? choosenSide;
   final String? choosenSauce;
   final String? choosenHowCook;
@@ -20,6 +21,7 @@ class CustomDetailListtile extends StatelessWidget {
     required this.foodName,
     required this.choosenSide,
     required this.choosenSauce,
+    this.piece,
     required this.onChangeSide,
     required this.onchangeSauce,
     required this.onChangeCookStyle,
@@ -70,6 +72,7 @@ class CustomDetailListtile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     context.sizedboxWidth(0.01),
+                    Text(piece.toString()),
                     Text(price,
                         style:
                             TextStyle(fontSize: context.titleLarge.fontSize)),
