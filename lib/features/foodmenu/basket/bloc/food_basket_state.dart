@@ -20,5 +20,6 @@ class FoodBasketState with _$FoodBasketState {
     String? noteText,
     int? tableNumber,
     Map<String, int>? itemCountMap,
+    Map<String, List<FoodModel>>? groupedItems,
   }) = _FoodBasketState;
 }

@@ -17,6 +17,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     on<_RemoveAllFood>(_removeAllFood);
     on<_AddNotes>(_addNoteText);
     on<_UpdateBasketFood>(_updateBasketFood);
+    on<_MakeGroupedItems>(_makeGroupedItems);
   }
 
   Map<int, List<FoodModel>> basketMap = {};
@@ -130,6 +131,38 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       emit(state.copyWith(
           status: FoodBasketStatus.success, noteText: event.noteText));
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  Future<void> _makeGroupedItems(_MakeGroupedItems event, Emitter emit) async {
+    try {
+      Map<int, Map<String, List<FoodModel>>> groupedItemsByTableNumber = {};
+
+      for (var entry in state.basketMap!.entries) {
+        int tableNumber = entry.key;
+        Map<String, List<FoodModel>> groupedItems = {};
+        Set<String> uniqueFoodNames = Set();
+
+        List<FoodModel>? foodList = entry.value;
+        if (foodList != null) {
+          for (var item in foodList) {
+            String foodKey =
+                '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
+            if (!uniqueFoodNames.contains(foodKey)) {
+              uniqueFoodNames.add(foodKey);
+              groupedItems[foodKey] = [item];
+            } else {
+              groupedItems[foodKey]!.add(item);
+            }
+          }
+        }
+
+        groupedItemsByTableNumber[tableNumber] = groupedItems;
+        emit(state.copyWith(
+            status: FoodBasketStatus.success, groupedItems: groupedItems));
+      }
     } catch (error) {
       print('Error: $error');
     }
