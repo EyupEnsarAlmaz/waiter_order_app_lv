@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
@@ -84,7 +85,19 @@ class FoodService {
     return sideList;
   }
 
-  Future<List<FoodModel>?>? getFoodByCategory(
+  Future<List<DrinksModel>?>? getDrinksFromFirestore() async {
+    final List<DrinksModel> drinksList = [];
+
+    var querySnapshot = await _firestore.collection("Drinks").get();
+
+    for (var document in querySnapshot.docs) {
+      var drinks = DrinksModel.fromMap(document.data());
+      drinksList.add(drinks);
+    }
+    return drinksList;
+  }
+
+  Future<List<dynamic>?>? getFoodByCategory(
       {required String colletionName, required String category}) async {
     final List<FoodModel> foodList = [];
 

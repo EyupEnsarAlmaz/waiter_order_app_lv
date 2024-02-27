@@ -59,6 +59,7 @@ dependencies:
   lottie: ^2.6.0
   animated_text_kit: ^4.2.2
   uuid: ^4.2.2
+  grouped_list: ^5.1.2
   
   
   
@@ -90,6 +91,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/animations/
+    - assets/tabbar/
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

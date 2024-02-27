@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
@@ -14,6 +15,7 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
     on<_GetDataFromFirebase>(_getDataFromFirestore);
     on<_GetDataByCategory>(_getDataByCategory);
     on<_GetSideFromFirebase>(_getSideFromFirebase);
+    on<_GetDrinksFromFirestore>(_getDrinksFromFirestore);
   }
 
   final _foodservice = FoodService.shared;
@@ -59,8 +61,21 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       emit(state.copyWith(status: FoodMenuStatus.loading));
       var foodlist = await _foodservice.getFoodByCategory(
           category: event.category!, colletionName: event.collectionName!);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+    } catch (e) {
+      emit(state.copyWith(status: FoodMenuStatus.failure));
+    }
+  }
+
+  Future<void> _getDrinksFromFirestore(
+      _GetDrinksFromFirestore event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodMenuStatus.loading));
+      var drinkList = await _foodservice.getDrinksFromFirestore();
+      await Future.delayed(const Duration(seconds: 1));
+      emit(state.copyWith(
+          status: FoodMenuStatus.drinksuccess, drinksList: drinkList));
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
     }

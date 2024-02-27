@@ -24,8 +24,8 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.width(0.88),
-      height: context.height(0.15),
+      width: context.width(0.99),
+      height: context.height(0.11),
       child: Row(
         children: <Widget>[
           ClipRRect(
@@ -43,7 +43,6 @@ class CustomListTile extends StatelessWidget {
                 context.sizedboxHeight(0.01),
                 Text(foodName,
                     style: TextStyle(fontSize: context.titleLarge.fontSize)),
-                context.sizedboxHeight(0.01),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
@@ -77,14 +76,19 @@ class CustomListTile extends StatelessWidget {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    context.sizedboxWidth(0.12),
                     Text("$piece pieces",
                         style:
                             TextStyle(fontSize: context.titleLarge.fontSize)),
-                    IconButton(onPressed: foodContent, icon: Icon(Icons.info))
+                    context.sizedboxWidth(0.02),
+                    InkWell(
+                      child: Icon(Icons.info, size: 18.0),
+                      onTap: foodContent,
+                    ),
                   ],
-                ),
+                )
               ],
             ),
           ),

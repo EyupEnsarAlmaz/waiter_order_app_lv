@@ -7,4 +7,5 @@ class FoodMenuBlocEvent with _$FoodMenuBlocEvent {
   const factory FoodMenuBlocEvent.getSideFromFirebase() = _GetSideFromFirebase;
   const factory FoodMenuBlocEvent.getDataByCategory(
       String? category, String? collectionName) = _GetDataByCategory;
+  const factory FoodMenuBlocEvent.getDrinksFromFirestore() = _GetDrinksFromFirestore;
 }
