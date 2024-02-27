@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/v4.dart';
 import 'package:waiter_order_app_lv/core/error/result_types/result/result.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 
 part 'food_basket_event.dart';
@@ -18,6 +19,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     on<_AddNotes>(_addNoteText);
     on<_UpdateBasketFood>(_updateBasketFood);
     on<_MakeGroupedItems>(_makeGroupedItems);
+    on<_AddBasketDrinks>(_addBasketDrinks);
   }
 
   Map<int, List<FoodModel>> basketMap = {};
@@ -39,6 +41,32 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
             .length;
 
         itemCountMap![foodName] = itemCount!;
+
+        emit(state.copyWith(
+            itemCountMap: itemCountMap,
+            status: FoodBasketStatus.success,
+            basketMap: basketMap,
+            tableNumber: event.tableNumber));
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  Future<void> _addBasketDrinks(_AddBasketDrinks event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: FoodBasketStatus.loading));
+      basketMap.putIfAbsent(event.tableNumber!, () => []);
+      basketMap[event.tableNumber!]!.add(event.drinks!);
+      if (event.drinks != null &&
+          event.drinks?.drinksModel?.drinkName != null) {
+        String drinksName = event.drinks!.drinksModel!.drinkName!;
+
+        int? itemCount = basketMap[event.tableNumber]
+            ?.where((item) => item.drinksModel!.drinkName == drinksName)
+            .length;
+
+        itemCountMap![drinksName] = itemCount!;
 
         emit(state.copyWith(
             itemCountMap: itemCountMap,

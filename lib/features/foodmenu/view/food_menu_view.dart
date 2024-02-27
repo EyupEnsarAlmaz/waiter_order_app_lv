@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:waiter_order_app_lv/core/constants/assets_constants.dart';
 import 'package:waiter_order_app_lv/core/custom/dialog/dialog_content.dart';
 import 'package:waiter_order_app_lv/core/custom/listtile/custom_Listtile.dart';
@@ -14,6 +15,7 @@ import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart'
 import 'package:waiter_order_app_lv/features/foodcontent/view/food_content_view.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/search/bloc/search_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/tabbar/bloc/tabbar_bloc.dart';
@@ -36,13 +38,11 @@ class _FoodMenuViewState extends State<FoodMenuView> {
   void initState() {
     super.initState();
 
-    // 100 milisaniye gecikme ekleyerek sonra event1'i tetikle
     Future.delayed(Duration(milliseconds: 100), () {
       BlocProvider.of<FoodMenuBloc>(context)
           .add(FoodMenuBlocEvent.getDataFromFirebase("Food"));
     });
 
-    // 200 milisaniye gecikme ekleyerek sonra event2'yi tetikle
     Future.delayed(Duration(milliseconds: 200), () {
       BlocProvider.of<FoodMenuBloc>(context)
           .add(FoodMenuBlocEvent.getSideFromFirebase());
@@ -109,14 +109,15 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                   children: [
                     context.sizedboxWidth(0.05),
                     Container(
-                      height: context.height(0.085),
+                      height: context.height(0.059),
                       width: context.width(0.90),
                       child: BlocBuilder<SearchBloc, SearchBlocState>(
                         builder: (context, state) {
                           return TextField(
                             decoration: InputDecoration(
+                              suffixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
                               filled: true,
                               hintStyle: TextStyle(color: Colors.white),
@@ -171,7 +172,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                                             fit: BoxFit.fill,
                                           ),
                                           foodName: food.foodName!,
-                                          price: "//${food.price} €",
+                                          price: "${food.price} €",
                                           onTapRemove: () {
                                             context.read<FoodBasketBloc>().add(
                                                 FoodBasketEvent
@@ -201,6 +202,18 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       child: Container(),
                     );
                   },
+                ),
+                context.sizedboxHeight(0.02),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        "Selected Category",
+                        style: context.titleLarge,
+                      ),
+                    ),
+                  ],
                 ),
                 context.sizedboxHeight(0.02),
                 _tabbar(),
@@ -263,6 +276,9 @@ class _FoodMenuViewState extends State<FoodMenuView> {
         child: BlocBuilder<TabBarBloc, TabBarState>(
           builder: (context, state) {
             return TabBar(
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50), // Creates border
+                    color: KThemeColor.greyDark),
                 isScrollable: true,
                 onTap: (tabIndex) async {
                   switch (tabIndex) {
@@ -277,9 +293,9 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                               "Starter", "Food"));
                       break;
                     case 2:
-                      context.read<FoodMenuBloc>().add(
-                          FoodMenuBlocEvent.getDataByCategory(
-                              "Drinks", "Food"));
+                      context
+                          .read<FoodMenuBloc>()
+                          .add(FoodMenuBlocEvent.getDrinksFromFirestore());
                       break;
                     case 3:
                       context.read<FoodMenuBloc>().add(
@@ -296,12 +312,60 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       .read<TabBarBloc>()
                       .add(TabBarEvent.tabChangedEvent(tabIndex));
                 },
-                tabs: const [
-                  Tab(text: "All"),
-                  Tab(text: "Starter"),
-                  Tab(text: "Drinks"),
-                  Tab(text: "Main"),
-                  Tab(text: "Dessert"),
+                tabs: [
+                  Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Kasset.allFoodIcon, width: 28, height: 28),
+                        const SizedBox(width: 8),
+                        Text('All'),
+                      ],
+                    ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Kasset.starterFoodIcon,
+                            width: 28, height: 28),
+                        const SizedBox(width: 8),
+                        Text('Starter'),
+                      ],
+                    ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Kasset.drinksFoodIcon,
+                            width: 28, height: 28),
+                        const SizedBox(width: 8),
+                        Text('Drinks'),
+                      ],
+                    ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Kasset.mainFoodIcon, width: 28, height: 28),
+                        const SizedBox(width: 8),
+                        Text('Main'),
+                      ],
+                    ),
+                  ),
+                  Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Kasset.dessertFoodIcon,
+                            width: 28, height: 28),
+                        const SizedBox(width: 8),
+                        Text('Dessert'),
+                      ],
+                    ),
+                  ),
                 ]);
           },
         ));
@@ -314,10 +378,55 @@ class _FoodMenuViewState extends State<FoodMenuView> {
           return const Center(
             child: CircularProgressIndicator(),
           );
+        } else if (foodmenu.status.isDrinkStatus) {
+          return Container(
+              height: 400,
+              width: 350,
+              child: GroupedListView<DrinksModel, String>(
+                elements: foodmenu.drinksList!,
+                groupBy: (DrinksModel drinksModel) => drinksModel.category!,
+                groupComparator: (value1, value2) => value2.compareTo(value1),
+                itemComparator: (DrinksModel element1, DrinksModel element2) =>
+                    element1.drinkName!.compareTo(element2.drinkName!),
+                order: GroupedListOrder.DESC,
+                groupSeparatorBuilder: (String value) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(value.toUpperCase())),
+                itemBuilder: (context, element) {
+                  return Card(
+                    child: SizedBox(
+                      child: ListTile(
+                        title: Text(
+                          element.drinkName!,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                context.read<FoodBasketBloc>().add(
+                                    FoodBasketEvent.addBasketDrinks(
+                                        element, 1));
+                              },
+                            ),
+                            Text("1"),
+                            IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ));
         } else if (foodmenu.status.isSuccess) {
           if (foodmenu.foodList != null) {
             return Container(
-              width: context.width(0.88),
+              width: context.width(0.97),
               height: context.height(0.50),
               child: ListView.builder(
                   padding: EdgeInsets.zero,

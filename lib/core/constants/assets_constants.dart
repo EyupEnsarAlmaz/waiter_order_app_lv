@@ -9,7 +9,9 @@ class Kasset {
   static const onboardViewTerraceImage = "assets/terrace.jpeg";
   static const onboardViewCheeseIconImage = "assets/cheese.png";
   static const onboardViewBrocoliIconImage = "assets/brocoli.png";
-  static const adver1 = "assets/adver1.jpeg";
-  static const adver2 = "assets/adver2.jpeg";
-  static const adver3 = "assets/adver3.jpeg";
+  static const allFoodIcon = "assets/tabbar/menu.png";
+  static const starterFoodIcon = "assets/tabbar/starter.png";
+  static const drinksFoodIcon = "assets/tabbar/drink.png";
+  static const mainFoodIcon = "assets/tabbar/main.png";
+  static const dessertFoodIcon = "assets/tabbar/dessert.png";
 }

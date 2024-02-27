@@ -22,6 +22,7 @@ mixin _$FoodMenuBlocEvent {
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
+    required TResult Function() getDrinksFromFirestore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$FoodMenuBlocEvent {
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult? Function()? getDrinksFromFirestore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$FoodMenuBlocEvent {
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult Function()? getDrinksFromFirestore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -46,6 +49,8 @@ mixin _$FoodMenuBlocEvent {
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
+    required TResult Function(_GetDrinksFromFirestore value)
+        getDrinksFromFirestore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +58,7 @@ mixin _$FoodMenuBlocEvent {
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
+    TResult? Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +66,7 @@ mixin _$FoodMenuBlocEvent {
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
+    TResult Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -153,6 +160,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
+    required TResult Function() getDrinksFromFirestore,
   }) {
     return getDataFromFirebase(collectionName);
   }
@@ -164,6 +172,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult? Function()? getDrinksFromFirestore,
   }) {
     return getDataFromFirebase?.call(collectionName);
   }
@@ -175,6 +184,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult Function()? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getDataFromFirebase != null) {
@@ -189,6 +199,8 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
+    required TResult Function(_GetDrinksFromFirestore value)
+        getDrinksFromFirestore,
   }) {
     return getDataFromFirebase(this);
   }
@@ -199,6 +211,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
+    TResult? Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
   }) {
     return getDataFromFirebase?.call(this);
   }
@@ -209,6 +222,7 @@ class _$GetDataFromFirebaseImpl implements _GetDataFromFirebase {
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
+    TResult Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getDataFromFirebase != null) {
@@ -271,6 +285,7 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
+    required TResult Function() getDrinksFromFirestore,
   }) {
     return getSideFromFirebase();
   }
@@ -282,6 +297,7 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult? Function()? getDrinksFromFirestore,
   }) {
     return getSideFromFirebase?.call();
   }
@@ -293,6 +309,7 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult Function()? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getSideFromFirebase != null) {
@@ -307,6 +324,8 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
+    required TResult Function(_GetDrinksFromFirestore value)
+        getDrinksFromFirestore,
   }) {
     return getSideFromFirebase(this);
   }
@@ -317,6 +336,7 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
+    TResult? Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
   }) {
     return getSideFromFirebase?.call(this);
   }
@@ -327,6 +347,7 @@ class _$GetSideFromFirebaseImpl implements _GetSideFromFirebase {
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
+    TResult Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getSideFromFirebase != null) {
@@ -419,6 +440,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     required TResult Function() getSideFromFirebase,
     required TResult Function(String? category, String? collectionName)
         getDataByCategory,
+    required TResult Function() getDrinksFromFirestore,
   }) {
     return getDataByCategory(category, collectionName);
   }
@@ -430,6 +452,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     TResult? Function()? getSideFromFirebase,
     TResult? Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult? Function()? getDrinksFromFirestore,
   }) {
     return getDataByCategory?.call(category, collectionName);
   }
@@ -441,6 +464,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     TResult Function()? getSideFromFirebase,
     TResult Function(String? category, String? collectionName)?
         getDataByCategory,
+    TResult Function()? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getDataByCategory != null) {
@@ -455,6 +479,8 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
     required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
     required TResult Function(_GetDataByCategory value) getDataByCategory,
+    required TResult Function(_GetDrinksFromFirestore value)
+        getDrinksFromFirestore,
   }) {
     return getDataByCategory(this);
   }
@@ -465,6 +491,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult? Function(_GetDataByCategory value)? getDataByCategory,
+    TResult? Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
   }) {
     return getDataByCategory?.call(this);
   }
@@ -475,6 +502,7 @@ class _$GetDataByCategoryImpl implements _GetDataByCategory {
     TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
     TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
     TResult Function(_GetDataByCategory value)? getDataByCategory,
+    TResult Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
     required TResult orElse(),
   }) {
     if (getDataByCategory != null) {
@@ -497,11 +525,133 @@ abstract class _GetDataByCategory implements FoodMenuBlocEvent {
 }
 
 /// @nodoc
+abstract class _$$GetDrinksFromFirestoreImplCopyWith<$Res> {
+  factory _$$GetDrinksFromFirestoreImplCopyWith(
+          _$GetDrinksFromFirestoreImpl value,
+          $Res Function(_$GetDrinksFromFirestoreImpl) then) =
+      __$$GetDrinksFromFirestoreImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetDrinksFromFirestoreImplCopyWithImpl<$Res>
+    extends _$FoodMenuBlocEventCopyWithImpl<$Res, _$GetDrinksFromFirestoreImpl>
+    implements _$$GetDrinksFromFirestoreImplCopyWith<$Res> {
+  __$$GetDrinksFromFirestoreImplCopyWithImpl(
+      _$GetDrinksFromFirestoreImpl _value,
+      $Res Function(_$GetDrinksFromFirestoreImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetDrinksFromFirestoreImpl implements _GetDrinksFromFirestore {
+  const _$GetDrinksFromFirestoreImpl();
+
+  @override
+  String toString() {
+    return 'FoodMenuBlocEvent.getDrinksFromFirestore()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetDrinksFromFirestoreImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? collectionName) getDataFromFirebase,
+    required TResult Function() getSideFromFirebase,
+    required TResult Function(String? category, String? collectionName)
+        getDataByCategory,
+    required TResult Function() getDrinksFromFirestore,
+  }) {
+    return getDrinksFromFirestore();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? collectionName)? getDataFromFirebase,
+    TResult? Function()? getSideFromFirebase,
+    TResult? Function(String? category, String? collectionName)?
+        getDataByCategory,
+    TResult? Function()? getDrinksFromFirestore,
+  }) {
+    return getDrinksFromFirestore?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? collectionName)? getDataFromFirebase,
+    TResult Function()? getSideFromFirebase,
+    TResult Function(String? category, String? collectionName)?
+        getDataByCategory,
+    TResult Function()? getDrinksFromFirestore,
+    required TResult orElse(),
+  }) {
+    if (getDrinksFromFirestore != null) {
+      return getDrinksFromFirestore();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetDataFromFirebase value) getDataFromFirebase,
+    required TResult Function(_GetSideFromFirebase value) getSideFromFirebase,
+    required TResult Function(_GetDataByCategory value) getDataByCategory,
+    required TResult Function(_GetDrinksFromFirestore value)
+        getDrinksFromFirestore,
+  }) {
+    return getDrinksFromFirestore(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetDataFromFirebase value)? getDataFromFirebase,
+    TResult? Function(_GetSideFromFirebase value)? getSideFromFirebase,
+    TResult? Function(_GetDataByCategory value)? getDataByCategory,
+    TResult? Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
+  }) {
+    return getDrinksFromFirestore?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetDataFromFirebase value)? getDataFromFirebase,
+    TResult Function(_GetSideFromFirebase value)? getSideFromFirebase,
+    TResult Function(_GetDataByCategory value)? getDataByCategory,
+    TResult Function(_GetDrinksFromFirestore value)? getDrinksFromFirestore,
+    required TResult orElse(),
+  }) {
+    if (getDrinksFromFirestore != null) {
+      return getDrinksFromFirestore(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetDrinksFromFirestore implements FoodMenuBlocEvent {
+  const factory _GetDrinksFromFirestore() = _$GetDrinksFromFirestoreImpl;
+}
+
+/// @nodoc
 mixin _$FoodMenuBlocState {
   FoodMenuStatus get status => throw _privateConstructorUsedError;
-  List<FoodModel>? get foodList => throw _privateConstructorUsedError;
+  List<dynamic>? get foodList => throw _privateConstructorUsedError;
   List<dynamic>? get sauceList => throw _privateConstructorUsedError;
   List<dynamic>? get sideList => throw _privateConstructorUsedError;
+  List<DrinksModel>? get drinksList => throw _privateConstructorUsedError;
   List<dynamic>? get howcookList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -517,9 +667,10 @@ abstract class $FoodMenuBlocStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FoodMenuStatus status,
-      List<FoodModel>? foodList,
+      List<dynamic>? foodList,
       List<dynamic>? sauceList,
       List<dynamic>? sideList,
+      List<DrinksModel>? drinksList,
       List<dynamic>? howcookList});
 }
 
@@ -540,6 +691,7 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
     Object? foodList = freezed,
     Object? sauceList = freezed,
     Object? sideList = freezed,
+    Object? drinksList = freezed,
     Object? howcookList = freezed,
   }) {
     return _then(_value.copyWith(
@@ -550,7 +702,7 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
       foodList: freezed == foodList
           ? _value.foodList
           : foodList // ignore: cast_nullable_to_non_nullable
-              as List<FoodModel>?,
+              as List<dynamic>?,
       sauceList: freezed == sauceList
           ? _value.sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
@@ -559,6 +711,10 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
           ? _value.sideList
           : sideList // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
+      drinksList: freezed == drinksList
+          ? _value.drinksList
+          : drinksList // ignore: cast_nullable_to_non_nullable
+              as List<DrinksModel>?,
       howcookList: freezed == howcookList
           ? _value.howcookList
           : howcookList // ignore: cast_nullable_to_non_nullable
@@ -577,9 +733,10 @@ abstract class _$$RegisterBlocStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {FoodMenuStatus status,
-      List<FoodModel>? foodList,
+      List<dynamic>? foodList,
       List<dynamic>? sauceList,
       List<dynamic>? sideList,
+      List<DrinksModel>? drinksList,
       List<dynamic>? howcookList});
 }
 
@@ -598,6 +755,7 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
     Object? foodList = freezed,
     Object? sauceList = freezed,
     Object? sideList = freezed,
+    Object? drinksList = freezed,
     Object? howcookList = freezed,
   }) {
     return _then(_$RegisterBlocStateImpl(
@@ -608,7 +766,7 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
       foodList: freezed == foodList
           ? _value._foodList
           : foodList // ignore: cast_nullable_to_non_nullable
-              as List<FoodModel>?,
+              as List<dynamic>?,
       sauceList: freezed == sauceList
           ? _value._sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
@@ -617,6 +775,10 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
           ? _value._sideList
           : sideList // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
+      drinksList: freezed == drinksList
+          ? _value._drinksList
+          : drinksList // ignore: cast_nullable_to_non_nullable
+              as List<DrinksModel>?,
       howcookList: freezed == howcookList
           ? _value._howcookList
           : howcookList // ignore: cast_nullable_to_non_nullable
@@ -630,21 +792,23 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
 class _$RegisterBlocStateImpl implements _RegisterBlocState {
   const _$RegisterBlocStateImpl(
       {this.status = FoodMenuStatus.initial,
-      final List<FoodModel>? foodList,
+      final List<dynamic>? foodList,
       final List<dynamic>? sauceList,
       final List<dynamic>? sideList,
+      final List<DrinksModel>? drinksList,
       final List<dynamic>? howcookList})
       : _foodList = foodList,
         _sauceList = sauceList,
         _sideList = sideList,
+        _drinksList = drinksList,
         _howcookList = howcookList;
 
   @override
   @JsonKey()
   final FoodMenuStatus status;
-  final List<FoodModel>? _foodList;
+  final List<dynamic>? _foodList;
   @override
-  List<FoodModel>? get foodList {
+  List<dynamic>? get foodList {
     final value = _foodList;
     if (value == null) return null;
     if (_foodList is EqualUnmodifiableListView) return _foodList;
@@ -672,6 +836,16 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<DrinksModel>? _drinksList;
+  @override
+  List<DrinksModel>? get drinksList {
+    final value = _drinksList;
+    if (value == null) return null;
+    if (_drinksList is EqualUnmodifiableListView) return _drinksList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<dynamic>? _howcookList;
   @override
   List<dynamic>? get howcookList {
@@ -684,7 +858,7 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
 
   @override
   String toString() {
-    return 'FoodMenuBlocState(status: $status, foodList: $foodList, sauceList: $sauceList, sideList: $sideList, howcookList: $howcookList)';
+    return 'FoodMenuBlocState(status: $status, foodList: $foodList, sauceList: $sauceList, sideList: $sideList, drinksList: $drinksList, howcookList: $howcookList)';
   }
 
   @override
@@ -698,6 +872,8 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
                 .equals(other._sauceList, _sauceList) &&
             const DeepCollectionEquality().equals(other._sideList, _sideList) &&
             const DeepCollectionEquality()
+                .equals(other._drinksList, _drinksList) &&
+            const DeepCollectionEquality()
                 .equals(other._howcookList, _howcookList));
   }
 
@@ -708,6 +884,7 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
       const DeepCollectionEquality().hash(_foodList),
       const DeepCollectionEquality().hash(_sauceList),
       const DeepCollectionEquality().hash(_sideList),
+      const DeepCollectionEquality().hash(_drinksList),
       const DeepCollectionEquality().hash(_howcookList));
 
   @JsonKey(ignore: true)
@@ -721,19 +898,22 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
 abstract class _RegisterBlocState implements FoodMenuBlocState {
   const factory _RegisterBlocState(
       {final FoodMenuStatus status,
-      final List<FoodModel>? foodList,
+      final List<dynamic>? foodList,
       final List<dynamic>? sauceList,
       final List<dynamic>? sideList,
+      final List<DrinksModel>? drinksList,
       final List<dynamic>? howcookList}) = _$RegisterBlocStateImpl;
 
   @override
   FoodMenuStatus get status;
   @override
-  List<FoodModel>? get foodList;
+  List<dynamic>? get foodList;
   @override
   List<dynamic>? get sauceList;
   @override
   List<dynamic>? get sideList;
+  @override
+  List<DrinksModel>? get drinksList;
   @override
   List<dynamic>? get howcookList;
   @override

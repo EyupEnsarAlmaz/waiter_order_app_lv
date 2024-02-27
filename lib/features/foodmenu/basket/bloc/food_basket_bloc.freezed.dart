@@ -19,6 +19,8 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -33,6 +35,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -44,6 +47,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -56,6 +60,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -66,6 +71,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -76,6 +82,7 @@ mixin _$FoodBasketEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -178,6 +185,8 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -195,6 +204,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -209,6 +219,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -227,6 +238,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -240,6 +252,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -253,6 +266,7 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -275,6 +289,188 @@ abstract class _AddBasketFood implements FoodBasketEvent {
   int? get tableNumber;
   @JsonKey(ignore: true)
   _$$AddBasketFoodImplCopyWith<_$AddBasketFoodImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddBasketDrinksImplCopyWith<$Res> {
+  factory _$$AddBasketDrinksImplCopyWith(_$AddBasketDrinksImpl value,
+          $Res Function(_$AddBasketDrinksImpl) then) =
+      __$$AddBasketDrinksImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({FoodModel? drinks, int? tableNumber});
+}
+
+/// @nodoc
+class __$$AddBasketDrinksImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$AddBasketDrinksImpl>
+    implements _$$AddBasketDrinksImplCopyWith<$Res> {
+  __$$AddBasketDrinksImplCopyWithImpl(
+      _$AddBasketDrinksImpl _value, $Res Function(_$AddBasketDrinksImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? drinks = freezed,
+    Object? tableNumber = freezed,
+  }) {
+    return _then(_$AddBasketDrinksImpl(
+      freezed == drinks
+          ? _value.drinks
+          : drinks // ignore: cast_nullable_to_non_nullable
+              as FoodModel?,
+      freezed == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddBasketDrinksImpl implements _AddBasketDrinks {
+  const _$AddBasketDrinksImpl(this.drinks, this.tableNumber);
+
+  @override
+  final FoodModel? drinks;
+  @override
+  final int? tableNumber;
+
+  @override
+  String toString() {
+    return 'FoodBasketEvent.addBasketDrinks(drinks: $drinks, tableNumber: $tableNumber)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddBasketDrinksImpl &&
+            (identical(other.drinks, drinks) || other.drinks == drinks) &&
+            (identical(other.tableNumber, tableNumber) ||
+                other.tableNumber == tableNumber));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, drinks, tableNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddBasketDrinksImplCopyWith<_$AddBasketDrinksImpl> get copyWith =>
+      __$$AddBasketDrinksImplCopyWithImpl<_$AddBasketDrinksImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        updateBasketFood,
+    required TResult Function(String? noteText, int? tableNumber) addNotes,
+    required TResult Function() makeGroupedItems,
+    required TResult Function(FoodModel? food, int? tableNumber)
+        removeBasketFood,
+    required TResult Function(
+            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
+        removeAllFood,
+  }) {
+    return addBasketDrinks(drinks, tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
+    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(String? noteText, int? tableNumber)? addNotes,
+    TResult? Function()? makeGroupedItems,
+    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
+    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
+        removeAllFood,
+  }) {
+    return addBasketDrinks?.call(drinks, tableNumber);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
+    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(String? noteText, int? tableNumber)? addNotes,
+    TResult Function()? makeGroupedItems,
+    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
+    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
+        removeAllFood,
+    required TResult orElse(),
+  }) {
+    if (addBasketDrinks != null) {
+      return addBasketDrinks(drinks, tableNumber);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
+    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddNotes value) addNotes,
+    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
+    required TResult Function(_RemoveBasketFood value) removeBasketFood,
+    required TResult Function(_RemoveAllFood value) removeAllFood,
+  }) {
+    return addBasketDrinks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
+    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddNotes value)? addNotes,
+    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
+    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
+    TResult? Function(_RemoveAllFood value)? removeAllFood,
+  }) {
+    return addBasketDrinks?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
+    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddNotes value)? addNotes,
+    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
+    TResult Function(_RemoveBasketFood value)? removeBasketFood,
+    TResult Function(_RemoveAllFood value)? removeAllFood,
+    required TResult orElse(),
+  }) {
+    if (addBasketDrinks != null) {
+      return addBasketDrinks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddBasketDrinks implements FoodBasketEvent {
+  const factory _AddBasketDrinks(
+      final FoodModel? drinks, final int? tableNumber) = _$AddBasketDrinksImpl;
+
+  FoodModel? get drinks;
+  int? get tableNumber;
+  @JsonKey(ignore: true)
+  _$$AddBasketDrinksImplCopyWith<_$AddBasketDrinksImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -353,6 +549,8 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -370,6 +568,7 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -384,6 +583,7 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -402,6 +602,7 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -415,6 +616,7 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -428,6 +630,7 @@ class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -528,6 +731,8 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -545,6 +750,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -559,6 +765,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -577,6 +784,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -590,6 +798,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -603,6 +812,7 @@ class _$AddNotesImpl implements _AddNotes {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -667,6 +877,8 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -684,6 +896,7 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -698,6 +911,7 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -716,6 +930,7 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -729,6 +944,7 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -742,6 +958,7 @@ class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -835,6 +1052,8 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -852,6 +1071,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -866,6 +1086,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -884,6 +1105,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -897,6 +1119,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -910,6 +1133,7 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -1021,6 +1245,8 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
+    required TResult Function(FoodModel? drinks, int? tableNumber)
+        addBasketDrinks,
     required TResult Function(FoodModel? food, int? tableNumber)
         updateBasketFood,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
@@ -1038,6 +1264,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
     TResult? Function()? makeGroupedItems,
@@ -1052,6 +1279,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
+    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
     TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
     TResult Function()? makeGroupedItems,
@@ -1070,6 +1298,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddBasketFood value) addBasketFood,
+    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
     required TResult Function(_UpdateBasketFood value) updateBasketFood,
     required TResult Function(_AddNotes value) addNotes,
     required TResult Function(_MakeGroupedItems value) makeGroupedItems,
@@ -1083,6 +1312,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddBasketFood value)? addBasketFood,
+    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult? Function(_UpdateBasketFood value)? updateBasketFood,
     TResult? Function(_AddNotes value)? addNotes,
     TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
@@ -1096,6 +1326,7 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddBasketFood value)? addBasketFood,
+    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
     TResult Function(_UpdateBasketFood value)? updateBasketFood,
     TResult Function(_AddNotes value)? addNotes,
     TResult Function(_MakeGroupedItems value)? makeGroupedItems,

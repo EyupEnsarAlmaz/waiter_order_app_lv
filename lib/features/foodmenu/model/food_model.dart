@@ -1,4 +1,5 @@
 import 'package:uuid/uuid.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
@@ -14,6 +15,7 @@ class FoodModel {
   SauceModel? sauceModel;
   SideModel? sideModel;
   HowCookModel? howCookModel;
+  DrinksModel? drinksModel;
   bool? side;
   bool? sauce;
   bool? howCook;
@@ -29,6 +31,7 @@ class FoodModel {
     this.choosenSide,
     this.id,
     this.choosenSauce,
+    this.drinksModel,
     this.choosenCookStyle,
     this.side,
     this.foodName,
@@ -52,6 +55,7 @@ class FoodModel {
       sauceModel: SauceModel.fromMap(map),
       sideModel: SideModel.fromMap(map),
       howCookModel: HowCookModel.fromMap(map),
+      drinksModel: DrinksModel.fromMap(map),
     );
   }
 }

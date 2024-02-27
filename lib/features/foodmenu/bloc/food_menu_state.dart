@@ -4,13 +4,13 @@ enum FoodMenuStatus {
   initial,
   loading,
   success,
-  sidesuccess,
+  drinksuccess,
   failure;
 
   bool get isInitial => this == FoodMenuStatus.initial;
   bool get isLoading => this == FoodMenuStatus.loading;
   bool get isSuccess => this == FoodMenuStatus.success;
-  bool get isSideSuccess => this == FoodMenuStatus.sidesuccess;
+  bool get isDrinkStatus => this == FoodMenuStatus.drinksuccess;
   bool get isFailure => this == FoodMenuStatus.failure;
 }
 
@@ -18,9 +18,10 @@ enum FoodMenuStatus {
 class FoodMenuBlocState with _$FoodMenuBlocState {
   const factory FoodMenuBlocState({
     @Default(FoodMenuStatus.initial) FoodMenuStatus status,
-    List<FoodModel>? foodList,
+    List<dynamic>? foodList,
     List<dynamic>? sauceList,
     List<dynamic>? sideList,
+    List<DrinksModel>? drinksList,
     List<dynamic>? howcookList,
   }) = _RegisterBlocState;
 }
