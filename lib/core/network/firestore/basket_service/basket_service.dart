@@ -11,10 +11,10 @@ class BasketService {
     Map<String, List<FoodModel>> groupedItems = {};
 
     for (var item in basketItem) {
-      if (groupedItems.containsKey(item.foodName)) {
-        groupedItems[item.foodName]!.add(item);
+      if (groupedItems.containsKey(item.name)) {
+        groupedItems[item.name]!.add(item);
       } else {
-        groupedItems[item.foodName!] = [item];
+        groupedItems[item.name!] = [item];
       }
     }
 
@@ -26,8 +26,8 @@ class BasketService {
           .doc('$tableNumber')
           .collection('orderList')
           .add({
-        'foodImage': foodList[0].foodImage,
-        'foodName': foodList[0].foodName,
+        'foodImage': foodList[0].image,
+        'foodName': foodList[0].name,
         'category': foodList[0].category,
         'price': foodList[0].price,
         'quantity': itemCount, // Yemek miktarını ekledik

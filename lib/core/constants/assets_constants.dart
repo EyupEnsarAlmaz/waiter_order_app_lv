@@ -14,4 +14,5 @@ class Kasset {
   static const drinksFoodIcon = "assets/tabbar/drink.png";
   static const mainFoodIcon = "assets/tabbar/main.png";
   static const dessertFoodIcon = "assets/tabbar/dessert.png";
+  static const dashLine = "assets/dashline.png";
 }

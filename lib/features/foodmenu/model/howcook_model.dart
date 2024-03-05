@@ -1,6 +1,7 @@
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/product_model.dart';
 
-class HowCookModel extends FoodModel {
+class HowCookModel extends ProductModel {
   String? cookStyle;
   HowCookModel({
     this.cookStyle,

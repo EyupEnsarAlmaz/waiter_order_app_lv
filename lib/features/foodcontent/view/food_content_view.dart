@@ -55,7 +55,7 @@ class _FoodContentViewState extends State<FoodContentView> {
               decoration: BoxDecoration(
                 color: const Color(0xff7c94b6),
                 image: DecorationImage(
-                  image: NetworkImage(widget.foodModel.foodImage!),
+                  image: NetworkImage(widget.foodModel.image!),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(100.0)),
@@ -95,7 +95,7 @@ class _FoodContentViewState extends State<FoodContentView> {
                     BlocBuilder<FoodBasketBloc, FoodBasketState>(
                       builder: (context, basketstate) {
                         return Text(
-                          basketstate.itemCountMap?[widget.foodModel.foodName]
+                          basketstate.itemCountMap?[widget.foodModel.name]
                                   .toString() ??
                               "0",
                           style: TextStyle(fontSize: 23),
@@ -107,18 +107,17 @@ class _FoodContentViewState extends State<FoodContentView> {
                         return ElevatedButton(
                           onPressed: () {
                             context.read<FoodBasketBloc>().add(
-                                FoodBasketEvent.removeBasketFood(
+                                FoodBasketEvent.removeItemFromBasket(
                                     FoodModel(
-                                        id: widget.foodModel.id,
                                         choosenCookStyle:
                                             widget.foodModel.choosenCookStyle,
                                         choosenSauce:
                                             widget.foodModel.choosenSauce,
                                         choosenSide:
                                             widget.foodModel.choosenSide,
-                                        foodImage: widget.foodModel.foodImage,
+                                        image: widget.foodModel.image,
                                         side: widget.foodModel.side,
-                                        foodName: widget.foodModel.foodName,
+                                        name: widget.foodModel.name,
                                         content: widget.foodModel.content,
                                         price: widget.foodModel.price,
                                         category: widget.foodModel.category),
@@ -150,7 +149,7 @@ class _FoodContentViewState extends State<FoodContentView> {
                       style: TextStyle(fontSize: 20),
                     ),
                     SizedBox(height: 10),
-                    Text(widget.foodModel.foodName!,
+                    Text(widget.foodModel.name!,
                         style: TextStyle(fontSize: 25)),
                     SizedBox(height: 10),
                     Text("${widget.foodModel.price} €",

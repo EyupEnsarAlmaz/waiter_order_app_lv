@@ -16,80 +16,77 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FoodBasketEvent {
+  int? get tableNumber => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $FoodBasketEventCopyWith<FoodBasketEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -98,6 +95,8 @@ abstract class $FoodBasketEventCopyWith<$Res> {
   factory $FoodBasketEventCopyWith(
           FoodBasketEvent value, $Res Function(FoodBasketEvent) then) =
       _$FoodBasketEventCopyWithImpl<$Res, FoodBasketEvent>;
+  @useResult
+  $Res call({int? tableNumber});
 }
 
 /// @nodoc
@@ -109,36 +108,51 @@ class _$FoodBasketEventCopyWithImpl<$Res, $Val extends FoodBasketEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? tableNumber = freezed,
+  }) {
+    return _then(_value.copyWith(
+      tableNumber: freezed == tableNumber
+          ? _value.tableNumber
+          : tableNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$AddBasketFoodImplCopyWith<$Res> {
-  factory _$$AddBasketFoodImplCopyWith(
-          _$AddBasketFoodImpl value, $Res Function(_$AddBasketFoodImpl) then) =
-      __$$AddBasketFoodImplCopyWithImpl<$Res>;
+abstract class _$$AddBasketItemImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
+  factory _$$AddBasketItemImplCopyWith(
+          _$AddBasketItemImpl value, $Res Function(_$AddBasketItemImpl) then) =
+      __$$AddBasketItemImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({FoodModel? food, int? tableNumber});
+  $Res call({ProductModel? item, int? tableNumber});
 }
 
 /// @nodoc
-class __$$AddBasketFoodImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$AddBasketFoodImpl>
-    implements _$$AddBasketFoodImplCopyWith<$Res> {
-  __$$AddBasketFoodImplCopyWithImpl(
-      _$AddBasketFoodImpl _value, $Res Function(_$AddBasketFoodImpl) _then)
+class __$$AddBasketItemImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$AddBasketItemImpl>
+    implements _$$AddBasketItemImplCopyWith<$Res> {
+  __$$AddBasketItemImplCopyWithImpl(
+      _$AddBasketItemImpl _value, $Res Function(_$AddBasketItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? food = freezed,
+    Object? item = freezed,
     Object? tableNumber = freezed,
   }) {
-    return _then(_$AddBasketFoodImpl(
-      freezed == food
-          ? _value.food
-          : food // ignore: cast_nullable_to_non_nullable
-              as FoodModel?,
+    return _then(_$AddBasketItemImpl(
+      freezed == item
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
       freezed == tableNumber
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -149,87 +163,85 @@ class __$$AddBasketFoodImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddBasketFoodImpl implements _AddBasketFood {
-  const _$AddBasketFoodImpl(this.food, this.tableNumber);
+class _$AddBasketItemImpl implements _AddBasketItem {
+  const _$AddBasketItemImpl(this.item, this.tableNumber);
 
   @override
-  final FoodModel? food;
+  final ProductModel? item;
   @override
   final int? tableNumber;
 
   @override
   String toString() {
-    return 'FoodBasketEvent.addBasketFood(food: $food, tableNumber: $tableNumber)';
+    return 'FoodBasketEvent.addBasketItem(item: $item, tableNumber: $tableNumber)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddBasketFoodImpl &&
-            (identical(other.food, food) || other.food == food) &&
+            other is _$AddBasketItemImpl &&
+            (identical(other.item, item) || other.item == item) &&
             (identical(other.tableNumber, tableNumber) ||
                 other.tableNumber == tableNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, food, tableNumber);
+  int get hashCode => Object.hash(runtimeType, item, tableNumber);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddBasketFoodImplCopyWith<_$AddBasketFoodImpl> get copyWith =>
-      __$$AddBasketFoodImplCopyWithImpl<_$AddBasketFoodImpl>(this, _$identity);
+  _$$AddBasketItemImplCopyWith<_$AddBasketItemImpl> get copyWith =>
+      __$$AddBasketItemImplCopyWithImpl<_$AddBasketItemImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) {
-    return addBasketFood(food, tableNumber);
+    return addBasketItem(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) {
-    return addBasketFood?.call(food, tableNumber);
+    return addBasketItem?.call(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) {
-    if (addBasketFood != null) {
-      return addBasketFood(food, tableNumber);
+    if (addBasketItem != null) {
+      return addBasketItem(item, tableNumber);
     }
     return orElse();
   }
@@ -237,89 +249,87 @@ class _$AddBasketFoodImpl implements _AddBasketFood {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) {
-    return addBasketFood(this);
+    return addBasketItem(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) {
-    return addBasketFood?.call(this);
+    return addBasketItem?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) {
-    if (addBasketFood != null) {
-      return addBasketFood(this);
+    if (addBasketItem != null) {
+      return addBasketItem(this);
     }
     return orElse();
   }
 }
 
-abstract class _AddBasketFood implements FoodBasketEvent {
-  const factory _AddBasketFood(final FoodModel? food, final int? tableNumber) =
-      _$AddBasketFoodImpl;
+abstract class _AddBasketItem implements FoodBasketEvent {
+  const factory _AddBasketItem(
+      final ProductModel? item, final int? tableNumber) = _$AddBasketItemImpl;
 
-  FoodModel? get food;
+  ProductModel? get item;
+  @override
   int? get tableNumber;
+  @override
   @JsonKey(ignore: true)
-  _$$AddBasketFoodImplCopyWith<_$AddBasketFoodImpl> get copyWith =>
+  _$$AddBasketItemImplCopyWith<_$AddBasketItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AddBasketDrinksImplCopyWith<$Res> {
-  factory _$$AddBasketDrinksImplCopyWith(_$AddBasketDrinksImpl value,
-          $Res Function(_$AddBasketDrinksImpl) then) =
-      __$$AddBasketDrinksImplCopyWithImpl<$Res>;
+abstract class _$$UpdateBasketItemImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
+  factory _$$UpdateBasketItemImplCopyWith(_$UpdateBasketItemImpl value,
+          $Res Function(_$UpdateBasketItemImpl) then) =
+      __$$UpdateBasketItemImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({FoodModel? drinks, int? tableNumber});
+  $Res call({ProductModel? item, int? tableNumber});
 }
 
 /// @nodoc
-class __$$AddBasketDrinksImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$AddBasketDrinksImpl>
-    implements _$$AddBasketDrinksImplCopyWith<$Res> {
-  __$$AddBasketDrinksImplCopyWithImpl(
-      _$AddBasketDrinksImpl _value, $Res Function(_$AddBasketDrinksImpl) _then)
+class __$$UpdateBasketItemImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$UpdateBasketItemImpl>
+    implements _$$UpdateBasketItemImplCopyWith<$Res> {
+  __$$UpdateBasketItemImplCopyWithImpl(_$UpdateBasketItemImpl _value,
+      $Res Function(_$UpdateBasketItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? drinks = freezed,
+    Object? item = freezed,
     Object? tableNumber = freezed,
   }) {
-    return _then(_$AddBasketDrinksImpl(
-      freezed == drinks
-          ? _value.drinks
-          : drinks // ignore: cast_nullable_to_non_nullable
-              as FoodModel?,
+    return _then(_$UpdateBasketItemImpl(
+      freezed == item
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
       freezed == tableNumber
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -330,88 +340,86 @@ class __$$AddBasketDrinksImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AddBasketDrinksImpl implements _AddBasketDrinks {
-  const _$AddBasketDrinksImpl(this.drinks, this.tableNumber);
+class _$UpdateBasketItemImpl implements _UpdateBasketItem {
+  const _$UpdateBasketItemImpl(this.item, this.tableNumber);
 
   @override
-  final FoodModel? drinks;
+  final ProductModel? item;
   @override
   final int? tableNumber;
 
   @override
   String toString() {
-    return 'FoodBasketEvent.addBasketDrinks(drinks: $drinks, tableNumber: $tableNumber)';
+    return 'FoodBasketEvent.updateBasketItem(item: $item, tableNumber: $tableNumber)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddBasketDrinksImpl &&
-            (identical(other.drinks, drinks) || other.drinks == drinks) &&
+            other is _$UpdateBasketItemImpl &&
+            (identical(other.item, item) || other.item == item) &&
             (identical(other.tableNumber, tableNumber) ||
                 other.tableNumber == tableNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, drinks, tableNumber);
+  int get hashCode => Object.hash(runtimeType, item, tableNumber);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddBasketDrinksImplCopyWith<_$AddBasketDrinksImpl> get copyWith =>
-      __$$AddBasketDrinksImplCopyWithImpl<_$AddBasketDrinksImpl>(
+  _$$UpdateBasketItemImplCopyWith<_$UpdateBasketItemImpl> get copyWith =>
+      __$$UpdateBasketItemImplCopyWithImpl<_$UpdateBasketItemImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) {
-    return addBasketDrinks(drinks, tableNumber);
+    return updateBasketItem(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) {
-    return addBasketDrinks?.call(drinks, tableNumber);
+    return updateBasketItem?.call(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) {
-    if (addBasketDrinks != null) {
-      return addBasketDrinks(drinks, tableNumber);
+    if (updateBasketItem != null) {
+      return updateBasketItem(item, tableNumber);
     }
     return orElse();
   }
@@ -419,248 +427,65 @@ class _$AddBasketDrinksImpl implements _AddBasketDrinks {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) {
-    return addBasketDrinks(this);
+    return updateBasketItem(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) {
-    return addBasketDrinks?.call(this);
+    return updateBasketItem?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) {
-    if (addBasketDrinks != null) {
-      return addBasketDrinks(this);
+    if (updateBasketItem != null) {
+      return updateBasketItem(this);
     }
     return orElse();
   }
 }
 
-abstract class _AddBasketDrinks implements FoodBasketEvent {
-  const factory _AddBasketDrinks(
-      final FoodModel? drinks, final int? tableNumber) = _$AddBasketDrinksImpl;
+abstract class _UpdateBasketItem implements FoodBasketEvent {
+  const factory _UpdateBasketItem(
+          final ProductModel? item, final int? tableNumber) =
+      _$UpdateBasketItemImpl;
 
-  FoodModel? get drinks;
+  ProductModel? get item;
+  @override
   int? get tableNumber;
+  @override
   @JsonKey(ignore: true)
-  _$$AddBasketDrinksImplCopyWith<_$AddBasketDrinksImpl> get copyWith =>
+  _$$UpdateBasketItemImplCopyWith<_$UpdateBasketItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateBasketFoodImplCopyWith<$Res> {
-  factory _$$UpdateBasketFoodImplCopyWith(_$UpdateBasketFoodImpl value,
-          $Res Function(_$UpdateBasketFoodImpl) then) =
-      __$$UpdateBasketFoodImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({FoodModel? food, int? tableNumber});
-}
-
-/// @nodoc
-class __$$UpdateBasketFoodImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$UpdateBasketFoodImpl>
-    implements _$$UpdateBasketFoodImplCopyWith<$Res> {
-  __$$UpdateBasketFoodImplCopyWithImpl(_$UpdateBasketFoodImpl _value,
-      $Res Function(_$UpdateBasketFoodImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? food = freezed,
-    Object? tableNumber = freezed,
-  }) {
-    return _then(_$UpdateBasketFoodImpl(
-      freezed == food
-          ? _value.food
-          : food // ignore: cast_nullable_to_non_nullable
-              as FoodModel?,
-      freezed == tableNumber
-          ? _value.tableNumber
-          : tableNumber // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdateBasketFoodImpl implements _UpdateBasketFood {
-  const _$UpdateBasketFoodImpl(this.food, this.tableNumber);
-
-  @override
-  final FoodModel? food;
-  @override
-  final int? tableNumber;
-
-  @override
-  String toString() {
-    return 'FoodBasketEvent.updateBasketFood(food: $food, tableNumber: $tableNumber)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateBasketFoodImpl &&
-            (identical(other.food, food) || other.food == food) &&
-            (identical(other.tableNumber, tableNumber) ||
-                other.tableNumber == tableNumber));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, food, tableNumber);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateBasketFoodImplCopyWith<_$UpdateBasketFoodImpl> get copyWith =>
-      __$$UpdateBasketFoodImplCopyWithImpl<_$UpdateBasketFoodImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
-    required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
-    required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
-  }) {
-    return updateBasketFood(food, tableNumber);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
-    TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
-  }) {
-    return updateBasketFood?.call(food, tableNumber);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
-    TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
-    required TResult orElse(),
-  }) {
-    if (updateBasketFood != null) {
-      return updateBasketFood(food, tableNumber);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
-    required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
-  }) {
-    return updateBasketFood(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
-    TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
-  }) {
-    return updateBasketFood?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
-    TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
-    required TResult orElse(),
-  }) {
-    if (updateBasketFood != null) {
-      return updateBasketFood(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UpdateBasketFood implements FoodBasketEvent {
-  const factory _UpdateBasketFood(
-      final FoodModel? food, final int? tableNumber) = _$UpdateBasketFoodImpl;
-
-  FoodModel? get food;
-  int? get tableNumber;
-  @JsonKey(ignore: true)
-  _$$UpdateBasketFoodImplCopyWith<_$UpdateBasketFoodImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AddNotesImplCopyWith<$Res> {
+abstract class _$$AddNotesImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
   factory _$$AddNotesImplCopyWith(
           _$AddNotesImpl value, $Res Function(_$AddNotesImpl) then) =
       __$$AddNotesImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({String? noteText, int? tableNumber});
 }
@@ -730,18 +555,16 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) {
     return addNotes(noteText, tableNumber);
   }
@@ -749,14 +572,14 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) {
     return addNotes?.call(noteText, tableNumber);
   }
@@ -764,14 +587,14 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) {
     if (addNotes != null) {
@@ -783,13 +606,11 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) {
     return addNotes(this);
   }
@@ -797,13 +618,11 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) {
     return addNotes?.call(this);
   }
@@ -811,13 +630,11 @@ class _$AddNotesImpl implements _AddNotes {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) {
     if (addNotes != null) {
@@ -832,179 +649,44 @@ abstract class _AddNotes implements FoodBasketEvent {
       _$AddNotesImpl;
 
   String? get noteText;
+  @override
   int? get tableNumber;
+  @override
   @JsonKey(ignore: true)
   _$$AddNotesImplCopyWith<_$AddNotesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MakeGroupedItemsImplCopyWith<$Res> {
-  factory _$$MakeGroupedItemsImplCopyWith(_$MakeGroupedItemsImpl value,
-          $Res Function(_$MakeGroupedItemsImpl) then) =
-      __$$MakeGroupedItemsImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$MakeGroupedItemsImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$MakeGroupedItemsImpl>
-    implements _$$MakeGroupedItemsImplCopyWith<$Res> {
-  __$$MakeGroupedItemsImplCopyWithImpl(_$MakeGroupedItemsImpl _value,
-      $Res Function(_$MakeGroupedItemsImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$MakeGroupedItemsImpl implements _MakeGroupedItems {
-  const _$MakeGroupedItemsImpl();
-
+abstract class _$$RemoveBasketItemImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
+  factory _$$RemoveBasketItemImplCopyWith(_$RemoveBasketItemImpl value,
+          $Res Function(_$RemoveBasketItemImpl) then) =
+      __$$RemoveBasketItemImplCopyWithImpl<$Res>;
   @override
-  String toString() {
-    return 'FoodBasketEvent.makeGroupedItems()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MakeGroupedItemsImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
-    required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
-    required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
-  }) {
-    return makeGroupedItems();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
-    TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
-  }) {
-    return makeGroupedItems?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
-    TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
-    required TResult orElse(),
-  }) {
-    if (makeGroupedItems != null) {
-      return makeGroupedItems();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
-    required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
-  }) {
-    return makeGroupedItems(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
-    TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
-  }) {
-    return makeGroupedItems?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
-    TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
-    required TResult orElse(),
-  }) {
-    if (makeGroupedItems != null) {
-      return makeGroupedItems(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _MakeGroupedItems implements FoodBasketEvent {
-  const factory _MakeGroupedItems() = _$MakeGroupedItemsImpl;
-}
-
-/// @nodoc
-abstract class _$$RemoveBasketFoodImplCopyWith<$Res> {
-  factory _$$RemoveBasketFoodImplCopyWith(_$RemoveBasketFoodImpl value,
-          $Res Function(_$RemoveBasketFoodImpl) then) =
-      __$$RemoveBasketFoodImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({FoodModel? food, int? tableNumber});
+  $Res call({ProductModel? item, int? tableNumber});
 }
 
 /// @nodoc
-class __$$RemoveBasketFoodImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$RemoveBasketFoodImpl>
-    implements _$$RemoveBasketFoodImplCopyWith<$Res> {
-  __$$RemoveBasketFoodImplCopyWithImpl(_$RemoveBasketFoodImpl _value,
-      $Res Function(_$RemoveBasketFoodImpl) _then)
+class __$$RemoveBasketItemImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$RemoveBasketItemImpl>
+    implements _$$RemoveBasketItemImplCopyWith<$Res> {
+  __$$RemoveBasketItemImplCopyWithImpl(_$RemoveBasketItemImpl _value,
+      $Res Function(_$RemoveBasketItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? food = freezed,
+    Object? item = freezed,
     Object? tableNumber = freezed,
   }) {
-    return _then(_$RemoveBasketFoodImpl(
-      freezed == food
-          ? _value.food
-          : food // ignore: cast_nullable_to_non_nullable
-              as FoodModel?,
+    return _then(_$RemoveBasketItemImpl(
+      freezed == item
+          ? _value.item
+          : item // ignore: cast_nullable_to_non_nullable
+              as ProductModel?,
       freezed == tableNumber
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -1015,88 +697,86 @@ class __$$RemoveBasketFoodImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
-  const _$RemoveBasketFoodImpl(this.food, this.tableNumber);
+class _$RemoveBasketItemImpl implements _RemoveBasketItem {
+  const _$RemoveBasketItemImpl(this.item, this.tableNumber);
 
   @override
-  final FoodModel? food;
+  final ProductModel? item;
   @override
   final int? tableNumber;
 
   @override
   String toString() {
-    return 'FoodBasketEvent.removeBasketFood(food: $food, tableNumber: $tableNumber)';
+    return 'FoodBasketEvent.removeItemFromBasket(item: $item, tableNumber: $tableNumber)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RemoveBasketFoodImpl &&
-            (identical(other.food, food) || other.food == food) &&
+            other is _$RemoveBasketItemImpl &&
+            (identical(other.item, item) || other.item == item) &&
             (identical(other.tableNumber, tableNumber) ||
                 other.tableNumber == tableNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, food, tableNumber);
+  int get hashCode => Object.hash(runtimeType, item, tableNumber);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RemoveBasketFoodImplCopyWith<_$RemoveBasketFoodImpl> get copyWith =>
-      __$$RemoveBasketFoodImplCopyWithImpl<_$RemoveBasketFoodImpl>(
+  _$$RemoveBasketItemImplCopyWith<_$RemoveBasketItemImpl> get copyWith =>
+      __$$RemoveBasketItemImplCopyWithImpl<_$RemoveBasketItemImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) {
-    return removeBasketFood(food, tableNumber);
+    return removeItemFromBasket(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) {
-    return removeBasketFood?.call(food, tableNumber);
+    return removeItemFromBasket?.call(item, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) {
-    if (removeBasketFood != null) {
-      return removeBasketFood(food, tableNumber);
+    if (removeItemFromBasket != null) {
+      return removeItemFromBasket(item, tableNumber);
     }
     return orElse();
   }
@@ -1104,76 +784,75 @@ class _$RemoveBasketFoodImpl implements _RemoveBasketFood {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) {
-    return removeBasketFood(this);
+    return removeItemFromBasket(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) {
-    return removeBasketFood?.call(this);
+    return removeItemFromBasket?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) {
-    if (removeBasketFood != null) {
-      return removeBasketFood(this);
+    if (removeItemFromBasket != null) {
+      return removeItemFromBasket(this);
     }
     return orElse();
   }
 }
 
-abstract class _RemoveBasketFood implements FoodBasketEvent {
-  const factory _RemoveBasketFood(
-      final FoodModel? food, final int? tableNumber) = _$RemoveBasketFoodImpl;
+abstract class _RemoveBasketItem implements FoodBasketEvent {
+  const factory _RemoveBasketItem(
+          final ProductModel? item, final int? tableNumber) =
+      _$RemoveBasketItemImpl;
 
-  FoodModel? get food;
+  ProductModel? get item;
+  @override
   int? get tableNumber;
+  @override
   @JsonKey(ignore: true)
-  _$$RemoveBasketFoodImplCopyWith<_$RemoveBasketFoodImpl> get copyWith =>
+  _$$RemoveBasketItemImplCopyWith<_$RemoveBasketItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RemoveAllFoodImplCopyWith<$Res> {
-  factory _$$RemoveAllFoodImplCopyWith(
-          _$RemoveAllFoodImpl value, $Res Function(_$RemoveAllFoodImpl) then) =
-      __$$RemoveAllFoodImplCopyWithImpl<$Res>;
+abstract class _$$RemoveAllItemImplCopyWith<$Res>
+    implements $FoodBasketEventCopyWith<$Res> {
+  factory _$$RemoveAllItemImplCopyWith(
+          _$RemoveAllItemImpl value, $Res Function(_$RemoveAllItemImpl) then) =
+      __$$RemoveAllItemImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({Map<int, List<FoodModel>?>? basketMaps, int? tableNumber});
+  $Res call({Map<int, List<ProductModel>?>? basketMaps, int? tableNumber});
 }
 
 /// @nodoc
-class __$$RemoveAllFoodImplCopyWithImpl<$Res>
-    extends _$FoodBasketEventCopyWithImpl<$Res, _$RemoveAllFoodImpl>
-    implements _$$RemoveAllFoodImplCopyWith<$Res> {
-  __$$RemoveAllFoodImplCopyWithImpl(
-      _$RemoveAllFoodImpl _value, $Res Function(_$RemoveAllFoodImpl) _then)
+class __$$RemoveAllItemImplCopyWithImpl<$Res>
+    extends _$FoodBasketEventCopyWithImpl<$Res, _$RemoveAllItemImpl>
+    implements _$$RemoveAllItemImplCopyWith<$Res> {
+  __$$RemoveAllItemImplCopyWithImpl(
+      _$RemoveAllItemImpl _value, $Res Function(_$RemoveAllItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1182,11 +861,11 @@ class __$$RemoveAllFoodImplCopyWithImpl<$Res>
     Object? basketMaps = freezed,
     Object? tableNumber = freezed,
   }) {
-    return _then(_$RemoveAllFoodImpl(
+    return _then(_$RemoveAllItemImpl(
       freezed == basketMaps
           ? _value._basketMaps
           : basketMaps // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<FoodModel>?>?,
+              as Map<int, List<ProductModel>?>?,
       freezed == tableNumber
           ? _value.tableNumber
           : tableNumber // ignore: cast_nullable_to_non_nullable
@@ -1197,14 +876,14 @@ class __$$RemoveAllFoodImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RemoveAllFoodImpl implements _RemoveAllFood {
-  const _$RemoveAllFoodImpl(
-      final Map<int, List<FoodModel>?>? basketMaps, this.tableNumber)
+class _$RemoveAllItemImpl implements _RemoveAllItem {
+  const _$RemoveAllItemImpl(
+      final Map<int, List<ProductModel>?>? basketMaps, this.tableNumber)
       : _basketMaps = basketMaps;
 
-  final Map<int, List<FoodModel>?>? _basketMaps;
+  final Map<int, List<ProductModel>?>? _basketMaps;
   @override
-  Map<int, List<FoodModel>?>? get basketMaps {
+  Map<int, List<ProductModel>?>? get basketMaps {
     final value = _basketMaps;
     if (value == null) return null;
     if (_basketMaps is EqualUnmodifiableMapView) return _basketMaps;
@@ -1217,14 +896,14 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
 
   @override
   String toString() {
-    return 'FoodBasketEvent.removeAllFood(basketMaps: $basketMaps, tableNumber: $tableNumber)';
+    return 'FoodBasketEvent.removeAllItem(basketMaps: $basketMaps, tableNumber: $tableNumber)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RemoveAllFoodImpl &&
+            other is _$RemoveAllItemImpl &&
             const DeepCollectionEquality()
                 .equals(other._basketMaps, _basketMaps) &&
             (identical(other.tableNumber, tableNumber) ||
@@ -1238,58 +917,56 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RemoveAllFoodImplCopyWith<_$RemoveAllFoodImpl> get copyWith =>
-      __$$RemoveAllFoodImplCopyWithImpl<_$RemoveAllFoodImpl>(this, _$identity);
+  _$$RemoveAllItemImplCopyWith<_$RemoveAllItemImpl> get copyWith =>
+      __$$RemoveAllItemImplCopyWithImpl<_$RemoveAllItemImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(FoodModel? food, int? tableNumber) addBasketFood,
-    required TResult Function(FoodModel? drinks, int? tableNumber)
-        addBasketDrinks,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        updateBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        addBasketItem,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        updateBasketItem,
     required TResult Function(String? noteText, int? tableNumber) addNotes,
-    required TResult Function() makeGroupedItems,
-    required TResult Function(FoodModel? food, int? tableNumber)
-        removeBasketFood,
+    required TResult Function(ProductModel? item, int? tableNumber)
+        removeItemFromBasket,
     required TResult Function(
-            Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)
-        removeAllFood,
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)
+        removeAllItem,
   }) {
-    return removeAllFood(basketMaps, tableNumber);
+    return removeAllItem(basketMaps, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult? Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult? Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult? Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult? Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult? Function(String? noteText, int? tableNumber)? addNotes,
-    TResult? Function()? makeGroupedItems,
-    TResult? Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult? Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult? Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult? Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
   }) {
-    return removeAllFood?.call(basketMaps, tableNumber);
+    return removeAllItem?.call(basketMaps, tableNumber);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(FoodModel? food, int? tableNumber)? addBasketFood,
-    TResult Function(FoodModel? drinks, int? tableNumber)? addBasketDrinks,
-    TResult Function(FoodModel? food, int? tableNumber)? updateBasketFood,
+    TResult Function(ProductModel? item, int? tableNumber)? addBasketItem,
+    TResult Function(ProductModel? item, int? tableNumber)? updateBasketItem,
     TResult Function(String? noteText, int? tableNumber)? addNotes,
-    TResult Function()? makeGroupedItems,
-    TResult Function(FoodModel? food, int? tableNumber)? removeBasketFood,
-    TResult Function(Map<int, List<FoodModel>?>? basketMaps, int? tableNumber)?
-        removeAllFood,
+    TResult Function(ProductModel? item, int? tableNumber)?
+        removeItemFromBasket,
+    TResult Function(
+            Map<int, List<ProductModel>?>? basketMaps, int? tableNumber)?
+        removeAllItem,
     required TResult orElse(),
   }) {
-    if (removeAllFood != null) {
-      return removeAllFood(basketMaps, tableNumber);
+    if (removeAllItem != null) {
+      return removeAllItem(basketMaps, tableNumber);
     }
     return orElse();
   }
@@ -1297,71 +974,65 @@ class _$RemoveAllFoodImpl implements _RemoveAllFood {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_AddBasketFood value) addBasketFood,
-    required TResult Function(_AddBasketDrinks value) addBasketDrinks,
-    required TResult Function(_UpdateBasketFood value) updateBasketFood,
+    required TResult Function(_AddBasketItem value) addBasketItem,
+    required TResult Function(_UpdateBasketItem value) updateBasketItem,
     required TResult Function(_AddNotes value) addNotes,
-    required TResult Function(_MakeGroupedItems value) makeGroupedItems,
-    required TResult Function(_RemoveBasketFood value) removeBasketFood,
-    required TResult Function(_RemoveAllFood value) removeAllFood,
+    required TResult Function(_RemoveBasketItem value) removeItemFromBasket,
+    required TResult Function(_RemoveAllItem value) removeAllItem,
   }) {
-    return removeAllFood(this);
+    return removeAllItem(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_AddBasketFood value)? addBasketFood,
-    TResult? Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult? Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult? Function(_AddBasketItem value)? addBasketItem,
+    TResult? Function(_UpdateBasketItem value)? updateBasketItem,
     TResult? Function(_AddNotes value)? addNotes,
-    TResult? Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult? Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult? Function(_RemoveAllFood value)? removeAllFood,
+    TResult? Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult? Function(_RemoveAllItem value)? removeAllItem,
   }) {
-    return removeAllFood?.call(this);
+    return removeAllItem?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_AddBasketFood value)? addBasketFood,
-    TResult Function(_AddBasketDrinks value)? addBasketDrinks,
-    TResult Function(_UpdateBasketFood value)? updateBasketFood,
+    TResult Function(_AddBasketItem value)? addBasketItem,
+    TResult Function(_UpdateBasketItem value)? updateBasketItem,
     TResult Function(_AddNotes value)? addNotes,
-    TResult Function(_MakeGroupedItems value)? makeGroupedItems,
-    TResult Function(_RemoveBasketFood value)? removeBasketFood,
-    TResult Function(_RemoveAllFood value)? removeAllFood,
+    TResult Function(_RemoveBasketItem value)? removeItemFromBasket,
+    TResult Function(_RemoveAllItem value)? removeAllItem,
     required TResult orElse(),
   }) {
-    if (removeAllFood != null) {
-      return removeAllFood(this);
+    if (removeAllItem != null) {
+      return removeAllItem(this);
     }
     return orElse();
   }
 }
 
-abstract class _RemoveAllFood implements FoodBasketEvent {
-  const factory _RemoveAllFood(final Map<int, List<FoodModel>?>? basketMaps,
-      final int? tableNumber) = _$RemoveAllFoodImpl;
+abstract class _RemoveAllItem implements FoodBasketEvent {
+  const factory _RemoveAllItem(final Map<int, List<ProductModel>?>? basketMaps,
+      final int? tableNumber) = _$RemoveAllItemImpl;
 
-  Map<int, List<FoodModel>?>? get basketMaps;
+  Map<int, List<ProductModel>?>? get basketMaps;
+  @override
   int? get tableNumber;
+  @override
   @JsonKey(ignore: true)
-  _$$RemoveAllFoodImplCopyWith<_$RemoveAllFoodImpl> get copyWith =>
+  _$$RemoveAllItemImplCopyWith<_$RemoveAllItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$FoodBasketState {
   FoodBasketStatus get status => throw _privateConstructorUsedError;
-  Map<int, List<FoodModel>?>? get basketMap =>
+  Map<int, List<ProductModel>?>? get basketMap =>
       throw _privateConstructorUsedError;
   String? get noteText => throw _privateConstructorUsedError;
   int? get tableNumber => throw _privateConstructorUsedError;
   Map<String, int>? get itemCountMap => throw _privateConstructorUsedError;
-  Map<String, List<FoodModel>>? get groupedItems =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodBasketStateCopyWith<FoodBasketState> get copyWith =>
@@ -1376,11 +1047,10 @@ abstract class $FoodBasketStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FoodBasketStatus status,
-      Map<int, List<FoodModel>?>? basketMap,
+      Map<int, List<ProductModel>?>? basketMap,
       String? noteText,
       int? tableNumber,
-      Map<String, int>? itemCountMap,
-      Map<String, List<FoodModel>>? groupedItems});
+      Map<String, int>? itemCountMap});
 }
 
 /// @nodoc
@@ -1401,7 +1071,6 @@ class _$FoodBasketStateCopyWithImpl<$Res, $Val extends FoodBasketState>
     Object? noteText = freezed,
     Object? tableNumber = freezed,
     Object? itemCountMap = freezed,
-    Object? groupedItems = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -1411,7 +1080,7 @@ class _$FoodBasketStateCopyWithImpl<$Res, $Val extends FoodBasketState>
       basketMap: freezed == basketMap
           ? _value.basketMap
           : basketMap // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<FoodModel>?>?,
+              as Map<int, List<ProductModel>?>?,
       noteText: freezed == noteText
           ? _value.noteText
           : noteText // ignore: cast_nullable_to_non_nullable
@@ -1424,10 +1093,6 @@ class _$FoodBasketStateCopyWithImpl<$Res, $Val extends FoodBasketState>
           ? _value.itemCountMap
           : itemCountMap // ignore: cast_nullable_to_non_nullable
               as Map<String, int>?,
-      groupedItems: freezed == groupedItems
-          ? _value.groupedItems
-          : groupedItems // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<FoodModel>>?,
     ) as $Val);
   }
 }
@@ -1442,11 +1107,10 @@ abstract class _$$FoodBasketStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {FoodBasketStatus status,
-      Map<int, List<FoodModel>?>? basketMap,
+      Map<int, List<ProductModel>?>? basketMap,
       String? noteText,
       int? tableNumber,
-      Map<String, int>? itemCountMap,
-      Map<String, List<FoodModel>>? groupedItems});
+      Map<String, int>? itemCountMap});
 }
 
 /// @nodoc
@@ -1465,7 +1129,6 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
     Object? noteText = freezed,
     Object? tableNumber = freezed,
     Object? itemCountMap = freezed,
-    Object? groupedItems = freezed,
   }) {
     return _then(_$FoodBasketStateImpl(
       status: null == status
@@ -1475,7 +1138,7 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
       basketMap: freezed == basketMap
           ? _value._basketMap
           : basketMap // ignore: cast_nullable_to_non_nullable
-              as Map<int, List<FoodModel>?>?,
+              as Map<int, List<ProductModel>?>?,
       noteText: freezed == noteText
           ? _value.noteText
           : noteText // ignore: cast_nullable_to_non_nullable
@@ -1488,10 +1151,6 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
           ? _value._itemCountMap
           : itemCountMap // ignore: cast_nullable_to_non_nullable
               as Map<String, int>?,
-      groupedItems: freezed == groupedItems
-          ? _value._groupedItems
-          : groupedItems // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<FoodModel>>?,
     ));
   }
 }
@@ -1501,21 +1160,19 @@ class __$$FoodBasketStateImplCopyWithImpl<$Res>
 class _$FoodBasketStateImpl implements _FoodBasketState {
   const _$FoodBasketStateImpl(
       {this.status = FoodBasketStatus.initial,
-      final Map<int, List<FoodModel>?>? basketMap,
+      final Map<int, List<ProductModel>?>? basketMap,
       this.noteText,
       this.tableNumber,
-      final Map<String, int>? itemCountMap,
-      final Map<String, List<FoodModel>>? groupedItems})
+      final Map<String, int>? itemCountMap})
       : _basketMap = basketMap,
-        _itemCountMap = itemCountMap,
-        _groupedItems = groupedItems;
+        _itemCountMap = itemCountMap;
 
   @override
   @JsonKey()
   final FoodBasketStatus status;
-  final Map<int, List<FoodModel>?>? _basketMap;
+  final Map<int, List<ProductModel>?>? _basketMap;
   @override
-  Map<int, List<FoodModel>?>? get basketMap {
+  Map<int, List<ProductModel>?>? get basketMap {
     final value = _basketMap;
     if (value == null) return null;
     if (_basketMap is EqualUnmodifiableMapView) return _basketMap;
@@ -1537,19 +1194,9 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
     return EqualUnmodifiableMapView(value);
   }
 
-  final Map<String, List<FoodModel>>? _groupedItems;
-  @override
-  Map<String, List<FoodModel>>? get groupedItems {
-    final value = _groupedItems;
-    if (value == null) return null;
-    if (_groupedItems is EqualUnmodifiableMapView) return _groupedItems;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
   @override
   String toString() {
-    return 'FoodBasketState(status: $status, basketMap: $basketMap, noteText: $noteText, tableNumber: $tableNumber, itemCountMap: $itemCountMap, groupedItems: $groupedItems)';
+    return 'FoodBasketState(status: $status, basketMap: $basketMap, noteText: $noteText, tableNumber: $tableNumber, itemCountMap: $itemCountMap)';
   }
 
   @override
@@ -1565,9 +1212,7 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
             (identical(other.tableNumber, tableNumber) ||
                 other.tableNumber == tableNumber) &&
             const DeepCollectionEquality()
-                .equals(other._itemCountMap, _itemCountMap) &&
-            const DeepCollectionEquality()
-                .equals(other._groupedItems, _groupedItems));
+                .equals(other._itemCountMap, _itemCountMap));
   }
 
   @override
@@ -1577,8 +1222,7 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
       const DeepCollectionEquality().hash(_basketMap),
       noteText,
       tableNumber,
-      const DeepCollectionEquality().hash(_itemCountMap),
-      const DeepCollectionEquality().hash(_groupedItems));
+      const DeepCollectionEquality().hash(_itemCountMap));
 
   @JsonKey(ignore: true)
   @override
@@ -1590,26 +1234,22 @@ class _$FoodBasketStateImpl implements _FoodBasketState {
 
 abstract class _FoodBasketState implements FoodBasketState {
   const factory _FoodBasketState(
-          {final FoodBasketStatus status,
-          final Map<int, List<FoodModel>?>? basketMap,
-          final String? noteText,
-          final int? tableNumber,
-          final Map<String, int>? itemCountMap,
-          final Map<String, List<FoodModel>>? groupedItems}) =
-      _$FoodBasketStateImpl;
+      {final FoodBasketStatus status,
+      final Map<int, List<ProductModel>?>? basketMap,
+      final String? noteText,
+      final int? tableNumber,
+      final Map<String, int>? itemCountMap}) = _$FoodBasketStateImpl;
 
   @override
   FoodBasketStatus get status;
   @override
-  Map<int, List<FoodModel>?>? get basketMap;
+  Map<int, List<ProductModel>?>? get basketMap;
   @override
   String? get noteText;
   @override
   int? get tableNumber;
   @override
   Map<String, int>? get itemCountMap;
-  @override
-  Map<String, List<FoodModel>>? get groupedItems;
   @override
   @JsonKey(ignore: true)
   _$$FoodBasketStateImplCopyWith<_$FoodBasketStateImpl> get copyWith =>

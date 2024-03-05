@@ -16,6 +16,8 @@ class KThemeColor {
   static const Color deleteRedColor = Color(0xffEB3223);
   static const Color iconBackground = Color(0xff7A7A7A);
 
+  static const Color customListTile = Color(0xFF181616);
+
   static const Color blueGrey = Color(0xff27374D);
   static const Color bluePrimary = Color.fromRGBO(31, 60, 227, 1);
   static const Color blueLight = Color(0xff9DB2BF);
@@ -25,7 +27,7 @@ class KThemeColor {
 
   static const Color blackDark = Color(0xff22242F);
   static const Color blackPrimary = Color(0xff333647);
-  static const Color blackLight = Color(0xff44485F);
+  static const Color blackLight = Color(0xFF333644);
   static const Color blackLighter = Color(0xffDDE6ED);
 
   static const Color greyDark = Color(0xff666C8E);
