@@ -6,6 +6,7 @@ import 'package:uuid/v4.dart';
 import 'package:waiter_order_app_lv/core/error/result_types/result/result.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/product_model.dart';
 
 part 'food_basket_event.dart';
 part 'food_basket_state.dart';
@@ -13,95 +14,64 @@ part 'food_basket_bloc.freezed.dart';
 
 class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
   FoodBasketBloc() : super(const FoodBasketState()) {
-    on<_AddBasketFood>(_addBasketFood);
-    on<_RemoveBasketFood>(_removeBasketFood);
-    on<_RemoveAllFood>(_removeAllFood);
+    on<_AddBasketItem>(_addBasketItem);
+    on<_RemoveBasketItem>(_removeItemFromBasket);
+    on<_RemoveAllItem>(_removeAllItem);
     on<_AddNotes>(_addNoteText);
-    on<_UpdateBasketFood>(_updateBasketFood);
-    on<_MakeGroupedItems>(_makeGroupedItems);
-    on<_AddBasketDrinks>(_addBasketDrinks);
+    on<_UpdateBasketItem>(_updateBasketItem);
   }
 
-  Map<int, List<FoodModel>> basketMap = {};
+  Map<int, List<ProductModel>> basketMap = {};
   Map<String, int>? itemCountMap = {};
   final _uuid = Uuid();
 
-  Future<void> _addBasketFood(_AddBasketFood event, Emitter emit) async {
+  Future<void> _addBasketItem(_AddBasketItem event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       basketMap.putIfAbsent(event.tableNumber!, () => []);
-      basketMap[event.tableNumber!]!.add(event.food!);
-      if (event.food != null && event.food?.foodName != null) {
-        String foodName = event.food!.foodName!;
+      if (event.item?.name != null) {
+        basketMap[event.tableNumber!]!.add(event.item!);
+        String name = event.item!.name!;
+        int? itemCount = basketMap[event.tableNumber]
+            ?.where((item) => item.name == name)
+            .length;
         String id = _uuid.v4();
-        event.food!.id = id;
+        event.item!.id = id;
         print(id);
-        int? itemCount = basketMap[event.tableNumber]
-            ?.where((item) => item.foodName == foodName)
-            .length;
-
-        itemCountMap![foodName] = itemCount!;
-
-        emit(state.copyWith(
-            itemCountMap: itemCountMap,
-            status: FoodBasketStatus.success,
-            basketMap: basketMap,
-            tableNumber: event.tableNumber));
+        itemCountMap![name] = itemCount!;
       }
+      emit(state.copyWith(
+          itemCountMap: itemCountMap,
+          status: FoodBasketStatus.success,
+          basketMap: basketMap,
+          tableNumber: event.tableNumber));
     } catch (error) {
       print('Error: $error');
     }
   }
 
-  Future<void> _addBasketDrinks(_AddBasketDrinks event, Emitter emit) async {
-    try {
-      emit(state.copyWith(status: FoodBasketStatus.loading));
-      basketMap.putIfAbsent(event.tableNumber!, () => []);
-      basketMap[event.tableNumber!]!.add(event.drinks!);
-      if (event.drinks != null &&
-          event.drinks?.drinksModel?.drinkName != null) {
-        String drinksName = event.drinks!.drinksModel!.drinkName!;
-
-        int? itemCount = basketMap[event.tableNumber]
-            ?.where((item) => item.drinksModel!.drinkName == drinksName)
-            .length;
-
-        itemCountMap![drinksName] = itemCount!;
-
-        emit(state.copyWith(
-            itemCountMap: itemCountMap,
-            status: FoodBasketStatus.success,
-            basketMap: basketMap,
-            tableNumber: event.tableNumber));
-      }
-    } catch (error) {
-      print('Error: $error');
-    }
-  }
-
-  Future<void> _updateBasketFood(_UpdateBasketFood event, Emitter emit) async {
+  Future<void> _updateBasketItem(_UpdateBasketItem event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
 
-      if (event.food == null || event.food!.id == null) {
+      if (event.item?.name == null || event.item?.id == null) {
         throw Exception('Food missing required "id" property');
       }
-
       final updatedBasket = basketMap[event.tableNumber] ?? [];
       final foodIndex =
-          updatedBasket.indexWhere((item) => item.id == event.food!.id);
+          updatedBasket.indexWhere((item) => item.id == event.item!.id);
 
       if (foodIndex != -1) {
-        updatedBasket[foodIndex] = event.food!;
+        updatedBasket[foodIndex] = event.item!;
       }
       basketMap[event.tableNumber!] = updatedBasket;
 
-      String foodName = event.food!.foodName!;
+      String name = event.item!.name!;
       int? itemCount = basketMap[event.tableNumber]!
-          .where((item) => item.id == event.food!.id)
+          .where((item) => item.id == event.item!.id)
           .length;
 
-      itemCountMap![foodName] = itemCount!;
+      itemCountMap![name] = itemCount;
 
       emit(state.copyWith(
           itemCountMap: itemCountMap,
@@ -114,20 +84,18 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     }
   }
 
-  Future<void> _removeBasketFood(_RemoveBasketFood event, Emitter emit) async {
+  Future<void> _removeItemFromBasket(
+      _RemoveBasketItem event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       basketMap.putIfAbsent(event.tableNumber!, () => []);
-      basketMap[event.tableNumber!]!.remove(event.food!);
-
-      if (event.food != null && event.food!.foodName != null) {
-        String foodName = event.food!.foodName!;
+      if (event.item?.name != null) {
+        basketMap[event.tableNumber!]!.remove(event.item!);
+        String name = event.item!.name!;
         int? itemCount = basketMap[event.tableNumber]
-            ?.where((item) => item.foodName == foodName)
+            ?.where((item) => item.name == name)
             .length;
-
-        itemCountMap![foodName] = itemCount!;
-
+        itemCountMap![name] = itemCount!;
         emit(state.copyWith(
             status: FoodBasketStatus.success,
             itemCountMap: itemCountMap,
@@ -139,7 +107,7 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
     }
   }
 
-  Future<void> _removeAllFood(_RemoveAllFood event, Emitter emit) async {
+  Future<void> _removeAllItem(_RemoveAllItem event, Emitter emit) async {
     try {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       event.basketMaps?[event.tableNumber]?.clear();
@@ -159,38 +127,6 @@ class FoodBasketBloc extends Bloc<FoodBasketEvent, FoodBasketState> {
       emit(state.copyWith(status: FoodBasketStatus.loading));
       emit(state.copyWith(
           status: FoodBasketStatus.success, noteText: event.noteText));
-    } catch (error) {
-      print('Error: $error');
-    }
-  }
-
-  Future<void> _makeGroupedItems(_MakeGroupedItems event, Emitter emit) async {
-    try {
-      Map<int, Map<String, List<FoodModel>>> groupedItemsByTableNumber = {};
-
-      for (var entry in state.basketMap!.entries) {
-        int tableNumber = entry.key;
-        Map<String, List<FoodModel>> groupedItems = {};
-        Set<String> uniqueFoodNames = Set();
-
-        List<FoodModel>? foodList = entry.value;
-        if (foodList != null) {
-          for (var item in foodList) {
-            String foodKey =
-                '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
-            if (!uniqueFoodNames.contains(foodKey)) {
-              uniqueFoodNames.add(foodKey);
-              groupedItems[foodKey] = [item];
-            } else {
-              groupedItems[foodKey]!.add(item);
-            }
-          }
-        }
-
-        groupedItemsByTableNumber[tableNumber] = groupedItems;
-        emit(state.copyWith(
-            status: FoodBasketStatus.success, groupedItems: groupedItems));
-      }
     } catch (error) {
       print('Error: $error');
     }

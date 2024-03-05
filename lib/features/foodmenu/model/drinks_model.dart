@@ -1,19 +1,18 @@
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/product_model.dart';
 
-class DrinksModel extends FoodModel {
-  int? drinkPrice;
-  String? drinkName;
+class DrinksModel extends ProductModel {
   String? category;
   DrinksModel({
-    this.drinkPrice,
-    this.drinkName,
+    super.price,
+    super.name,
     this.category,
   });
   factory DrinksModel.fromMap(Map<String, dynamic> map) {
     return DrinksModel(
       category: map['category'] ?? '',
-      drinkName: map['drinkName'] ?? '',
-      drinkPrice: map['drinkPrice']?.toInt() ?? 0,
+      name: map['drinkName'] ?? '',
+      price: map['drinkPrice']?.toInt() ?? 0,
     );
   }
 }

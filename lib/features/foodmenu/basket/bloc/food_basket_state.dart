@@ -16,10 +16,9 @@ enum FoodBasketStatus {
 class FoodBasketState with _$FoodBasketState {
   const factory FoodBasketState({
     @Default(FoodBasketStatus.initial) FoodBasketStatus status,
-    Map<int, List<FoodModel>?>? basketMap,
+    Map<int, List<ProductModel>?>? basketMap,
     String? noteText,
     int? tableNumber,
     Map<String, int>? itemCountMap,
-    Map<String, List<FoodModel>>? groupedItems,
   }) = _FoodBasketState;
 }

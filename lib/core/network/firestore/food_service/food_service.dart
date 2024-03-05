@@ -97,7 +97,7 @@ class FoodService {
     return drinksList;
   }
 
-  Future<List<dynamic>?>? getFoodByCategory(
+  Future<List<FoodModel>?>? getFoodByCategory(
       {required String colletionName, required String category}) async {
     final List<FoodModel> foodList = [];
 

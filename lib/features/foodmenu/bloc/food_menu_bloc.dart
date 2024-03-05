@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 

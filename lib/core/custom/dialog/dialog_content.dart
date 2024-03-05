@@ -28,7 +28,7 @@ class DialogContet {
         context: context,
         titleText: 'Choose Sauce Please',
         items: foodstate.sauceList,
-        getName: (SauceModel? sauceModel) => sauceModel?.sauceName ?? "",
+        getName: (SauceModel? sauceModel) => sauceModel?.name ?? "",
         onPressed: () {
           choosenSauce = CustomDialog.shared.choosenValue;
         },
@@ -37,7 +37,7 @@ class DialogContet {
         context: context,
         titleText: 'Choose Side Please',
         items: foodstate.sideList,
-        getName: (SideModel? sideModel) => sideModel?.sideName ?? "",
+        getName: (SideModel? sideModel) => sideModel?.name ?? "",
         onPressed: () {
           choosenSide = CustomDialog.shared.choosenValue;
         },
@@ -49,14 +49,14 @@ class DialogContet {
         getName: (HowCookModel? howCookModel) => howCookModel?.cookStyle ?? "",
         onPressed: () {
           choosenHowCook = CustomDialog.shared.choosenValue;
-          context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+          context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketItem(
               FoodModel(
                   choosenCookStyle: choosenHowCook,
                   choosenSauce: choosenSauce,
                   choosenSide: choosenSide,
-                  foodImage: foodModel.foodImage,
+                  image: foodModel.image,
                   side: foodModel.side,
-                  foodName: foodModel.foodName,
+                  name: foodModel.name,
                   content: foodModel.content,
                   price: foodModel.price,
                   category: foodModel.category),
@@ -68,15 +68,15 @@ class DialogContet {
         context: context,
         titleText: 'Choose Side Pleases',
         items: foodstate.sideList,
-        getName: (SideModel? sideModel) => sideModel?.sideName ?? "",
+        getName: (SideModel? sideModel) => sideModel?.name ?? "",
         onPressed: () {
           choosenSide = CustomDialog.shared.choosenValue;
-          context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+          context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketItem(
               FoodModel(
                   choosenSide: choosenSide,
-                  foodImage: foodModel.foodImage,
+                  image: foodModel.image,
                   side: foodModel.side,
-                  foodName: foodModel.foodName,
+                  name: foodModel.name,
                   content: foodModel.content,
                   price: foodModel.price,
                   category: foodModel.category),
@@ -84,11 +84,11 @@ class DialogContet {
         },
       );
     } else {
-      context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketFood(
+      context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketItem(
           FoodModel(
-              foodImage: foodModel.foodImage,
+              image: foodModel.image,
               side: foodModel.side,
-              foodName: foodModel.foodName,
+              name: foodModel.name,
               content: foodModel.content,
               price: foodModel.price,
               category: foodModel.category),

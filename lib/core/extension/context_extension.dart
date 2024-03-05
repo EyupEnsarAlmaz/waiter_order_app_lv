@@ -101,7 +101,7 @@ extension EasyPadding on BuildContext {
   EdgeInsets get normalPadding => EdgeInsets.all(normalWidth);
   EdgeInsets get mediumPadding => EdgeInsets.all(mediumWidth);
   EdgeInsets get bigPadding => EdgeInsets.all(bigWidth);
-  EdgeInsets padding(double ratio) => EdgeInsets.all(ratio * dynamicWidth);
+  EdgeInsets padding(double ratio, {required Center child}) => EdgeInsets.all(ratio * dynamicWidth);
 
   EdgeInsets symmetricPadding({
     double horizontal = 0.0,

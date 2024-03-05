@@ -15,11 +15,14 @@ class SearchService {
 
     List<FoodModel> foodSuggestions = querySnapshot.docs
         .map((doc) => FoodModel(
-              foodName: doc['foodName'] as String,
+              name: doc['foodName'] as String,
               price: doc['price'].toInt() as int,
-              foodImage: doc['foodimage'] as String,
+              image: doc['foodimage'] as String,
               category: doc['category'] as String,
               content: doc['content'] as String,
+              side: doc['side'] as bool?,
+              sauce: doc['sauce'] as bool?,
+              howCook: doc['howCook'] as bool?,
             ))
         .toList();
 

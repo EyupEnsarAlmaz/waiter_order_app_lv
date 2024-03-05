@@ -21,4 +21,22 @@ abstract class LocaleKeys {
   static const closeText = 'closeText';
   static const welcome = 'welcome';
   static const loginDescribe = 'loginDescribe';
+  static const tableList = 'tableList';
+  static const tablestatusAway = 'tablestatusAway';
+  static const tablestatusnotAway = 'tablestatusnotAway';
+  static const openTable = 'openTable';
+  static const closeTable = 'closeTable';
+  static const exit = 'exit';
+  static const tableAway = 'tableAway';
+  static const foodMenu = 'foodMenu';
+  static const searchFood = 'searchFood';
+  static const selectedCategory = 'selectedCategory';
+  static const kitchenMessage = 'kitchenMessage';
+  static const all = 'all';
+  static const starter = 'starter';
+  static const drinks = 'drinks';
+  static const main = 'main';
+  static const dessert = 'dessert';
+  static const send = 'send';
+  static const enterNote = 'enterNote';
 }

@@ -7,8 +7,10 @@ import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/network/firestore/basket_service/basket_service.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
+import 'package:waiter_order_app_lv/features/foodmenu/model/product_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
@@ -52,6 +54,9 @@ class DetailOrderView extends StatelessWidget {
 }
 
 BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
+  String? choosenSide;
+  String? choosenCookStyle;
+  String? choosenSauce;
   return BlocBuilder<FoodBasketBloc, FoodBasketState>(
       builder: (context, state) {
     if (state.status.isLoading) {
@@ -59,16 +64,16 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
         child: CircularProgressIndicator(),
       );
     } else if (state.status.isSuccess) {
-      Map<String, List<FoodModel>> groupedItems = {};
+      Map<String, List<ProductModel>> groupedItems = {};
       Map<String, int> itemCounts = {};
       int dashlineIndex = -1;
-      List<FoodModel> allItems = [];
+      List<ProductModel> allItems = [];
 
       for (var entry in state.basketMap!.entries) {
-        List<FoodModel>? foodList = entry.value;
+        List<ProductModel>? foodList = entry.value;
         if (foodList != null) {
           for (var item in foodList) {
-            if (item.foodName == "dashline") {
+            if (item.name == "dashline") {
               dashlineIndex =
                   allItems.length; // dashline yemeğinin indeksini kaydet
             }
@@ -79,12 +84,13 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
 
       for (int i = 0; i < allItems.length; i++) {
         var item = allItems[i];
-        String foodHash =
-            '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
+
+        String foodHash = (item is FoodModel)
+            ? '${item.name}-${item.choosenCookStyle}-${item.choosenSauce}-${item.choosenSide}'
+            : '${item.name}-${item.price}-${item.price}';
 
         if (i > dashlineIndex && dashlineIndex != -1) {
-          foodHash =
-              '${item.foodName}-afterdashline-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}';
+          foodHash = '${item.name}-afterdashline-${item.id}-${item.price}';
         }
 
         if (!groupedItems.containsKey(foodHash)) {
@@ -108,7 +114,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
                 itemCount: groupedItems.length,
                 itemBuilder: (context, index) {
                   String foodHash = groupedItems.keys.toList()[index];
-                  List<FoodModel> items = groupedItems[foodHash]!;
+                  List<ProductModel> items = groupedItems[foodHash]!;
                   int itemCount = itemCounts[foodHash] ?? 0;
 
                   return Center(
@@ -122,40 +128,79 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
                           BlocBuilder<FoodBasketBloc, FoodBasketState>(
                               builder: (context, tablestate) {
                             for (var itemDetails in items) {
-                              if (itemDetails.foodName == "dashline") {
+                              if (itemDetails.name == "dashline") {
                                 return Text(
                                   "-----------------------",
                                   style: TextStyle(fontSize: 30),
                                 );
                               }
                             }
-                            for (var item in items)
-                              return CustomDetailListtile(
-                                onTapAdd: () {
-                                  context.read<FoodBasketBloc>().add(
-                                      FoodBasketEvent.addBasketFood(
-                                          item, tablestate.tableNumber));
-                                },
-                                image: Image.network(
-                                  item.foodImage!,
-                                  fit: BoxFit.fill,
-                                ),
-                                foodName: item.foodName!,
-                                price: "${item.price} €",
-                                onTapRemove: () {
-                                  context.read<FoodBasketBloc>().add(
-                                      FoodBasketEvent.removeBasketFood(
-                                          item, tablestate.tableNumber));
-                                },
-                                piece: itemCount,
-                                foodContent: () {},
-                                choosenSide: item.choosenSide,
-                                choosenSauce: item.choosenSauce,
-                                onChangeSide: () {},
-                                onchangeSauce: () {},
-                                onChangeCookStyle: () {},
-                                choosenHowCook: item.choosenCookStyle,
-                              );
+                            for (var item in items) {
+                              if (item is FoodModel) {
+                                return CustomDetailListtile(
+                                  onTapAdd: () {
+                                    context.read<FoodBasketBloc>().add(
+                                        FoodBasketEvent.addBasketItem(
+                                            item, tablestate.tableNumber));
+                                  },
+                                  image: Image.network(
+                                    item.image ?? "",
+                                    fit: BoxFit.fill,
+                                  ),
+                                  foodName: item.name!,
+                                  price: "${item.price} €",
+                                  onTapRemove: () {
+                                    context.read<FoodBasketBloc>().add(
+                                        FoodBasketEvent.removeItemFromBasket(
+                                            item, tablestate.tableNumber));
+                                  },
+                                  piece: itemCount,
+                                  foodContent: () {},
+                                  choosenSide: item.choosenSide,
+                                  choosenSauce: item.choosenSauce,
+                                  onChangeSide: () async {
+                                    await CustomDialog.shared
+                                        .showAlertDialog<SideModel?>(
+                                      context: context,
+                                      titleText: 'Choose Side Pleases',
+                                      items: context
+                                          .read<FoodMenuBloc>()
+                                          .state
+                                          .sideList,
+                                      getName: (SideModel? sideModel) =>
+                                          sideModel?.name ?? "",
+                                      onPressed: () {
+                                        choosenSide =
+                                            CustomDialog.shared.choosenValue;
+                                        context.read<FoodBasketBloc>().add(
+                                                FoodBasketEvent
+                                                    .updateBasketItem(
+                                              FoodModel(
+                                                  id: item.id,
+                                                  choosenCookStyle:
+                                                      item.choosenCookStyle,
+                                                  choosenSauce:
+                                                      item.choosenSauce,
+                                                  choosenSide: choosenSide,
+                                                  image: item.image,
+                                                  side: item.side,
+                                                  name: item.name,
+                                                  content: item.content,
+                                                  price: item.price,
+                                                  category: item.category),
+                                              state.tableNumber,
+                                            ));
+                                      },
+                                    );
+                                  },
+                                  onchangeSauce: () {},
+                                  onChangeCookStyle: () {},
+                                  choosenHowCook: item.choosenCookStyle,
+                                );
+                              } else if (item is DrinksModel) {
+                                return Text(item.name!);
+                              }
+                            }
                             return Text("");
                           }),
                         ],
@@ -171,7 +216,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
   });
 }
 
-BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
+/* BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
   String? choosenSide;
   String? choosenCookStyle;
   String? choosenSauce;
@@ -423,4 +468,4 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
       }
     },
   );
-}
+} */

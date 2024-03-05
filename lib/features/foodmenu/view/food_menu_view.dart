@@ -1,18 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:waiter_order_app_lv/core/constants/assets_constants.dart';
+import 'package:waiter_order_app_lv/core/custom/dialog/custom_note_dialog.dart';
 import 'package:waiter_order_app_lv/core/custom/dialog/dialog_content.dart';
+import 'package:waiter_order_app_lv/core/custom/groupedListview/grouped_listview.dart';
 import 'package:waiter_order_app_lv/core/custom/listtile/custom_Listtile.dart';
-import 'package:waiter_order_app_lv/core/custom/textfield/custom_textfield.dart';
+import 'package:waiter_order_app_lv/core/custom/tab/custom_tab.dart';
+import 'package:waiter_order_app_lv/core/enum/category_name_enum.dart';
+import 'package:waiter_order_app_lv/core/enum/collection_name_enum.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/navigation/constants/route.dart';
-import 'package:waiter_order_app_lv/core/network/firestore/food_service/food_service.dart';
 import 'package:waiter_order_app_lv/core/theme/color_constants.dart';
-import 'package:waiter_order_app_lv/features/detail/view/detail_order_view.dart';
-import 'package:waiter_order_app_lv/features/foodcontent/view/food_content_view.dart';
+import 'package:waiter_order_app_lv/core/translations/locale_keys.g.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
@@ -23,29 +24,27 @@ import 'package:waiter_order_app_lv/features/onboard/view/onboard_view.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 
 class FoodMenuView extends StatefulWidget {
-  FoodMenuView({super.key});
+  const FoodMenuView({super.key});
 
   @override
   State<FoodMenuView> createState() => _FoodMenuViewState();
 }
 
 class _FoodMenuViewState extends State<FoodMenuView> {
-  final TextEditingController _foodSearchcontroller = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
-  final String dashLine = "assets/dashline.png";
   final TextEditingController _searchController = TextEditingController();
 
+  @override
   void initState() {
     super.initState();
-
-    Future.delayed(Duration(milliseconds: 100), () {
-      BlocProvider.of<FoodMenuBloc>(context)
-          .add(FoodMenuBlocEvent.getDataFromFirebase("Food"));
+    Future.delayed(const Duration(milliseconds: 100), () {
+      BlocProvider.of<FoodMenuBloc>(context).add(
+          FoodMenuBlocEvent.getDataFromFirebase(CollectionNameEnum.food.value));
     });
 
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       BlocProvider.of<FoodMenuBloc>(context)
-          .add(FoodMenuBlocEvent.getSideFromFirebase());
+          .add(const FoodMenuBlocEvent.getSideFromFirebase());
     });
   }
 
@@ -54,49 +53,10 @@ class _FoodMenuViewState extends State<FoodMenuView> {
     return Builder(builder: (context) {
       return Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(32.0),
+            preferredSize: Size.fromHeight(context.height(0.045)),
             child: BlocBuilder<FoodBasketBloc, FoodBasketState>(
               builder: (context, state) {
-                return AppBar(
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      context.read<FoodBasketBloc>().add(
-                          FoodBasketEvent.removeAllFood(
-                              state.basketMap, state.tableNumber));
-                      context.read<SearchBloc>().add(
-                          SearchBlocStateEvent.searchFromFirestore("qwyzcwsz"));
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  title: Text("Order Menu"),
-                  centerTitle: true,
-                  elevation: 0,
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.shopping_cart),
-                      tooltip: 'Open shopping cart',
-                      onPressed: () {
-                        navigation.navigateTo(
-                          path: KRoute.DETAIL_PAGE,
-                        );
-                      },
-                    ),
-                    BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(state
-                                    .basketMap?[state.tableNumber]?.length
-                                    .toString() ??
-                                ""),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                );
+                return _appBar(context, state);
               },
             ),
           ),
@@ -108,148 +68,22 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                 Row(
                   children: [
                     context.sizedboxWidth(0.05),
-                    Container(
-                      height: context.height(0.059),
-                      width: context.width(0.90),
-                      child: BlocBuilder<SearchBloc, SearchBlocState>(
-                        builder: (context, state) {
-                          return TextField(
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
-                              filled: true,
-                              hintStyle: TextStyle(color: Colors.white),
-                              hintText: "Search food",
-                            ),
-                            controller: _searchController,
-                            onChanged: (value) async {
-                              if (value.isEmpty) {
-                                context.read<SearchBloc>().add(
-                                    SearchBlocStateEvent.searchFromFirestore(
-                                        "qwyzcwsz"));
-                              }
-                              if (value.isNotEmpty) {
-                                context.read<SearchBloc>().add(
-                                    SearchBlocStateEvent.searchFromFirestore(
-                                        value));
-                              }
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    _searchTextField(context),
                   ],
                 ),
-                BlocBuilder<SearchBloc, SearchBlocState>(
-                  builder: (context, searchstate) {
-                    if (searchstate.status.isSuccess) {
-                      return BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                        builder: (context, basketstate) {
-                          return Container(
-                            width: context.width(0.88),
-                            height: context.height(0.16),
-                            child: ListView.builder(
-                              itemCount: searchstate.queryList?.length,
-                              itemBuilder: (context, index) {
-                                final food = searchstate.queryList?[index];
-                                return BlocBuilder<TableBloc, TableState>(
-                                  builder: (context, tablestate) {
-                                    return BlocBuilder<FoodMenuBloc,
-                                        FoodMenuBlocState>(
-                                      builder: (context, foodstate) {
-                                        return CustomListTile(
-                                          onTapAdd: () async {
-                                            await DialogContet().showDialogs(
-                                                context: context,
-                                                foodModel: food,
-                                                foodstate: foodstate,
-                                                tableState: tablestate);
-                                          },
-                                          image: Image.network(
-                                            food!.foodImage!,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          foodName: food.foodName!,
-                                          price: "${food.price} €",
-                                          onTapRemove: () {
-                                            context.read<FoodBasketBloc>().add(
-                                                FoodBasketEvent
-                                                    .removeBasketFood(
-                                                        food,
-                                                        tablestate
-                                                            .tableNumber));
-                                          },
-                                          piece: basketstate.itemCountMap?[
-                                                  food.foodName] ??
-                                              0,
-                                          foodContent: () {},
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    }
-
-                    return Visibility(
-                      visible: false,
-                      child: Container(),
-                    );
-                  },
-                ),
+                context.sizedboxHeight(0.010),
+                _searchResult(),
                 context.sizedboxHeight(0.02),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        "Selected Category",
-                        style: context.titleLarge,
-                      ),
-                    ),
-                  ],
-                ),
+                _selectedCategoryText(context),
                 context.sizedboxHeight(0.02),
                 _tabbar(),
                 context.sizedboxHeight(0.02),
                 _listItem(),
                 context.sizedboxHeight(0.02),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        _showAlertDialog(context, _notesController);
-                      },
-                      child: Text("KITCHEN MESSAGE")),
+                  _kitchenMessageButton(context),
                   context.sizedboxWidth(0.02),
-                  BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                    builder: (context, state) {
-                      return ElevatedButton(
-                          onPressed: () {
-                            context.read<FoodBasketBloc>().add(
-                                FoodBasketEvent.addBasketFood(
-                                    FoodModel(
-                                      category: "dashline",
-                                      foodImage: dashLine,
-                                      foodName: 'dashline',
-                                      price: 0,
-                                      content: '',
-                                      side: false,
-                                      choosenSide: '',
-                                    ),
-                                    context
-                                        .read<TableBloc>()
-                                        .state
-                                        .tableNumber));
-                          },
-                          child: Text("-----------------"));
-                    },
-                  )
+                  _dashLineButton()
                 ]),
               ]),
             ),
@@ -257,16 +91,183 @@ class _FoodMenuViewState extends State<FoodMenuView> {
     });
   }
 
-  CustomTextfield _searchTextField() {
-    return CustomTextfield(
-        onChanged: (value) {
+  AppBar _appBar(BuildContext context, FoodBasketState state) {
+    return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: KThemeColor.white),
+        onPressed: () {
+          context.read<FoodBasketBloc>().add(FoodBasketEvent.removeAllItem(
+              state.basketMap, state.tableNumber));
           context
               .read<SearchBloc>()
-              .add(SearchBlocStateEvent.searchFromFirestore(value));
+              .add(const SearchBlocStateEvent.searchFromFirestore("qwyzcwsz"));
+          Navigator.of(context).pop();
         },
-        textEditingController: _foodSearchcontroller,
-        hintText: "Search",
-        isObsecure: false);
+      ),
+      title: Text(LocaleKeys.foodMenu.tr()),
+      centerTitle: true,
+      elevation: 0,
+      actions: [
+        _shoppingCartIcon(),
+        _basketItemLength(),
+      ],
+    );
+  }
+
+  IconButton _shoppingCartIcon() {
+    return IconButton(
+      icon: const Icon(Icons.shopping_cart),
+      onPressed: () {
+        navigation.navigateTo(
+          path: KRoute.DETAIL_PAGE,
+        );
+      },
+    );
+  }
+
+  BlocBuilder<FoodBasketBloc, FoodBasketState> _basketItemLength() {
+    return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+      builder: (context, state) {
+        return Padding(
+          padding: context.lowPadding,
+          child: Center(
+            child: Text(
+                state.basketMap?[state.tableNumber]?.length.toString() ?? ""),
+          ),
+        );
+      },
+    );
+  }
+
+  Row _selectedCategoryText(BuildContext context) {
+    return Row(
+      children: [
+        Padding(
+          padding: context.only(left: 0.03),
+          child: Text(
+            LocaleKeys.selectedCategory,
+            style: context.titleLarge,
+          ),
+        ),
+      ],
+    );
+  }
+
+  BlocBuilder<FoodBasketBloc, FoodBasketState> _dashLineButton() {
+    return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+      builder: (context, state) {
+        return ElevatedButton(
+            onPressed: () {
+              context.read<FoodBasketBloc>().add(FoodBasketEvent.addBasketItem(
+                  FoodModel(
+                    image: Kasset.dashLine,
+                    name: 'dashline',
+                  ),
+                  context.read<TableBloc>().state.tableNumber));
+            },
+            child: Text("-----------------"));
+      },
+    );
+  }
+
+  ElevatedButton _kitchenMessageButton(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          CustomNoteDialog.shared.showAlertDialog(context, _notesController);
+        },
+        child: Text(LocaleKeys.kitchenMessage.tr()));
+  }
+
+  SizedBox _searchTextField(BuildContext context) {
+    return SizedBox(
+      height: context.height(0.059),
+      width: context.width(0.90),
+      child: BlocBuilder<SearchBloc, SearchBlocState>(
+        builder: (context, state) {
+          return TextField(
+            decoration: InputDecoration(
+              suffixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              filled: true,
+              hintStyle: const TextStyle(color: KThemeColor.white),
+              hintText: LocaleKeys.searchFood.tr(),
+            ),
+            controller: _searchController,
+            onChanged: (value) async {
+              if (value.isEmpty) {
+                context.read<SearchBloc>().add(
+                    const SearchBlocStateEvent.searchFromFirestore("qwyzcwsz"));
+              }
+              if (value.isNotEmpty) {
+                context
+                    .read<SearchBloc>()
+                    .add(SearchBlocStateEvent.searchFromFirestore(value));
+              }
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  BlocBuilder<SearchBloc, SearchBlocState> _searchResult() {
+    return BlocBuilder<SearchBloc, SearchBlocState>(
+      builder: (context, searchstate) {
+        if (searchstate.status.isSuccess) {
+          return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+            builder: (context, basketstate) {
+              return SizedBox(
+                width: context.width(0.88),
+                height: context.height(0.13),
+                child: ListView.builder(
+                  itemCount: searchstate.queryList?.length,
+                  itemBuilder: (context, index) {
+                    final food = searchstate.queryList?[index];
+                    return BlocBuilder<TableBloc, TableState>(
+                      builder: (context, tablestate) {
+                        return BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
+                          builder: (context, foodstate) {
+                            return CustomListTile(
+                              onTapAdd: () async {
+                                await DialogContet().showDialogs(
+                                    context: context,
+                                    foodModel: food,
+                                    foodstate: foodstate,
+                                    tableState: tablestate);
+                              },
+                              image: Image.network(
+                                food!.image!,
+                                fit: BoxFit.fill,
+                              ),
+                              foodName: food.name!,
+                              price: "${food.price} €",
+                              onTapRemove: () {
+                                context.read<FoodBasketBloc>().add(
+                                    FoodBasketEvent.removeItemFromBasket(
+                                        food, tablestate.tableNumber));
+                              },
+                              piece: basketstate.itemCountMap?[food.name] ?? 0,
+                              foodContent: () {},
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        }
+
+        return Visibility(
+          visible: false,
+          child: Container(),
+        );
+      },
+    );
   }
 
   DefaultTabController _tabbar() {
@@ -277,34 +278,37 @@ class _FoodMenuViewState extends State<FoodMenuView> {
           builder: (context, state) {
             return TabBar(
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50), // Creates border
-                    color: KThemeColor.greyDark),
+                    borderRadius: BorderRadius.circular(50),
+                    color: KThemeColor.blackLight),
                 isScrollable: true,
                 onTap: (tabIndex) async {
                   switch (tabIndex) {
                     case 0:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDataFromFirebase("Food"));
+                      context.read<FoodMenuBloc>().add(
+                          FoodMenuBlocEvent.getDataFromFirebase(
+                              CollectionNameEnum.food.value));
                       break;
                     case 1:
                       context.read<FoodMenuBloc>().add(
                           FoodMenuBlocEvent.getDataByCategory(
-                              "Starter", "Food"));
+                              CategoryNameEnum.starter.value,
+                              CollectionNameEnum.food.value));
                       break;
                     case 2:
-                      context
-                          .read<FoodMenuBloc>()
-                          .add(FoodMenuBlocEvent.getDrinksFromFirestore());
+                      context.read<FoodMenuBloc>().add(
+                          const FoodMenuBlocEvent.getDrinksFromFirestore());
                       break;
                     case 3:
                       context.read<FoodMenuBloc>().add(
-                          FoodMenuBlocEvent.getDataByCategory("Main", "Food"));
+                          FoodMenuBlocEvent.getDataByCategory(
+                              CategoryNameEnum.main.value,
+                              CollectionNameEnum.food.value));
                       break;
                     case 4:
                       context.read<FoodMenuBloc>().add(
                           FoodMenuBlocEvent.getDataByCategory(
-                              "Dessert", "Food"));
+                              CategoryNameEnum.dessert.value,
+                              CollectionNameEnum.food.value));
                       break;
                   }
 
@@ -313,59 +317,20 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                       .add(TabBarEvent.tabChangedEvent(tabIndex));
                 },
                 tabs: [
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Kasset.allFoodIcon, width: 28, height: 28),
-                        const SizedBox(width: 8),
-                        Text('All'),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Kasset.starterFoodIcon,
-                            width: 28, height: 28),
-                        const SizedBox(width: 8),
-                        Text('Starter'),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Kasset.drinksFoodIcon,
-                            width: 28, height: 28),
-                        const SizedBox(width: 8),
-                        Text('Drinks'),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Kasset.mainFoodIcon, width: 28, height: 28),
-                        const SizedBox(width: 8),
-                        Text('Main'),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Kasset.dessertFoodIcon,
-                            width: 28, height: 28),
-                        const SizedBox(width: 8),
-                        Text('Dessert'),
-                      ],
-                    ),
-                  ),
+                  CustomTab(
+                      icon: Kasset.allFoodIcon, iconText: LocaleKeys.all.tr()),
+                  CustomTab(
+                      icon: Kasset.starterFoodIcon,
+                      iconText: LocaleKeys.starter.tr()),
+                  CustomTab(
+                      icon: Kasset.drinksFoodIcon,
+                      iconText: LocaleKeys.drinks.tr()),
+                  CustomTab(
+                      icon: Kasset.mainFoodIcon,
+                      iconText: LocaleKeys.main.tr()),
+                  CustomTab(
+                      icon: Kasset.dessertFoodIcon,
+                      iconText: LocaleKeys.dessert.tr()),
                 ]);
           },
         ));
@@ -379,53 +344,10 @@ class _FoodMenuViewState extends State<FoodMenuView> {
             child: CircularProgressIndicator(),
           );
         } else if (foodmenu.status.isDrinkStatus) {
-          return Container(
-              height: 400,
-              width: 350,
-              child: GroupedListView<DrinksModel, String>(
-                elements: foodmenu.drinksList!,
-                groupBy: (DrinksModel drinksModel) => drinksModel.category!,
-                groupComparator: (value1, value2) => value2.compareTo(value1),
-                itemComparator: (DrinksModel element1, DrinksModel element2) =>
-                    element1.drinkName!.compareTo(element2.drinkName!),
-                order: GroupedListOrder.DESC,
-                groupSeparatorBuilder: (String value) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(value.toUpperCase())),
-                itemBuilder: (context, element) {
-                  return Card(
-                    child: SizedBox(
-                      child: ListTile(
-                        title: Text(
-                          element.drinkName!,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                context.read<FoodBasketBloc>().add(
-                                    FoodBasketEvent.addBasketDrinks(
-                                        element, 1));
-                              },
-                            ),
-                            Text("1"),
-                            IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ));
+          return GroupedListviewItem(elements: foodmenu.drinksList!);
         } else if (foodmenu.status.isSuccess) {
           if (foodmenu.foodList != null) {
-            return Container(
+            return SizedBox(
               width: context.width(0.97),
               height: context.height(0.50),
               child: ListView.builder(
@@ -435,145 +357,45 @@ class _FoodMenuViewState extends State<FoodMenuView> {
                   itemCount: foodmenu.foodList!.length,
                   itemBuilder: (context, index) {
                     final food = foodmenu.foodList?[index];
-                    return Center(
-                      child: Card(
-                        color: Color(0xFF1A1B23),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                              builder: (context, basketstate) {
-                                int? itemCount = basketstate
-                                    .basketMap?[basketstate.tableNumber]
-                                    ?.where((item) => item == food)
-                                    .length;
-                                return BlocBuilder<TableBloc, TableState>(
-                                  builder: (context, tablestate) {
-                                    return CustomListTile(
-                                      onTapAdd: () async {
-                                        DialogContet().showDialogs(
-                                            context: context,
-                                            foodModel: food,
-                                            foodstate: foodmenu,
-                                            tableState: tablestate);
-                                      },
-                                      image: Image.network(
-                                        food!.foodImage!,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      foodName: food.foodName!,
-                                      price: "${food.price} €",
-                                      onTapRemove: () {
-                                        context.read<FoodBasketBloc>().add(
-                                            FoodBasketEvent.removeBasketFood(
-                                                food, tablestate.tableNumber));
-                                      },
-                                      piece: basketstate
-                                              .itemCountMap?[food.foodName] ??
-                                          0,
-                                      foodContent: () {
-                                        navigation.navigateTo(
-                                          path: KRoute.FOOD_CONTENT,
-                                          data: food,
-                                        );
-                                      },
-                                    );
-                                  },
+                    return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                      builder: (context, basketstate) {
+                        return BlocBuilder<TableBloc, TableState>(
+                          builder: (context, tablestate) {
+                            return CustomListTile(
+                              onTapAdd: () async {
+                                DialogContet().showDialogs(
+                                    context: context,
+                                    foodModel: food,
+                                    foodstate: foodmenu,
+                                    tableState: tablestate);
+                              },
+                              image:
+                                  Image.network(food!.image!, fit: BoxFit.fill),
+                              foodName: food.name!,
+                              price: "${food.price} €",
+                              onTapRemove: () {
+                                context.read<FoodBasketBloc>().add(
+                                    FoodBasketEvent.removeItemFromBasket(
+                                        food, tablestate.tableNumber));
+                              },
+                              piece: basketstate.itemCountMap?[food.name] ?? 0,
+                              foodContent: () {
+                                navigation.navigateTo(
+                                  path: KRoute.FOOD_CONTENT,
+                                  data: food,
                                 );
                               },
-                            ),
-                          ],
-                        ),
-                      ),
+                            );
+                          },
+                        );
+                      },
                     );
                   }),
             );
           }
         }
-        return Text("");
+        return const Text("");
       },
     );
   }
 }
-
-Future<void> _showAlertDialog(
-    BuildContext context, TextEditingController controller) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        // <-- SEE HERE
-        title: Text('Please enter a note'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              TextField(
-                controller: controller,
-              ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          BlocBuilder<FoodBasketBloc, FoodBasketState>(
-            builder: (context, state) {
-              return TextButton(
-                child: const Text('Send'),
-                onPressed: () {
-                  context.read<FoodBasketBloc>().add(FoodBasketEvent.addNotes(
-                      controller.text,
-                      context.read<TableBloc>().state.tableNumber));
-                  navigation.pop();
-                },
-              );
-            },
-          ),
-          TextButton(
-            child: const Text('Exit'),
-            onPressed: () {
-              navigation.pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-
-
-/*  for (int i = 0; i < 10; i++) {
-
-  DropdownButton(
-                            value: selectedItemValue[index],
-                            items: _dropDownItem(),
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                            hint: Text('0'),
-                          ),
-
-                    selectedItemValue.add(1);
-                  }
- DropdownButton(
-                            value: selectedItemValue[index],
-                            items: _dropDownItem(),
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                            hint: Text('0'),
-                          ),
-
-List<DropdownMenuItem<int>> _dropDownItem() {
-  List<int> itemValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  return itemValue
-      .map((value) => DropdownMenuItem(
-            value: value,
-            child: Text(value.toString()),
-          ))
-      .toList();
-}
- */

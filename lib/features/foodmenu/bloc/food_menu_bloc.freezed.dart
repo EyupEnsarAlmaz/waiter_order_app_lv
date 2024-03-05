@@ -648,11 +648,11 @@ abstract class _GetDrinksFromFirestore implements FoodMenuBlocEvent {
 /// @nodoc
 mixin _$FoodMenuBlocState {
   FoodMenuStatus get status => throw _privateConstructorUsedError;
-  List<dynamic>? get foodList => throw _privateConstructorUsedError;
-  List<dynamic>? get sauceList => throw _privateConstructorUsedError;
-  List<dynamic>? get sideList => throw _privateConstructorUsedError;
+  List<FoodModel>? get foodList => throw _privateConstructorUsedError;
+  List<SauceModel>? get sauceList => throw _privateConstructorUsedError;
+  List<SideModel>? get sideList => throw _privateConstructorUsedError;
   List<DrinksModel>? get drinksList => throw _privateConstructorUsedError;
-  List<dynamic>? get howcookList => throw _privateConstructorUsedError;
+  List<HowCookModel>? get howcookList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodMenuBlocStateCopyWith<FoodMenuBlocState> get copyWith =>
@@ -667,11 +667,11 @@ abstract class $FoodMenuBlocStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FoodMenuStatus status,
-      List<dynamic>? foodList,
-      List<dynamic>? sauceList,
-      List<dynamic>? sideList,
+      List<FoodModel>? foodList,
+      List<SauceModel>? sauceList,
+      List<SideModel>? sideList,
       List<DrinksModel>? drinksList,
-      List<dynamic>? howcookList});
+      List<HowCookModel>? howcookList});
 }
 
 /// @nodoc
@@ -702,15 +702,15 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
       foodList: freezed == foodList
           ? _value.foodList
           : foodList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<FoodModel>?,
       sauceList: freezed == sauceList
           ? _value.sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<SauceModel>?,
       sideList: freezed == sideList
           ? _value.sideList
           : sideList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<SideModel>?,
       drinksList: freezed == drinksList
           ? _value.drinksList
           : drinksList // ignore: cast_nullable_to_non_nullable
@@ -718,7 +718,7 @@ class _$FoodMenuBlocStateCopyWithImpl<$Res, $Val extends FoodMenuBlocState>
       howcookList: freezed == howcookList
           ? _value.howcookList
           : howcookList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<HowCookModel>?,
     ) as $Val);
   }
 }
@@ -733,11 +733,11 @@ abstract class _$$RegisterBlocStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {FoodMenuStatus status,
-      List<dynamic>? foodList,
-      List<dynamic>? sauceList,
-      List<dynamic>? sideList,
+      List<FoodModel>? foodList,
+      List<SauceModel>? sauceList,
+      List<SideModel>? sideList,
       List<DrinksModel>? drinksList,
-      List<dynamic>? howcookList});
+      List<HowCookModel>? howcookList});
 }
 
 /// @nodoc
@@ -766,15 +766,15 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
       foodList: freezed == foodList
           ? _value._foodList
           : foodList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<FoodModel>?,
       sauceList: freezed == sauceList
           ? _value._sauceList
           : sauceList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<SauceModel>?,
       sideList: freezed == sideList
           ? _value._sideList
           : sideList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<SideModel>?,
       drinksList: freezed == drinksList
           ? _value._drinksList
           : drinksList // ignore: cast_nullable_to_non_nullable
@@ -782,7 +782,7 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
       howcookList: freezed == howcookList
           ? _value._howcookList
           : howcookList // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List<HowCookModel>?,
     ));
   }
 }
@@ -792,11 +792,11 @@ class __$$RegisterBlocStateImplCopyWithImpl<$Res>
 class _$RegisterBlocStateImpl implements _RegisterBlocState {
   const _$RegisterBlocStateImpl(
       {this.status = FoodMenuStatus.initial,
-      final List<dynamic>? foodList,
-      final List<dynamic>? sauceList,
-      final List<dynamic>? sideList,
+      final List<FoodModel>? foodList,
+      final List<SauceModel>? sauceList,
+      final List<SideModel>? sideList,
       final List<DrinksModel>? drinksList,
-      final List<dynamic>? howcookList})
+      final List<HowCookModel>? howcookList})
       : _foodList = foodList,
         _sauceList = sauceList,
         _sideList = sideList,
@@ -806,9 +806,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
   @override
   @JsonKey()
   final FoodMenuStatus status;
-  final List<dynamic>? _foodList;
+  final List<FoodModel>? _foodList;
   @override
-  List<dynamic>? get foodList {
+  List<FoodModel>? get foodList {
     final value = _foodList;
     if (value == null) return null;
     if (_foodList is EqualUnmodifiableListView) return _foodList;
@@ -816,9 +816,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<dynamic>? _sauceList;
+  final List<SauceModel>? _sauceList;
   @override
-  List<dynamic>? get sauceList {
+  List<SauceModel>? get sauceList {
     final value = _sauceList;
     if (value == null) return null;
     if (_sauceList is EqualUnmodifiableListView) return _sauceList;
@@ -826,9 +826,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<dynamic>? _sideList;
+  final List<SideModel>? _sideList;
   @override
-  List<dynamic>? get sideList {
+  List<SideModel>? get sideList {
     final value = _sideList;
     if (value == null) return null;
     if (_sideList is EqualUnmodifiableListView) return _sideList;
@@ -846,9 +846,9 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<dynamic>? _howcookList;
+  final List<HowCookModel>? _howcookList;
   @override
-  List<dynamic>? get howcookList {
+  List<HowCookModel>? get howcookList {
     final value = _howcookList;
     if (value == null) return null;
     if (_howcookList is EqualUnmodifiableListView) return _howcookList;
@@ -898,24 +898,24 @@ class _$RegisterBlocStateImpl implements _RegisterBlocState {
 abstract class _RegisterBlocState implements FoodMenuBlocState {
   const factory _RegisterBlocState(
       {final FoodMenuStatus status,
-      final List<dynamic>? foodList,
-      final List<dynamic>? sauceList,
-      final List<dynamic>? sideList,
+      final List<FoodModel>? foodList,
+      final List<SauceModel>? sauceList,
+      final List<SideModel>? sideList,
       final List<DrinksModel>? drinksList,
-      final List<dynamic>? howcookList}) = _$RegisterBlocStateImpl;
+      final List<HowCookModel>? howcookList}) = _$RegisterBlocStateImpl;
 
   @override
   FoodMenuStatus get status;
   @override
-  List<dynamic>? get foodList;
+  List<FoodModel>? get foodList;
   @override
-  List<dynamic>? get sauceList;
+  List<SauceModel>? get sauceList;
   @override
-  List<dynamic>? get sideList;
+  List<SideModel>? get sideList;
   @override
   List<DrinksModel>? get drinksList;
   @override
-  List<dynamic>? get howcookList;
+  List<HowCookModel>? get howcookList;
   @override
   @JsonKey(ignore: true)
   _$$RegisterBlocStateImplCopyWith<_$RegisterBlocStateImpl> get copyWith =>

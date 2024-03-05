@@ -18,10 +18,10 @@ enum FoodMenuStatus {
 class FoodMenuBlocState with _$FoodMenuBlocState {
   const factory FoodMenuBlocState({
     @Default(FoodMenuStatus.initial) FoodMenuStatus status,
-    List<dynamic>? foodList,
-    List<dynamic>? sauceList,
-    List<dynamic>? sideList,
+    List<FoodModel>? foodList,
+    List<SauceModel>? sauceList,
+    List<SideModel>? sideList,
     List<DrinksModel>? drinksList,
-    List<dynamic>? howcookList,
+    List<HowCookModel>? howcookList,
   }) = _RegisterBlocState;
 }
