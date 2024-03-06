@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
+import 'package:waiter_order_app_lv/core/theme/color_constants.dart';
 
 class CustomDetailListtile extends StatelessWidget {
   final Widget image;
@@ -47,122 +48,138 @@ class CustomDetailListtile extends StatelessWidget {
       containerHeight = context.height(0.15);
     }
 
-    return Container(
-      width: context.width(0.95),
-      height: containerHeight,
-      child: Row(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius:
-                BorderRadius.circular(context.height(0.02)), // Image border
-            child: SizedBox.fromSize(
-              size: Size(context.width(0.35), context.height(0.20)),
-              child: image,
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                context.sizedboxHeight(0.01),
-                Text(foodName,
-                    style: TextStyle(fontSize: context.titleLarge.fontSize)),
-                context.sizedboxHeight(0.01),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    context.sizedboxWidth(0.01),
-                    Text(piece.toString()),
-                    Text(price,
-                        style:
-                            TextStyle(fontSize: context.titleLarge.fontSize)),
-                    ClipOval(
-                      child: Material(
-                        color: Color(0xFF2F303F),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              onTap: onTapAdd,
-                              child: SizedBox(
-                                  width: context.width(0.09),
-                                  height: context.height(0.04),
-                                  child: const Icon(Icons.add)),
+    return Center(
+      child: Card(
+        color: KThemeColor.customListTile,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          children: [
+            SizedBox(
+              width: context.width(0.95),
+              height: containerHeight,
+              child: Row(
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        context.height(0.02)), // Image border
+                    child: SizedBox.fromSize(
+                      size: Size(context.width(0.35), context.height(0.20)),
+                      child: image,
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        context.sizedboxHeight(0.01),
+                        Text(foodName,
+                            style: TextStyle(
+                                fontSize: context.titleLarge.fontSize)),
+                        context.sizedboxHeight(0.01),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            context.sizedboxWidth(0.01),
+                            Text(
+                              "$piece piece",
+                              style: context.titleLarge,
                             ),
-                            InkWell(
-                              onTap: onTapRemove,
-                              child: SizedBox(
-                                  width: context.width(0.09),
-                                  height: context.height(0.04),
-                                  child: const Icon(Icons.remove)),
+                            Text(price,
+                                style: TextStyle(
+                                    fontSize: context.titleLarge.fontSize)),
+                            ClipOval(
+                              child: Material(
+                                child: Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: onTapAdd,
+                                      child: SizedBox(
+                                          width: context.width(0.09),
+                                          height: context.height(0.04),
+                                          child: const Icon(Icons.add)),
+                                    ),
+                                    InkWell(
+                                      onTap: onTapRemove,
+                                      child: SizedBox(
+                                          width: context.width(0.09),
+                                          height: context.height(0.04),
+                                          child: const Icon(Icons.remove)),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ),
+                        Column(
+                          children: [
+                            Container(
+                              height: hasSide ? 30 : 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    choosenSide ?? "",
+                                    style:
+                                        TextStyle(fontSize: hasSide ? 20 : 0),
+                                  ),
+                                  hasSide
+                                      ? IconButton(
+                                          onPressed: onChangeSide,
+                                          icon: Icon(Icons.change_circle))
+                                      : SizedBox(),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: hasSauce ? 30 : 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    choosenSauce ?? "",
+                                    style:
+                                        TextStyle(fontSize: hasSauce ? 20 : 0),
+                                  ),
+                                  hasSauce
+                                      ? IconButton(
+                                          onPressed: onchangeSauce,
+                                          icon: Icon(Icons.change_circle))
+                                      : SizedBox(),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: hasCookStyle ? 30 : 0,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    choosenHowCook ?? "",
+                                    style: TextStyle(
+                                        fontSize: hasCookStyle ? 20 : 0),
+                                  ),
+                                  hasCookStyle
+                                      ? IconButton(
+                                          onPressed: onChangeCookStyle,
+                                          icon: Icon(Icons.change_circle))
+                                      : SizedBox(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      height: hasSide ? 30 : 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            choosenSide ?? "",
-                            style: TextStyle(fontSize: hasSide ? 20 : 0),
-                          ),
-                          hasSide
-                              ? IconButton(
-                                  onPressed: onChangeSide,
-                                  icon: Icon(Icons.change_circle))
-                              : SizedBox(),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: hasSauce ? 30 : 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            choosenSauce ?? "",
-                            style: TextStyle(fontSize: hasSauce ? 20 : 0),
-                          ),
-                          hasSauce
-                              ? IconButton(
-                                  onPressed: onchangeSauce,
-                                  icon: Icon(Icons.change_circle))
-                              : SizedBox(),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: hasCookStyle ? 30 : 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            choosenHowCook ?? "",
-                            style: TextStyle(fontSize: hasCookStyle ? 20 : 0),
-                          ),
-                          hasCookStyle
-                              ? IconButton(
-                                  onPressed: onChangeCookStyle,
-                                  icon: Icon(Icons.change_circle))
-                              : SizedBox(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -6,7 +6,6 @@ import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/howcook_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/sauce_model.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
-
 part 'food_menu_event.dart';
 part 'food_menu_state.dart';
 part 'food_menu_bloc.freezed.dart';
@@ -27,7 +26,7 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       emit(state.copyWith(status: FoodMenuStatus.loading));
       var foodlist = await _foodservice.getFoodFromFirestore(
           colletionName: event.collectionName!);
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
       if (foodlist != null) {
         emit(
             state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
@@ -62,8 +61,11 @@ class FoodMenuBloc extends Bloc<FoodMenuBlocEvent, FoodMenuBlocState> {
       emit(state.copyWith(status: FoodMenuStatus.loading));
       var foodlist = await _foodservice.getFoodByCategory(
           category: event.category!, colletionName: event.collectionName!);
-      await Future.delayed(const Duration(seconds: 1));
-      emit(state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+      await Future.delayed(const Duration(milliseconds: 700));
+      if (foodlist != null) {
+        emit(
+            state.copyWith(status: FoodMenuStatus.success, foodList: foodlist));
+      }
     } catch (e) {
       emit(state.copyWith(status: FoodMenuStatus.failure));
     }

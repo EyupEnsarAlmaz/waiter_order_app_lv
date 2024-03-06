@@ -1,10 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waiter_order_app_lv/core/custom/dialog/custom_dialog.dart';
-import 'package:waiter_order_app_lv/core/custom/listtile/custom_Listtile.dart';
+import 'package:waiter_order_app_lv/core/custom/listtile/custom_drink_Listtile.dart';
 import 'package:waiter_order_app_lv/core/custom/listtile/detail_custom_listtile.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
-import 'package:waiter_order_app_lv/core/network/firestore/basket_service/basket_service.dart';
+import 'package:waiter_order_app_lv/core/translations/locale_keys.g.dart';
+import 'package:waiter_order_app_lv/features/auth/view/login/bloc/login_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/drinks_model.dart';
@@ -16,44 +18,67 @@ import 'package:waiter_order_app_lv/features/foodmenu/model/side_model.dart';
 import 'package:waiter_order_app_lv/features/table/bloc/table_bloc.dart';
 
 class DetailOrderView extends StatelessWidget {
-  DetailOrderView({super.key});
+  const DetailOrderView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(LocaleKeys.detailOrder.tr()),
+      ),
+      body: SizedBox(
           child: Column(
         children: [
-          SizedBox(height: context.height(0.01)),
-          Center(child: BlocBuilder<TableBloc, TableState>(
-            builder: (context, state) {
-              return Text(
-                "Table Number => " + state.tableNumber.toString(),
-                style: TextStyle(fontSize: 20),
-              );
-            },
-          )),
-          _listItem2(),
-          /* _listItem(), */
-          SizedBox(height: context.height(0.02)),
-          BlocBuilder<TableBloc, TableState>(
-            builder: (context, state) {
-              return BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                builder: (context, basketbloc) {
-                  return ElevatedButton(
-                      onPressed: () {}, child: Text("Send Order"));
-                },
-              );
-            },
-          )
+          context.sizedboxHeight(0.01),
+          _tableNumberText(),
+          _listBasketItem(),
+          context.sizedboxHeight(0.03),
+          _sendOrderButton(),
         ],
       )),
     );
   }
+
+  Center _tableNumberText() {
+    return Center(child: BlocBuilder<TableBloc, TableState>(
+      builder: (context, state) {
+        return Text(
+          "${LocaleKeys.tableNumber.tr()} => ${state.tableNumber}",
+          style: context.titleLarge,
+        );
+      },
+    ));
+  }
+
+  BlocBuilder<TableBloc, TableState> _sendOrderButton() {
+    return BlocBuilder<TableBloc, TableState>(
+      builder: (context, state) {
+        return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+          builder: (context, basketbloc) {
+            return SizedBox(
+              height: context.height(0.06),
+              width: context.width(0.6),
+              child: ElevatedButton(
+                onPressed: () async {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                    20,
+                  )),
+                  padding: context.mediumPadding,
+                ),
+                child: Text(LocaleKeys.sendOrder.tr()),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
 
-BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
+BlocBuilder<FoodBasketBloc, FoodBasketState> _listBasketItem() {
   String? choosenSide;
   String? choosenCookStyle;
   String? choosenSauce;
@@ -74,8 +99,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
         if (foodList != null) {
           for (var item in foodList) {
             if (item.name == "dashline") {
-              dashlineIndex =
-                  allItems.length; // dashline yemeğinin indeksini kaydet
+              dashlineIndex = allItems.length;
             }
             allItems.add(item);
           }
@@ -102,7 +126,7 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
         }
       }
 
-      return Container(
+      return SizedBox(
           width: context.width(0.99),
           height: context.height(0.60),
           child: Column(children: [
@@ -117,355 +141,169 @@ BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem2() {
                   List<ProductModel> items = groupedItems[foodHash]!;
                   int itemCount = itemCounts[foodHash] ?? 0;
 
-                  return Center(
-                    child: Card(
-                      color: Color(0xFF1A1B23),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                              builder: (context, tablestate) {
-                            for (var itemDetails in items) {
-                              if (itemDetails.name == "dashline") {
-                                return Text(
-                                  "-----------------------",
-                                  style: TextStyle(fontSize: 30),
+                  return Column(
+                    children: <Widget>[
+                      BlocBuilder<FoodBasketBloc, FoodBasketState>(
+                          builder: (context, tablestate) {
+                        for (var itemDetails in items) {
+                          if (itemDetails.name == "dashline") {
+                            return Text(
+                              "-----------------------",
+                              style: context.titleLarge,
+                            );
+                          }
+                        }
+                        for (var item in items) {
+                          if (item is FoodModel) {
+                            return CustomDetailListtile(
+                              onTapAdd: () {
+                                context.read<FoodBasketBloc>().add(
+                                    FoodBasketEvent.addBasketItem(
+                                        item, tablestate.tableNumber));
+                              },
+                              image: Image.network(
+                                item.image ?? "",
+                                fit: BoxFit.fill,
+                              ),
+                              foodName: item.name!,
+                              price: "${item.price} €",
+                              onTapRemove: () {
+                                context.read<FoodBasketBloc>().add(
+                                    FoodBasketEvent.removeItemFromBasket(
+                                        item, tablestate.tableNumber));
+                              },
+                              piece: itemCount,
+                              foodContent: () {},
+                              choosenSide: item.choosenSide,
+                              choosenSauce: item.choosenSauce,
+                              choosenHowCook: item.choosenCookStyle,
+                              onChangeSide: () async {
+                                await CustomDialog.shared
+                                    .showAlertDialog<SideModel?>(
+                                  context: context,
+                                  titleText: LocaleKeys.chooseSide.tr(),
+                                  items: context
+                                      .read<FoodMenuBloc>()
+                                      .state
+                                      .sideList,
+                                  getName: (SideModel? sideModel) =>
+                                      sideModel?.name ?? "",
+                                  onPressed: () {
+                                    choosenSide =
+                                        CustomDialog.shared.choosenValue;
+                                    context
+                                        .read<FoodBasketBloc>()
+                                        .add(FoodBasketEvent.updateBasketItem(
+                                          FoodModel(
+                                              id: item.id,
+                                              choosenCookStyle:
+                                                  item.choosenCookStyle,
+                                              choosenSauce: item.choosenSauce,
+                                              choosenSide: choosenSide,
+                                              image: item.image,
+                                              side: item.side,
+                                              name: item.name,
+                                              content: item.content,
+                                              price: item.price,
+                                              category: item.category),
+                                          state.tableNumber,
+                                        ));
+                                  },
                                 );
-                              }
-                            }
-                            for (var item in items) {
-                              if (item is FoodModel) {
-                                return CustomDetailListtile(
-                                  onTapAdd: () {
-                                    context.read<FoodBasketBloc>().add(
-                                        FoodBasketEvent.addBasketItem(
-                                            item, tablestate.tableNumber));
-                                  },
-                                  image: Image.network(
-                                    item.image ?? "",
-                                    fit: BoxFit.fill,
-                                  ),
-                                  foodName: item.name!,
-                                  price: "${item.price} €",
-                                  onTapRemove: () {
-                                    context.read<FoodBasketBloc>().add(
-                                        FoodBasketEvent.removeItemFromBasket(
-                                            item, tablestate.tableNumber));
-                                  },
-                                  piece: itemCount,
-                                  foodContent: () {},
-                                  choosenSide: item.choosenSide,
-                                  choosenSauce: item.choosenSauce,
-                                  onChangeSide: () async {
-                                    await CustomDialog.shared
-                                        .showAlertDialog<SideModel?>(
-                                      context: context,
-                                      titleText: 'Choose Side Pleases',
-                                      items: context
-                                          .read<FoodMenuBloc>()
-                                          .state
-                                          .sideList,
-                                      getName: (SideModel? sideModel) =>
-                                          sideModel?.name ?? "",
-                                      onPressed: () {
-                                        choosenSide =
-                                            CustomDialog.shared.choosenValue;
-                                        context.read<FoodBasketBloc>().add(
-                                                FoodBasketEvent
-                                                    .updateBasketItem(
-                                              FoodModel(
-                                                  id: item.id,
-                                                  choosenCookStyle:
-                                                      item.choosenCookStyle,
-                                                  choosenSauce:
-                                                      item.choosenSauce,
-                                                  choosenSide: choosenSide,
-                                                  image: item.image,
-                                                  side: item.side,
-                                                  name: item.name,
-                                                  content: item.content,
-                                                  price: item.price,
-                                                  category: item.category),
-                                              state.tableNumber,
-                                            ));
-                                      },
-                                    );
-                                  },
-                                  onchangeSauce: () {},
-                                  onChangeCookStyle: () {},
-                                  choosenHowCook: item.choosenCookStyle,
-                                );
-                              } else if (item is DrinksModel) {
-                                return Text(item.name!);
-                              }
-                            }
-                            return Text("");
-                          }),
-                        ],
-                      ),
-                    ),
+                              },
+                              onchangeSauce: () async {
+                                await CustomDialog.shared.showAlertDialog<
+                                        SauceModel?>(
+                                    context: context,
+                                    titleText: LocaleKeys.chooseSauce.tr(),
+                                    items: context
+                                        .read<FoodMenuBloc>()
+                                        .state
+                                        .sauceList,
+                                    getName: (SauceModel? sauceModel) =>
+                                        sauceModel?.name ?? "",
+                                    onPressed: () {
+                                      choosenSauce =
+                                          CustomDialog.shared.choosenValue;
+                                      context
+                                          .read<FoodBasketBloc>()
+                                          .add(FoodBasketEvent.updateBasketItem(
+                                            FoodModel(
+                                                id: item.id,
+                                                choosenCookStyle:
+                                                    item.choosenCookStyle,
+                                                choosenSauce: choosenSauce,
+                                                choosenSide: item.choosenSide,
+                                                image: item.image,
+                                                side: item.side,
+                                                name: item.name,
+                                                content: item.content,
+                                                price: item.price,
+                                                category: item.category),
+                                            state.tableNumber,
+                                          ));
+                                    });
+                              },
+                              onChangeCookStyle: () async {
+                                await CustomDialog.shared.showAlertDialog<
+                                        HowCookModel?>(
+                                    context: context,
+                                    titleText: LocaleKeys.chooseHowCook.tr(),
+                                    items: context
+                                        .read<FoodMenuBloc>()
+                                        .state
+                                        .sauceList,
+                                    getName: (HowCookModel? howCookModel) =>
+                                        howCookModel?.name ?? "",
+                                    onPressed: () {
+                                      choosenCookStyle =
+                                          CustomDialog.shared.choosenValue;
+                                      context
+                                          .read<FoodBasketBloc>()
+                                          .add(FoodBasketEvent.updateBasketItem(
+                                            FoodModel(
+                                                id: item.id,
+                                                choosenCookStyle:
+                                                    choosenCookStyle,
+                                                choosenSauce: item.choosenSauce,
+                                                choosenSide: item.choosenSide,
+                                                image: item.image,
+                                                side: item.side,
+                                                name: item.name,
+                                                content: item.content,
+                                                price: item.price,
+                                                category: item.category),
+                                            state.tableNumber,
+                                          ));
+                                    });
+                              },
+                            );
+                          } else if (item is DrinksModel) {
+                            return CustomDrinkListTile(
+                                drinkName: item.name!,
+                                piece: itemCount,
+                                onTapAdd: () {
+                                  context.read<FoodBasketBloc>().add(
+                                      FoodBasketEvent.addBasketItem(
+                                          item, state.tableNumber));
+                                },
+                                onTapRemove: () {
+                                  context.read<FoodBasketBloc>().add(
+                                      FoodBasketEvent.removeItemFromBasket(
+                                          item, state.tableNumber));
+                                },
+                                price: item.price.toString());
+                          }
+                        }
+                        return const Text("Basket is Empty");
+                      }),
+                    ],
                   );
                 },
               ),
             )
           ]));
     }
-    return Text("");
+    return const Text("");
   });
 }
-
-/* BlocBuilder<FoodBasketBloc, FoodBasketState> _listItem() {
-  String? choosenSide;
-  String? choosenCookStyle;
-  String? choosenSauce;
-  return BlocBuilder<FoodBasketBloc, FoodBasketState>(
-    builder: (context, state) {
-      if (state.status.isLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (state.status.isSuccess) {
-        Map<String, List<FoodModel>> groupedItems = {};
-        Set<String> uniqueFoodNames = Set();
-
-        for (var entry in state.basketMap!.entries) {
-          List<FoodModel>? foodList = entry.value;
-
-          if (foodList != null) {
-            for (var item in foodList) {
-              String foodKey =
-                  '${item.foodName}-${item.choosenSide}-${item.choosenSauce}-${item.choosenCookStyle}'; // unique key for each item including side and sauce
-              if (!uniqueFoodNames.contains(foodKey)) {
-                uniqueFoodNames.add(foodKey);
-                groupedItems[foodKey] = [item];
-              } else {
-                groupedItems[foodKey]!.add(item);
-              }
-            }
-          }
-        }
-        return Container(
-          width: context.width(0.99),
-          height: context.height(0.60),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: state.basketMap!.length,
-                  itemBuilder: (context, index) {
-                    String itemName = groupedItems.keys.elementAt(index);
-                    List<FoodModel> itemCount =
-                        groupedItems.values.elementAt(index);
-                    List<FoodModel> itemDetailsList = groupedItems[itemName]!;
-                    int tableNumber = state.basketMap!.keys.elementAt(index);
-                    List<FoodModel>? foodList = state.basketMap![tableNumber];
-                    if (foodList != null && foodList.isNotEmpty) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          for (FoodModel foodItem in foodList)
-                            Card(
-                              color: Color(0xFF1A1B23),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Column(
-                                children: [
-                                  if (foodItem.foodName == "dashline")
-                                    Text(
-                                      "-----------------------",
-                                      style: TextStyle(fontSize: 30),
-                                    )
-                                  else
-                                    CustomDetailListtile(
-                                      onTapAdd: () {
-                                        print("object");
-                                        context
-                                            .read<FoodBasketBloc>()
-                                            .add(FoodBasketEvent.addBasketFood(
-                                              FoodModel(
-                                                  choosenCookStyle:
-                                                      foodItem.choosenCookStyle,
-                                                  choosenSauce:
-                                                      foodItem.choosenSauce,
-                                                  choosenSide:
-                                                      foodItem.choosenSide,
-                                                  foodImage: foodItem.foodImage,
-                                                  side: foodItem.side,
-                                                  foodName: foodItem.foodName,
-                                                  content: foodItem.content,
-                                                  price: foodItem.price,
-                                                  category: foodItem.category),
-                                              tableNumber,
-                                            ));
-                                      },
-                                      image: Image.network(
-                                        foodItem.foodImage!,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      foodName: foodItem.foodName!,
-                                      price: "${foodItem.price!} €",
-                                      onTapRemove: () {
-                                        context.read<FoodBasketBloc>().add(
-                                            FoodBasketEvent.removeBasketFood(
-                                                foodItem, tableNumber));
-                                      },
-                                      choosenHowCook: foodItem.choosenCookStyle,
-                                      choosenSide: foodItem.choosenSide,
-                                      choosenSauce: foodItem.choosenSauce,
-                                      foodContent: () {},
-                                      onchangeSauce: () async {
-                                        await CustomDialog.shared
-                                            .showAlertDialog<SauceModel?>(
-                                          context: context,
-                                          titleText: 'Choose Sauce Please',
-                                          items: context
-                                              .read<FoodMenuBloc>()
-                                              .state
-                                              .sauceList,
-                                          getName: (SauceModel? sauceModel) =>
-                                              sauceModel?.sauceName ?? "",
-                                          onPressed: () {
-                                            choosenSauce = CustomDialog
-                                                .shared.choosenValue;
-                                            context.read<FoodBasketBloc>().add(
-                                                    FoodBasketEvent
-                                                        .updateBasketFood(
-                                                  FoodModel(
-                                                      id: foodItem.id,
-                                                      choosenSauce:
-                                                          choosenSauce,
-                                                      choosenSide:
-                                                          foodItem.choosenSide,
-                                                      choosenCookStyle: foodItem
-                                                          .choosenCookStyle,
-                                                      foodImage:
-                                                          foodItem.foodImage,
-                                                      side: foodItem.side,
-                                                      foodName:
-                                                          foodItem.foodName,
-                                                      content: foodItem.content,
-                                                      price: foodItem.price,
-                                                      category:
-                                                          foodItem.category),
-                                                  tableNumber,
-                                                ));
-                                          },
-                                        );
-                                      },
-                                      onChangeSide: () async {
-                                        await CustomDialog.shared
-                                            .showAlertDialog<SideModel?>(
-                                          context: context,
-                                          titleText: 'Choose Side Pleases',
-                                          items: context
-                                              .read<FoodMenuBloc>()
-                                              .state
-                                              .sideList,
-                                          getName: (SideModel? sideModel) =>
-                                              sideModel?.sideName ?? "",
-                                          onPressed: () {
-                                            choosenSide = CustomDialog
-                                                .shared.choosenValue;
-                                            context.read<FoodBasketBloc>().add(
-                                                    FoodBasketEvent
-                                                        .updateBasketFood(
-                                                  FoodModel(
-                                                      id: foodItem.id,
-                                                      choosenCookStyle: foodItem
-                                                          .choosenCookStyle,
-                                                      choosenSauce:
-                                                          foodItem.choosenSauce,
-                                                      choosenSide: choosenSide,
-                                                      foodImage:
-                                                          foodItem.foodImage,
-                                                      side: foodItem.side,
-                                                      foodName:
-                                                          foodItem.foodName,
-                                                      content: foodItem.content,
-                                                      price: foodItem.price,
-                                                      category:
-                                                          foodItem.category),
-                                                  tableNumber,
-                                                ));
-                                          },
-                                        );
-                                      },
-                                      onChangeCookStyle: () async {
-                                        await CustomDialog.shared
-                                            .showAlertDialog<HowCookModel?>(
-                                          context: context,
-                                          titleText: 'Choose Cook Style Please',
-                                          items: context
-                                              .read<FoodMenuBloc>()
-                                              .state
-                                              .howcookList,
-                                          getName:
-                                              (HowCookModel? howCookModel) =>
-                                                  howCookModel?.cookStyle ?? "",
-                                          onPressed: () {
-                                            choosenCookStyle = CustomDialog
-                                                .shared.choosenValue;
-                                            context.read<FoodBasketBloc>().add(
-                                                    FoodBasketEvent
-                                                        .updateBasketFood(
-                                                  FoodModel(
-                                                      id: foodItem.id,
-                                                      choosenSide:
-                                                          foodItem.choosenSide,
-                                                      choosenSauce:
-                                                          foodItem.choosenSauce,
-                                                      choosenCookStyle:
-                                                          choosenCookStyle,
-                                                      foodImage:
-                                                          foodItem.foodImage,
-                                                      side: foodItem.side,
-                                                      foodName:
-                                                          foodItem.foodName,
-                                                      content: foodItem.content,
-                                                      price: foodItem.price,
-                                                      category:
-                                                          foodItem.category),
-                                                  tableNumber,
-                                                ));
-                                          },
-                                        );
-                                      },
-                                    ),
-                                ],
-                              ),
-                            ),
-                          SizedBox(
-                              height: 10), // Optional spacing between items
-                        ],
-                      );
-                    } else {
-                      // Handle the case where foodList is null or empty
-                      return SizedBox.shrink();
-                    }
-                  },
-                ),
-              ),
-              context.sizedboxHeight(0.01),
-              BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                builder: (context, basketstate) {
-                  return Text(
-                    basketstate.noteText ?? "",
-                    style: TextStyle(fontSize: context.titleLarge.fontSize),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      } else {
-        return Text("Error fetching data");
-      }
-    },
-  );
-} */

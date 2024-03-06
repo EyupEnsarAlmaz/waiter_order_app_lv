@@ -29,8 +29,7 @@ class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
         emit(state.copyWith(status: LoginStatus.success));
       }
     } catch (error) {
-      print(error);
-      _status = AuthExceptionHandler.handleException(error);
+      _status = await AuthExceptionHandler.handleException(error);
       emit(state.copyWith(status: LoginStatus.failure, errorMesage: error));
     }
   }

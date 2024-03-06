@@ -39,4 +39,12 @@ abstract class LocaleKeys {
   static const dessert = 'dessert';
   static const send = 'send';
   static const enterNote = 'enterNote';
+  static const detailText = 'detailText';
+  static const addToCart = 'addToCart';
+  static const detailOrder = 'detailOrder';
+  static const sendOrder = 'SendOrder';
+  static const tableNumber = 'tableNumber';
+  static const chooseSide = 'chooseSide';
+  static const chooseSauce = 'chooseSauce';
+  static const chooseHowCook = 'chooseHowCook';
 }

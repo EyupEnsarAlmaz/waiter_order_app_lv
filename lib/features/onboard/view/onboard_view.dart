@@ -36,7 +36,7 @@ class _OnboardViewState extends State<OnboardView> {
             onPressed: () {
               context
                   .read<LoginBloc>()
-                  .add(LoginBlocEvent.autenticationLoggedIn());
+                  .add(const LoginBlocEvent.autenticationLoggedIn());
             },
             label: const Icon(Icons.arrow_right, color: KThemeColor.white),
           ),

@@ -50,6 +50,14 @@ class CodegenLoader extends AssetLoader {
     "dessert": "Tatlılar",
     "send": "Gönder",
     "enterNote": "Lütfen not giriniz",
+    "detailText": "Yemek Detay",
+    "addToCart": "Sepete Ekle",
+    "detailOrder": "Sipariş Detay",
+    "sendOrder": "Siparişi Gönder",
+    "tableNumber": "Masa Numarası",
+    "chooseSide": "Lütfen Garnitür Seçiniz",
+    "chooseSauce": "Lütfen Sos Seçiniz",
+    "chooseHowCook": "Lütfen Pişirme Türünü Seçiniz",
   };
   static const Map<String, dynamic> en = {
     "onboardTitle1": "Welcome the Little Venice Restaurant",
@@ -91,6 +99,14 @@ class CodegenLoader extends AssetLoader {
     "dessert": "Dessert",
     "send": "Send",
     "enterNote": "Please enter a note",
+    "detailText": "Food Detail",
+    "addToCart": "Add to Cart",
+    "detailOrder": "Order Detail",
+    "sendOrder": "Send Order",
+    "tableNumber": "Table Number",
+    "chooseSide": "Please pick Side Order",
+    "chooseSauce": "Please pick Sauce",
+    "chooseHowCook": "Please pick Cook Style",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "tr": tr,
