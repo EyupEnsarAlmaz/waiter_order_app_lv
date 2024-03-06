@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
@@ -7,6 +8,7 @@ import 'package:waiter_order_app_lv/core/custom/dialog/custom_dialog.dart';
 import 'package:waiter_order_app_lv/core/custom/dialog/dialog_content.dart';
 import 'package:waiter_order_app_lv/core/extension/context_extension.dart';
 import 'package:waiter_order_app_lv/core/navigation/navigation_service.dart';
+import 'package:waiter_order_app_lv/core/translations/locale_keys.g.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/basket/bloc/food_basket_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/bloc/food_menu_bloc.dart';
 import 'package:waiter_order_app_lv/features/foodmenu/model/food_model.dart';
@@ -43,126 +45,105 @@ class _FoodContentViewState extends State<FoodContentView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detail", style: TextStyle(fontSize: 23)),
+        title: Text(LocaleKeys.detailText.tr(), style: context.titleSmall),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           children: [
-            Container(
-              width: 200.0,
-              height: 200.0,
-              decoration: BoxDecoration(
-                color: const Color(0xff7c94b6),
-                image: DecorationImage(
-                  image: NetworkImage(widget.foodModel.image!),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(100.0)),
-                border: Border.all(
-                  color: Colors.red,
-                  width: 4.0,
-                ),
-              ),
-            ),
+            _foodImage(context),
             BlocBuilder<TableBloc, TableState>(
               builder: (context, tablestate) {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
-                      builder: (context, foodstate) {
-                        return ElevatedButton(
-                          onPressed: () async {
-                            DialogContet().showDialogs(
-                                context: context,
-                                foodModel: widget.foodModel,
-                                foodstate: foodstate,
-                                tableState: tablestate);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding: EdgeInsets.all(16.0),
-                          ),
-                          child: Icon(
-                            Icons.add,
-                            size: 15.0,
-                          ),
-                        );
-                      },
-                    ),
-                    BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                      builder: (context, basketstate) {
-                        return Text(
-                          basketstate.itemCountMap?[widget.foodModel.name]
-                                  .toString() ??
-                              "0",
-                          style: TextStyle(fontSize: 23),
-                        );
-                      },
-                    ),
-                    BlocBuilder<FoodBasketBloc, FoodBasketState>(
-                      builder: (context, foodbasket) {
-                        return ElevatedButton(
-                          onPressed: () {
-                            context.read<FoodBasketBloc>().add(
-                                FoodBasketEvent.removeItemFromBasket(
-                                    FoodModel(
-                                        choosenCookStyle:
-                                            widget.foodModel.choosenCookStyle,
-                                        choosenSauce:
-                                            widget.foodModel.choosenSauce,
-                                        choosenSide:
-                                            widget.foodModel.choosenSide,
-                                        image: widget.foodModel.image,
-                                        side: widget.foodModel.side,
-                                        name: widget.foodModel.name,
-                                        content: widget.foodModel.content,
-                                        price: widget.foodModel.price,
-                                        category: widget.foodModel.category),
-                                    tablestate.tableNumber));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding: EdgeInsets.all(16.0),
-                          ),
-                          child: Icon(
-                            Icons.remove,
-                            size: 15.0,
-                          ),
-                        );
-                      },
-                    ),
+                    context.sizedboxHeight(0.04),
+                    _pieceText(),
                   ],
                 );
               },
             ),
-            SizedBox(height: 10),
             Align(
-              child: Container(
+              child: SizedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.foodModel.category!,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    SizedBox(height: 10),
-                    Text(widget.foodModel.name!,
-                        style: TextStyle(fontSize: 25)),
-                    SizedBox(height: 10),
+                    Text(widget.foodModel.category!, style: context.titleLarge),
+                    context.sizedboxHeight(0.01),
+                    Text(widget.foodModel.name!, style: context.titleLarge),
+                    context.sizedboxHeight(0.01),
                     Text("${widget.foodModel.price} €",
-                        style: TextStyle(fontSize: 25)),
-                    SizedBox(height: 10),
-                    SizedBox(height: 10),
-                    Text(widget.foodModel.content!,
-                        style: TextStyle(fontSize: 20)),
+                        style: context.titleLarge),
+                    context.sizedboxHeight(0.01),
+                    Text(widget.foodModel.content!, style: context.titleLarge),
+                    context.sizedboxHeight(0.02),
+                    _addToCartButton(),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  BlocBuilder<FoodMenuBloc, FoodMenuBlocState> _addToCartButton() {
+    return BlocBuilder<FoodMenuBloc, FoodMenuBlocState>(
+      builder: (context, foodstate) {
+        return BlocBuilder<TableBloc, TableState>(
+          builder: (context, tablestate) {
+            return SizedBox(
+              height: context.height(0.06),
+              width: context.width(0.6),
+              child: ElevatedButton(
+                onPressed: () async {
+                  await DialogContet().showDialogs(
+                      context: context,
+                      foodModel: widget.foodModel,
+                      foodstate: foodstate,
+                      tableState: tablestate);
+                },
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                      20,
+                    )),
+                    padding: context.mediumPadding),
+                child: Text(LocaleKeys.addToCart.tr()),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  BlocBuilder<FoodBasketBloc, FoodBasketState> _pieceText() {
+    return BlocBuilder<FoodBasketBloc, FoodBasketState>(
+      builder: (context, basketstate) {
+        return Text(
+          " ${basketstate.itemCountMap![widget.foodModel.name]}" ?? "0",
+          style: context.titleLarge,
+        );
+      },
+    );
+  }
+
+  Container _foodImage(BuildContext context) {
+    return Container(
+      width: context.width(0.50),
+      height: context.height(0.25),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(widget.foodModel.image!),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(100.0)),
+        border: Border.all(
+          color: Colors.red,
+          width: context.width(0.015),
         ),
       ),
     );

@@ -145,7 +145,7 @@ class _FoodMenuViewState extends State<FoodMenuView> {
         Padding(
           padding: context.only(left: 0.03),
           child: Text(
-            LocaleKeys.selectedCategory,
+            LocaleKeys.selectedCategory.tr(),
             style: context.titleLarge,
           ),
         ),

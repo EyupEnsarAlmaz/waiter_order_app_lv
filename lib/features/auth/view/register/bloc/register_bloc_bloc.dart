@@ -32,8 +32,7 @@ class RegisterBloc extends Bloc<RegisterBlocEvent, RegisterBlocState> {
         emit(state.copyWith(status: RegisterStatus.success));
       }
     } catch (error) {
-      print(error);
-      _status = AuthExceptionHandler.handleException(error);
+      _status = await AuthExceptionHandler.handleException(error);
       emit(state.copyWith(status: RegisterStatus.failure, errorMesage: error));
     }
   }
