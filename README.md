@@ -1,16 +1,3 @@
 # waiter_order_app_lv
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This application was made for Little Venice restaurant in Ireland. When taking orders, waiters have to write the orders on paper and then enter them into the system. If 3 items are full in the system, waiters wait in line to enter the products into the system. During this waiting, it was observed that the waiters focused on other things and did not enter the orders into the system, and the restaurant suffered losses and customers received their orders late.
